@@ -14,24 +14,36 @@ func TestMain(t *testing.T) {
 }
 
 func TestParseEnjoyJson(t *testing.T) {
+  cars = make([]CarEntry, 0)
 	data, _ := NewMockResponse("fixtures/enjoy.json")
-	results := ParseEnjoyJson(data)
-	if len(results) < 1 {
+	ParseEnjoyJson(data)
+	if len(cars) < 1 {
 		t.Error("error decoding enjoy json")
 	}
-	if results[0].Type != "enjoy"  {
+	if cars[0].Type != "enjoy" {
 		t.Error("error post processing json")
 	}
 }
 
 func TestParseCar2GoJson(t *testing.T) {
+  cars = make([]CarEntry, 0)
 	data, _ := NewMockResponse("fixtures/car2go.json")
-	results := ParseCar2GoJson(data)
-	if len(results) < 1 {
+	ParseCar2GoJson(data)
+	if len(cars) < 1 {
 		t.Error("error decoding enjoy json")
 	}
-	if results[0].Type != "car2go"  {
+	if cars[0].Type != "car2go" {
 		t.Error("error post processing json")
+	}
+}
+
+func TestFetchCarsFromAPI(t *testing.T) {
+  cars = make([]CarEntry, 0)
+	car2go := NewTestServer("fixtures/car2go.json")
+ 	enjoy  := NewTestServer("fixtures/enjoy.json")
+  fetchCarsFromAPI(car2go.URL, enjoy.URL)
+	if len(cars) != 689 {
+		t.Error("error fetching from apis")
 	}
 }
 
@@ -67,7 +79,8 @@ func TestParseCar2GoJson(t *testing.T) {
 /* vin: "WME4513341K647881" */
 /* },turn */
 
-func NewTestServer(data []byte) *httptest.Server {
+func NewTestServer(fixture string) *httptest.Server {
+	data, _ := NewMockResponse(fixture)
 	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintln(w, string(data))
 	}))
