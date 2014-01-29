@@ -16,9 +16,21 @@ func TestCalculateDistance(t *testing.T) {
 	lat2 := 20.0
 	lng2 := 20.0
 	dist := CalculateDistance(lat1, lng1, lat2, lng2)
-  if dist != 1544.75756102961{
-    t.Error("error calculate distance")
-  }
+	if dist != 1544.75756102961 {
+		t.Error("error calculate distance")
+	}
+}
+
+
+func TestClosestCars(t *testing.T) {
+	cars = make([]CarEntry, 0)
+	car2go := NewTestServer("fixtures/car2go.json")
+	enjoy := NewTestServer("fixtures/enjoy.json")
+	fetchCarsFromAPI(car2go.URL, enjoy.URL)
+	closestCars := ClosestCars(45.47665, 9.22389)
+	if closestCars[0].Name != "118/ER805NP" {
+		t.Error("error fetching closest cars")
+	}
 }
 
 func TestParseEnjoyJson(t *testing.T) {
