@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"strconv"
 	"time"
 
 	"github.com/gorilla/mux"
@@ -33,6 +34,7 @@ func main() {
 	r := mux.NewRouter()
 	r.HandleFunc("/geocode", Geocode).Methods("GET")
 	r.HandleFunc("/cars", LoadCars)
+	r.HandleFunc("/cars/{lat}/{lng}", LoadClosestCars).Methods("GET")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
 	http.Handle("/", r)
 	http.ListenAndServe(":8080", nil)
@@ -51,6 +53,19 @@ func Geocode(w http.ResponseWriter, r *http.Request) {
 func LoadCars(w http.ResponseWriter, r *http.Request) {
 	encoder := json.NewEncoder(w)
 	if err := encoder.Encode(&cars); err != nil {
+		http.Error(w, fmt.Sprintf("Cannot encode response data: %v", err), 500)
+	}
+}
+
+func LoadClosestCars(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	latStr := vars["lat"]
+	lngStr := vars["lng"]
+	lat, _ := strconv.ParseFloat(latStr, 64)
+	lng, _ := strconv.ParseFloat(lngStr, 64)
+	closestCars := ClosestCars(lat, lng)
+	encoder := json.NewEncoder(w)
+	if err := encoder.Encode(&closestCars); err != nil {
 		http.Error(w, fmt.Sprintf("Cannot encode response data: %v", err), 500)
 	}
 }

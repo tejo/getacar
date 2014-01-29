@@ -11,11 +11,7 @@ import (
 )
 
 func TestCalculateDistance(t *testing.T) {
-	lat1 := 10.0
-	lng1 := 10.0
-	lat2 := 20.0
-	lng2 := 20.0
-	dist := CalculateDistance(lat1, lng1, lat2, lng2)
+	dist := CalculateDistance(10.0, 10.0, 20.0, 20.0)
 	if dist != 1544.75756102961 {
 		t.Error("error calculate distance")
 	}
