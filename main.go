@@ -14,7 +14,7 @@ import (
 type CarEntry struct {
 	Fuel    int     `json:"fuel_level"`
 	Lat     float64 `json:"lat"`
-	Lng     float64 `json:"lng"`
+	Lng     float64 `json:"lon"`
 	Address string  `json:"address"`
 	Type    string
 	//enjoy only
