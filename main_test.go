@@ -10,11 +10,19 @@ import (
 	"testing"
 )
 
-func TestMain(t *testing.T) {
+func TestCalculateDistance(t *testing.T) {
+	lat1 := 10.0
+	lng1 := 10.0
+	lat2 := 20.0
+	lng2 := 20.0
+	dist := CalculateDistance(lat1, lng1, lat2, lng2)
+  if dist != 1544.75756102961{
+    t.Error("error calculate distance")
+  }
 }
 
 func TestParseEnjoyJson(t *testing.T) {
-  cars = make([]CarEntry, 0)
+	cars = make([]CarEntry, 0)
 	data, _ := NewMockResponse("fixtures/enjoy.json")
 	ParseEnjoyJson(data)
 	if len(cars) < 1 {
@@ -26,7 +34,7 @@ func TestParseEnjoyJson(t *testing.T) {
 }
 
 func TestParseCar2GoJson(t *testing.T) {
-  cars = make([]CarEntry, 0)
+	cars = make([]CarEntry, 0)
 	data, _ := NewMockResponse("fixtures/car2go.json")
 	ParseCar2GoJson(data)
 	if len(cars) < 1 {
@@ -38,10 +46,10 @@ func TestParseCar2GoJson(t *testing.T) {
 }
 
 func TestFetchCarsFromAPI(t *testing.T) {
-  cars = make([]CarEntry, 0)
+	cars = make([]CarEntry, 0)
 	car2go := NewTestServer("fixtures/car2go.json")
- 	enjoy  := NewTestServer("fixtures/enjoy.json")
-  fetchCarsFromAPI(car2go.URL, enjoy.URL)
+	enjoy := NewTestServer("fixtures/enjoy.json")
+	fetchCarsFromAPI(car2go.URL, enjoy.URL)
 	if len(cars) != 689 {
 		t.Error("error fetching from apis")
 	}

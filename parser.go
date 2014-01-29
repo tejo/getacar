@@ -53,10 +53,10 @@ func fetchCarsFromAPI(car2goUrl, enjoyUrl string) {
 	data1, s1 := makeHttpRequest(car2goUrl)
 	data2, s2 := makeHttpRequest(enjoyUrl)
 	if s1 == 200 && s2 == 200 {
-    cars = make([]CarEntry, 0)
+		cars = make([]CarEntry, 0)
 		ParseCar2GoJson(data1)
 		ParseEnjoyJson(data2)
 	}
-  log.Printf("load %d cars\n", len(cars))
+	log.Printf("load %d cars\n", len(cars))
 	return
 }
