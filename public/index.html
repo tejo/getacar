@@ -18,6 +18,7 @@
     <div class="cars" ng-repeat='car in cars | filter:addr'>
       <div class="car">
         <ul>
+          <li>distance: {{ getDistance(car.lat, car.lon) }} </li>
           <li>fuel: {{ car.fuel_level }} </li>
           <li>lat: {{ car.lat }} </li>
           <li>lng: {{ car.lon }} </li>
