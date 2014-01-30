@@ -8,7 +8,12 @@
 </head>
 <body>
   <div ng-app="getacar" ng-controller="CarsController">
-    <input type="text" data-ng-model="addr" />
+    <form name="geoCodeForm">
+      <input type="text" data-ng-model="addrToGeocode" required />
+      <button ng-disabled='!geoCodeForm.$valid' ng-click="geoCode()">geocode</button>
+      </br>
+    </form>
+    <input type="text" data-ng-model="addr" /> filter by what u want.
     <div class="cars-header">{{ cars.length }} cars found</div>
     <div class="cars" ng-repeat='car in cars | filter:addr'>
       <div class="car">
