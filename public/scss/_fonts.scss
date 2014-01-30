@@ -1,0 +1,18 @@
+//@import "compass/typography/vertical_rhythm";
+//$base-font-size: 10px;
+//$base-line-height: 16px;
+//@include establish-baseline;
+
+@import url(http://fonts.googleapis.com/css?family=Ropa+Sans);
+
+html {
+  font-size: 100%;
+  body {
+    font-family: 'Ropa Sans', sans-serif;
+    color: $white;
+    font-size: 62.5%;
+    
+    h1 {@include font-size(2);}
+    
+  }// body
+} // html

@@ -1,0 +1,55 @@
+@mixin font-size($size:$base-font-size, $line: $size * 1.5){
+  font-size:   ($size * 10) + px;
+  line-height: ($line * 10) + px;
+  font-size:   $size + rem;
+  line-height: $line + rem;
+}
+
+@mixin btn ($width: auto) {
+  
+  @include transition(all,0.3s,ease-in-out);
+  @include border-radius(4px);
+  line-height: 40px; background-color: $white;
+  color: $blue-dark;
+  display: block;
+  padding: 0 2em;
+  text-align: center;
+  text-decoration: none;
+  width: $width;
+  &:link,&:visited,&:hover,&:active {}
+  &:hover {
+    background-color: $green-light;
+    @include border-radius(0);
+  }
+  
+}
+
+
+$default-prefixes: webkit moz ms o;
+@mixin build-prefix-values($property, $value, $prefixes: $default-prefixes) {
+  @each $prefix in $prefixes {
+    -#{$prefix}-#{$property}: #{$value};
+  }
+  #{$property}: #{$value};
+}
+@mixin transition($property: all, $delay: 1s, $timing: linear) {
+  $value: $property $delay $timing;
+  // use default prefixes
+  @include build-prefix-values('transition', $value);
+}
+
+/* USAGE */
+/*
+
+// using defaults of 'all' '1s' and 'linear'
+p {
+    @include transition();
+}
+// using custom values
+.fast {
+    @include transition('height', '.1s', 'ease', '0');
+}
+
+*/
+
+/* /USAGE */

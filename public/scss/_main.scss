@@ -1,0 +1,12 @@
+html {
+  body {
+    background: $blue-dark;
+    color: $white;
+    
+    .title {text-align: center;}
+    .btn {
+      @include btn(100px);
+      margin: 0 auto;
+    }
+  }
+}
