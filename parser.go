@@ -52,11 +52,35 @@ func makeHttpRequest(addr string) ([]byte, int) {
 func fetchCarsFromAPI(car2goUrl, enjoyUrl string) {
 	data1, s1 := makeHttpRequest(car2goUrl)
 	data2, s2 := makeHttpRequest(enjoyUrl)
-	if s1 == 200 && s2 == 200 {
+	if s1 != 200 && s2 != 200 {
+		return
+	}
+	if s1 == 200 || s2 == 200 {
 		cars = make([]CarEntry, 0)
-		ParseCar2GoJson(data1)
-		ParseEnjoyJson(data2)
+		if s1 == 200 {
+			ParseCar2GoJson(data1)
+		}
+		if s2 == 200 {
+			ParseEnjoyJson(data2)
+		}
 	}
 	log.Printf("load %d cars\n", len(cars))
 	return
 }
+
+/* c := make(chan Result) */
+/* go func() { c <- Web(query) } () */
+/* go func() { c <- Image(query) } () */
+/* go func() { c <- Video(query) } () */
+
+/* timeout := time.After(80 * time.Millisecond) */
+/*   for i := 0; i < 3; i++ { */
+/*     select { */
+/*       case result := <-c: */
+/*                    results = append(results, result) */
+/*       case <-timeout: */
+/*                      fmt.Println("timed out") */
+/*                        return */
+/*     } */
+/*   } */
+/* return */
