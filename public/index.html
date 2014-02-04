@@ -11,6 +11,8 @@
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="/css/getacar.css">
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1AxcPmZKRn3aNr_1scX7jJS-Ha0uFkaM&sensor=false"></script>
+    </script>
     </head>
     <body ng-app="getacar" >
         <!--[if lt IE 7]>
@@ -30,7 +32,8 @@
         </script>
 
         <script type="text/ng-template" id="map.html">
-          {{ car }}
+          <!-- {{ car }} -->
+          <div id="map-canvas"></div>
         </script>
 
         <script type="text/ng-template" id="cars.html">
@@ -38,7 +41,7 @@
           <div class="cars" ng-repeat='car in cars | limitTo:30'>
             <div class="car">
               <ul>
-                <a ng-href="#/map/{{$index}}"">map</a>
+                <a ng-href="#/map/{{$index}}">map</a>
                 <li>distance: {{ getDistance(car.lat, car.lon) }} </li>
                 <li>fuel: {{ car.fuel_level }} </li>
                 <li>lat: {{ car.lat }} </li>
@@ -60,7 +63,7 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
         
         <script src="/js/angular.min.js"></script> 
-        <script src="/js/angular-route.min.js"></script> 
+        <script src="/js/angular-route.min.js"></script>
         <script src="/js/app.js"></script>
         <script src="js/getacar.js"></script>
 
