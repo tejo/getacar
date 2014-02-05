@@ -2,9 +2,11 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"time"
 )
 
 func ParseEnjoyJson(b []byte) {
@@ -68,19 +70,21 @@ func fetchCarsFromAPI(car2goUrl, enjoyUrl string) {
 	return
 }
 
-/* c := make(chan Result) */
-/* go func() { c <- Web(query) } () */
-/* go func() { c <- Image(query) } () */
-/* go func() { c <- Video(query) } () */
+/* func fetch() { */
+/* 	c := make(chan Result) */
+/* 	go func() { c <- Web(query) }() */
+/* 	go func() { c <- Image(query) }() */
+/* 	go func() { c <- Video(query) }() */
 
-/* timeout := time.After(80 * time.Millisecond) */
-/*   for i := 0; i < 3; i++ { */
-/*     select { */
-/*       case result := <-c: */
-/*                    results = append(results, result) */
-/*       case <-timeout: */
-/*                      fmt.Println("timed out") */
-/*                        return */
-/*     } */
-/*   } */
-/* return */
+/* 	timeout := time.After(80 * time.Millisecond) */
+/* 	for i := 0; i < 3; i++ { */
+/* 		select { */
+/* 		case result := <-c: */
+/* 			results = append(results, result) */
+/* 		case <-timeout: */
+/* 			fmt.Println("timed out") */
+/* 			return */
+/* 		} */
+/* 	} */
+/* 	return */
+/* } */
