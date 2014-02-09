@@ -10,6 +10,8 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <link rel="stylesheet" href="/css/getacar.css">
+        
+        
         <script src="js/vendor/modernizr-2.6.2-respond-1.1.0.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1AxcPmZKRn3aNr_1scX7jJS-Ha0uFkaM&sensor=false"></script>
     </script>
@@ -18,27 +20,31 @@
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-
-        <h1 class="title">GetAFuckingCar</h1>
-
-        <div ng-view></div>
-
-        <script type="text/ng-template" id="home.html">
-          <form name="geoCodeForm">
-            <input type="text" data-ng-model="addrToGeocode" required />
-            <button ng-disabled='!geoCodeForm.$valid' ng-click="geoCode()">geocode</button>
-            </br>
-          </form>
-        </script>
-
-        <script type="text/ng-template" id="map.html">
-          <!-- {{ car }} -->
-          <div id="map-canvas"></div>
-        </script>
-
-        <script type="text/ng-template" id="cars.html">
-          <div class="cars-header">{{ cars.length }} cars found</div>
-          <div class="cars" ng-repeat='car in cars | limitTo:30'>
+        
+        <div class="container">
+        
+          <h1 class="title">GetAFuckingCar</h1>
+          
+          <header>header</header>
+          
+          <div ng-view></div>
+  
+          <script type="text/ng-template" id="home.html">
+            <form name="geoCodeForm">
+              <input type="text" data-ng-model="addrToGeocode" required />
+              <button ng-disabled='!geoCodeForm.$valid' ng-click="geoCode()">geocode</button>
+              </br>
+            </form>
+          </script>
+  
+          <script type="text/ng-template" id="map.html">
+            <!-- {{ car }} -->
+            <div id="map-canvas"></div>
+          </script>
+  
+          <script type="text/ng-template" id="cars.html">
+            <div class="cars-header">{{ cars.length }} cars found</div>
+            <div class="cars" ng-repeat='car in cars | limitTo:30'>
             <div class="car">
               <ul>
                 <a ng-href="#/map/{{$index}}">map</a>
@@ -54,24 +60,168 @@
               </ul>
             </div>
           </div>
-        </script>
+          </script>
+  
+          <a href="#" class="btn" id="trigger-overlay">Button</a>
+          
+          
+          
+          <div class="overlay overlay-contentscale">
+            <button type="button" class="overlay-close">Close</button>
+            <nav>
+              <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+              </ul>
+            </nav>
+          </div>
+          
+          <!-- not sure if we're gonna use this shit or zepto... -->
+          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+          <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
+          
+          <script src="/js/angular.min.js"></script> 
+          <script src="/js/angular-route.min.js"></script>
+          
+          <script>
+            /*!
+             * classie - class helper functions
+             * from bonzo https://github.com/ded/bonzo
+             * 
+             * classie.has( elem, 'my-class' ) -> true/false
+             * classie.add( elem, 'my-new-class' )
+             * classie.remove( elem, 'my-unwanted-class' )
+             * classie.toggle( elem, 'my-class' )
+             */
+            
+            /*jshint browser: true, strict: true, undef: true */
+            /*global define: false */
+            
+            ( function( window ) {
+            
+            'use strict';
+            
+            // class helper functions from bonzo https://github.com/ded/bonzo
+            
+            function classReg( className ) {
+              return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
+            }
+            
+            // classList support for class management
+            // altho to be fair, the api sucks because it won't accept multiple classes at once
+            var hasClass, addClass, removeClass;
+            
+            if ( 'classList' in document.documentElement ) {
+              hasClass = function( elem, c ) {
+                return elem.classList.contains( c );
+              };
+              addClass = function( elem, c ) {
+                elem.classList.add( c );
+              };
+              removeClass = function( elem, c ) {
+                elem.classList.remove( c );
+              };
+            }
+            else {
+              hasClass = function( elem, c ) {
+                return classReg( c ).test( elem.className );
+              };
+              addClass = function( elem, c ) {
+                if ( !hasClass( elem, c ) ) {
+                  elem.className = elem.className + ' ' + c;
+                }
+              };
+              removeClass = function( elem, c ) {
+                elem.className = elem.className.replace( classReg( c ), ' ' );
+              };
+            }
+            
+            function toggleClass( elem, c ) {
+              var fn = hasClass( elem, c ) ? removeClass : addClass;
+              fn( elem, c );
+            }
+            
+            var classie = {
+              // full names
+              hasClass: hasClass,
+              addClass: addClass,
+              removeClass: removeClass,
+              toggleClass: toggleClass,
+              // short names
+              has: hasClass,
+              add: addClass,
+              remove: removeClass,
+              toggle: toggleClass
+            };
+            
+            // transport
+            if ( typeof define === 'function' && define.amd ) {
+              // AMD
+              define( classie );
+            } else {
+              // browser global
+              window.classie = classie;
+            }
+            
+            })( window );
 
-        <a href="#" class="btn">Button</a>
-
-        <!-- not sure if we're gonna use this shit or zepto... -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-        
-        <script src="/js/angular.min.js"></script> 
-        <script src="/js/angular-route.min.js"></script>
-        <script src="/js/app.js"></script>
-        <script src="js/getacar.js"></script>
-
-        <script>
-            var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-            (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-            g.src='//www.google-analytics.com/ga.js';
-            s.parentNode.insertBefore(g,s)}(document,'script'));
-        </script>
+          
+            (function() {
+              var container = document.querySelector( 'div.container' ),
+                triggerBttn = document.getElementById( 'trigger-overlay' ),
+                overlay = document.querySelector( 'div.overlay' ),
+                closeBttn = overlay.querySelector( 'button.overlay-close' );
+                transEndEventNames = {
+                  'WebkitTransition': 'webkitTransitionEnd',
+                  'MozTransition': 'transitionend',
+                  'OTransition': 'oTransitionEnd',
+                  'msTransition': 'MSTransitionEnd',
+                  'transition': 'transitionend'
+                },
+                transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
+                support = { transitions : Modernizr.csstransitions };
+            
+              function toggleOverlay() {
+                if( classie.has( overlay, 'open' ) ) {
+                  classie.remove( overlay, 'open' );
+                  classie.remove( container, 'overlay-open' );
+                  classie.add( overlay, 'close' );
+                  var onEndTransitionFn = function( ev ) {
+                    if( support.transitions ) {
+                      if( ev.propertyName !== 'visibility' ) return;
+                      this.removeEventListener( transEndEventName, onEndTransitionFn );
+                    }
+                    classie.remove( overlay, 'close' );
+                  };
+                  if( support.transitions ) {
+                    overlay.addEventListener( transEndEventName, onEndTransitionFn );
+                  }
+                  else {
+                    onEndTransitionFn();
+                  }
+                }
+                else if( !classie.has( overlay, 'close' ) ) {
+                  classie.add( overlay, 'open' );
+                  classie.add( container, 'overlay-open' );
+                }
+              }
+            
+              triggerBttn.addEventListener( 'click', toggleOverlay );
+              closeBttn.addEventListener( 'click', toggleOverlay );
+            })();
+          </script>
+          
+          <script src="/js/app.js"></script>
+          <script src="js/getacar.js"></script>
+  
+          <!--
+          <script>
+              var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+              (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+              g.src='//www.google-analytics.com/ga.js';
+              s.parentNode.insertBefore(g,s)}(document,'script'));
+          </script>
+          -->
+        </div>
     </body>
 </html>

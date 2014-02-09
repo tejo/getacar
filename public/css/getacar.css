@@ -99,11 +99,18 @@ html body {
   color: #fcfcfc;
 }
 /* line 8, ../scss/_main.scss */
-html body .title {
+html body .container {
+  background: #34495e;
+  height: 100%;
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+}
+/* line 14, ../scss/_main.scss */
+html body .container .title {
   text-align: center;
 }
-/* line 9, ../scss/_main.scss */
-html body .btn {
+/* line 15, ../scss/_main.scss */
+html body .container .btn {
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
   -ms-transition: all 0.3s ease-in-out;
@@ -125,7 +132,7 @@ html body .btn {
   margin: 0 auto;
 }
 /* line 20, ../scss/_mixins.scss */
-html body .btn:hover {
+html body .container .btn:hover {
   background-color: #48cab0;
   -webkit-border-radius: 0;
   -moz-border-radius: 0;
@@ -133,10 +140,121 @@ html body .btn:hover {
   -o-border-radius: 0;
   border-radius: 0;
 }
-/* line 14, ../scss/_main.scss */
-html body #map-canvas {
+/* line 20, ../scss/_main.scss */
+html body .container .overlay {
+  background-color: #27a389;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+/* line 29, ../scss/_main.scss */
+html body .container .overlay nav {
+  text-align: center;
+  position: relative;
+  top: 50%;
+  height: 60%;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+@media screen and (max-height: 30.5em) {
+  /* line 29, ../scss/_main.scss */
+  html body .container .overlay nav {
+    height: 70%;
+    font-size: 34px;
+  }
+}
+/* line 40, ../scss/_main.scss */
+html body .container .overlay nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: inline-block;
+  height: 100%;
+  position: relative;
+}
+/* line 48, ../scss/_main.scss */
+html body .container .overlay nav ul li {
+  display: block;
+  height: 20%;
+  height: calc(100% / 5);
+  min-height: 54px;
+}
+@media screen and (max-height: 30.5em) {
+  /* line 48, ../scss/_main.scss */
+  html body .container .overlay nav ul li {
+    min-height: 34px;
+  }
+}
+/* line 58, ../scss/_main.scss */
+html body .container .overlay nav ul li a {
+  font-size: 54px;
+  line-height: 81.0px;
+  font-size: 5.4rem;
+  line-height: 8.1rem;
+  font-weight: 300;
+  display: block;
+  color: #fff;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+/* line 68, ../scss/_main.scss */
+html body .container .overlay nav ul li a:hover, html body .container .overlay nav ul li a:focus {
+  color: #f0f0f0;
+}
+/* line 76, ../scss/_main.scss */
+html body .container .overlay .overlay-close {
+  cursor: pointer;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  overflow: hidden;
+  border: none;
+  background: url(../images/cross.png) no-repeat center center;
+  text-indent: 200%;
+  color: transparent;
+  outline: none;
+  z-index: 100;
+}
+/* line 92, ../scss/_main.scss */
+html body .container .overlay-contentscale {
+  visibility: hidden;
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
+  -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
+  transition: transform 0.5s, visibility 0s 0.5s;
+}
+/* line 99, ../scss/_main.scss */
+html body .container .overlay-contentscale.open {
+  visibility: visible;
+  -webkit-transform: translateY(0%);
+  transform: translateY(0%);
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+}
+@media screen and (max-height: 30.5em) {
+  /* line 108, ../scss/_main.scss */
+  html body .container .overlay nav {
+    height: 70%;
+    font-size: 34px;
+  }
+  /* line 112, ../scss/_main.scss */
+  html body .container .overlay ul li {
+    min-height: 34px;
+  }
+}
+/* line 119, ../scss/_main.scss */
+html body .container #map-canvas {
   width: 100%;
   height: 100%;
   position: fixed !important;
   top: 0;
+}
+/* line 126, ../scss/_main.scss */
+html body .container.overlay-open {
+  -webkit-transform: scale(0.8);
+  transform: scale(0.8);
 }
