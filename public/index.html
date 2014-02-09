@@ -22,10 +22,10 @@
         <![endif]-->
         
         <div class="container">
-        
-          <h1 class="title">GetAFuckingCar</h1>
-          
-          <header>header</header>
+          <header id="header">
+            <h1 class="title">Get(a)Car!</h1>
+            <a href="#" class="btn" id="trigger-overlay">Button</a>
+          </header>
           
           <div ng-view></div>
   
@@ -47,7 +47,7 @@
             <div class="cars" ng-repeat='car in cars | limitTo:30'>
             <div class="car">
               <ul>
-                <a ng-href="#/map/{{$index}}">map</a>
+                <a ng-href="#/map/{{$index}}/{{lat}}/{{lon}}">map</a>
                 <li>distance: {{ getDistance(car.lat, car.lon) }} </li>
                 <li>fuel: {{ car.fuel_level }} </li>
                 <li>lat: {{ car.lat }} </li>
@@ -62,7 +62,7 @@
           </div>
           </script>
   
-          <a href="#" class="btn" id="trigger-overlay">Button</a>
+<!--           <a href="#" class="btn" id="trigger-overlay">Button</a> -->
           
           
           

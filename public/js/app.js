@@ -12,7 +12,7 @@ gac.config(['$routeProvider','$locationProvider',
         templateUrl: 'cars.html',
         controller: 'CarsController'
       }).
-      when('/map/:carId', {
+      when('/map/:carId/:lat/:lon', {
         templateUrl: 'map.html',
         controller: 'MapController'
       }).
@@ -58,8 +58,61 @@ gac.factory('carsFactory', function($http, $q){
 
       return deferred.promise;
     },
+    getLocationObj: function(position) {
+      console.log(position);
+      return position
+    },
+    localizeMe: function() {
+      if (Modernizr.geolocation) {
+        navigator.geolocation.getCurrentPosition(getPositionObj);
+      } else {
+        
+      }
+    }
   };
 });
+
+gac.factory('GoogleMaps', function() {
+  return {
+    removeMarkers: function() {
+      for( var i = 0; i < this.markers.length; i++ ){
+        this.markers[i].setMap(null);
+      }
+    },
+    markers: [],
+    reference : null,
+    init: function(car_array, my_car_id) {
+      var map_options = {
+        zoom: 16,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: new google.maps.LatLng(car_array[my_car_id].lat, car_array[my_car_id].lon)
+      }
+      this.reference = new google.maps.Map(document.getElementById('map-canvas'),map_options);
+      var trafficLayer = new google.maps.TrafficLayer();
+      trafficLayer.setMap(this.reference);
+      this.addCarMarkers(car_array, my_car_id);
+    },
+    addCarMarkers: function(car_array, my_car_id) {
+      for(var i=0, len=car_array.length; i<len; i++) {
+        var marker = null;
+        var image = '/images/ico_other_car.png';
+        if (i == my_car_id) {
+          image = '/images/ico_my_car.png';
+        }
+        marker = new google.maps.Marker({
+          position: new google.maps.LatLng(car_array[i].lat,car_array[i].lon),
+          icon: image,
+          animation: google.maps.Animation.DROP,
+          map:this.reference
+        });
+        this.markers.push(marker);
+      }
+    }
+  }
+});
+
+
+
 
 gac.controller('HomeController', function($scope, $location, $routeParams, carsFactory) {
   $scope.geoCode = function(){
@@ -73,12 +126,20 @@ gac.controller('HomeController', function($scope, $location, $routeParams, carsF
   }
 });
 
-gac.controller('MapController', function($scope, $location, $routeParams, carsFactory, DataSharingObject) {
-  $scope.car = DataSharingObject.cars[$routeParams.carId];
-  $scope.all_cars = DataSharingObject.cars;
-  //$scope.all_cars.splice($routeParams.carId, 1)
-  //mapObj.init($scope.car.lat,$scope.car.lon, $scope.all_cars, $routeParams.carId);
-  mapObj.init($scope.all_cars, $routeParams.carId);
+gac.controller('MapController', function($scope, $location, $routeParams, carsFactory, DataSharingObject, GoogleMaps) {
+  if (!DataSharingObject.cars) {
+    carsFactory.query($routeParams.lat, $routeParams.lon).then(function(data){
+      DataSharingObject.cars = data;
+      $scope.cars = DataSharingObject.cars;
+      $scope.car = $scope.cars[$routeParams.carId];
+      GoogleMaps.init($scope.cars, $routeParams.carId);
+    });
+  }else{
+    $scope.cars = DataSharingObject.cars;
+    $scope.car = $scope.cars[$routeParams.carId];
+    GoogleMaps.init($scope.cars, $routeParams.carId);
+  }
+
 
 });
 
@@ -114,45 +175,6 @@ function calculateDistance(lat1,lon1,lat2,lon2) {
   return d = R * c;
 }
 
-/* 
-  Object that holds info of our Google Map
-*/
-mapObj = {
-  removeMarkers: function() {
-    for( var i = 0; i < mapObj.markers.length; i++ ){
-      mapObj.markers[i].setMap(null);
-    }
-  },
-  markers: [],
-  reference : null,
-  init: function(car_array, my_car_id) {
-    var map_options = {
-      zoom: 16,
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      center: new google.maps.LatLng(car_array[my_car_id].lat, car_array[my_car_id].lon)
-    }
-    mapObj.reference = new google.maps.Map(document.getElementById('map-canvas'),map_options);
-    var trafficLayer = new google.maps.TrafficLayer();
-    trafficLayer.setMap(mapObj.reference);
-    mapObj.addCarMarkers(car_array, my_car_id);
-  },
-  addCarMarkers: function(car_array, my_car_id) {
-    for(var i=0, len=car_array.length; i<len; i++) {
-      var marker = null;
-      var image = '/images/ico_other_car.png';
-      if (i == my_car_id) {
-        image = '/images/ico_my_car.png';
-      }
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(car_array[i].lat,car_array[i].lon),
-        icon: image,
-        animation: google.maps.Animation.DROP,
-        map:mapObj.reference
-      });
-      mapObj.markers.push(marker);
-    }
-  }
-};
 
 
 

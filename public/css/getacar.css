@@ -106,41 +106,26 @@ html body .container {
   transition: transform 0.5s;
 }
 /* line 14, ../scss/_main.scss */
-html body .container .title {
-  text-align: center;
+html body .container #header {
+  overflow: hidden;
+  *zoom: 1;
+  height: 40px;
 }
-/* line 15, ../scss/_main.scss */
-html body .container .btn {
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -o-border-radius: 4px;
-  border-radius: 4px;
-  line-height: 40px;
-  background-color: #fcfcfc;
-  color: #34495e;
-  display: block;
-  padding: 0 2em;
+/* line 17, ../scss/_main.scss */
+html body .container #header .title {
   text-align: center;
-  text-decoration: none;
-  width: 100px;
   margin: 0 auto;
 }
-/* line 20, ../scss/_mixins.scss */
-html body .container .btn:hover {
-  background-color: #48cab0;
-  -webkit-border-radius: 0;
-  -moz-border-radius: 0;
-  -ms-border-radius: 0;
-  -o-border-radius: 0;
-  border-radius: 0;
+/* line 18, ../scss/_main.scss */
+html body .container #header #trigger-overlay {
+  /* @include btn(100px);  */
+  float: right;
+  display: block;
+  width: 28px;
+  height: 100%;
+  background: url(../images/bt_menu.png) center center no-repeat;
 }
-/* line 20, ../scss/_main.scss */
+/* line 22, ../scss/_main.scss */
 html body .container .overlay {
   background-color: #27a389;
   position: fixed;
@@ -149,7 +134,7 @@ html body .container .overlay {
   top: 0;
   left: 0;
 }
-/* line 29, ../scss/_main.scss */
+/* line 31, ../scss/_main.scss */
 html body .container .overlay nav {
   text-align: center;
   position: relative;
@@ -159,13 +144,13 @@ html body .container .overlay nav {
   transform: translateY(-50%);
 }
 @media screen and (max-height: 30.5em) {
-  /* line 29, ../scss/_main.scss */
+  /* line 31, ../scss/_main.scss */
   html body .container .overlay nav {
     height: 70%;
     font-size: 34px;
   }
 }
-/* line 40, ../scss/_main.scss */
+/* line 42, ../scss/_main.scss */
 html body .container .overlay nav ul {
   list-style: none;
   padding: 0;
@@ -174,7 +159,7 @@ html body .container .overlay nav ul {
   height: 100%;
   position: relative;
 }
-/* line 48, ../scss/_main.scss */
+/* line 50, ../scss/_main.scss */
 html body .container .overlay nav ul li {
   display: block;
   height: 20%;
@@ -182,12 +167,12 @@ html body .container .overlay nav ul li {
   min-height: 54px;
 }
 @media screen and (max-height: 30.5em) {
-  /* line 48, ../scss/_main.scss */
+  /* line 50, ../scss/_main.scss */
   html body .container .overlay nav ul li {
     min-height: 34px;
   }
 }
-/* line 58, ../scss/_main.scss */
+/* line 60, ../scss/_main.scss */
 html body .container .overlay nav ul li a {
   font-size: 54px;
   line-height: 81.0px;
@@ -199,11 +184,11 @@ html body .container .overlay nav ul li a {
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
 }
-/* line 68, ../scss/_main.scss */
+/* line 70, ../scss/_main.scss */
 html body .container .overlay nav ul li a:hover, html body .container .overlay nav ul li a:focus {
   color: #f0f0f0;
 }
-/* line 76, ../scss/_main.scss */
+/* line 78, ../scss/_main.scss */
 html body .container .overlay .overlay-close {
   cursor: pointer;
   width: 80px;
@@ -219,7 +204,7 @@ html body .container .overlay .overlay-close {
   outline: none;
   z-index: 100;
 }
-/* line 92, ../scss/_main.scss */
+/* line 94, ../scss/_main.scss */
 html body .container .overlay-contentscale {
   visibility: hidden;
   -webkit-transform: translateY(100%);
@@ -227,7 +212,7 @@ html body .container .overlay-contentscale {
   -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
   transition: transform 0.5s, visibility 0s 0.5s;
 }
-/* line 99, ../scss/_main.scss */
+/* line 101, ../scss/_main.scss */
 html body .container .overlay-contentscale.open {
   visibility: visible;
   -webkit-transform: translateY(0%);
@@ -236,24 +221,23 @@ html body .container .overlay-contentscale.open {
   transition: transform 0.5s;
 }
 @media screen and (max-height: 30.5em) {
-  /* line 108, ../scss/_main.scss */
+  /* line 110, ../scss/_main.scss */
   html body .container .overlay nav {
     height: 70%;
     font-size: 34px;
   }
-  /* line 112, ../scss/_main.scss */
+  /* line 114, ../scss/_main.scss */
   html body .container .overlay ul li {
     min-height: 34px;
   }
 }
-/* line 119, ../scss/_main.scss */
+/* line 121, ../scss/_main.scss */
 html body .container #map-canvas {
   width: 100%;
-  height: 100%;
   position: fixed !important;
   top: 0;
 }
-/* line 126, ../scss/_main.scss */
+/* line 128, ../scss/_main.scss */
 html body .container.overlay-open {
   -webkit-transform: scale(0.8);
   transform: scale(0.8);
