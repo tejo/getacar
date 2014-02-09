@@ -57,17 +57,6 @@ gac.factory('carsFactory', function($http, $q){
       });
 
       return deferred.promise;
-    },
-    getLocationObj: function(position) {
-      console.log(position);
-      return position
-    },
-    localizeMe: function() {
-      if (Modernizr.geolocation) {
-        navigator.geolocation.getCurrentPosition(getPositionObj);
-      } else {
-        
-      }
     }
   };
 });
@@ -112,6 +101,28 @@ gac.factory('GoogleMaps', function() {
 });
 
 
+gac.controller('MenuController', function($scope, $location, $routeParams, carsFactory) {
+  $scope.localizeMe = function() {
+    if (Modernizr.geolocation) {
+      return navigator.geolocation.getCurrentPosition(
+        function(position) {
+          $scope.$apply(function() {
+            $scope.position = position;
+          });
+        }, function(error) {
+          alert(error);
+        }
+      );
+    } else {
+        
+    }
+  
+  
+  
+  
+    console.log(carsFactory.localizeMe().coords);
+  }
+});
 
 
 gac.controller('HomeController', function($scope, $location, $routeParams, carsFactory) {

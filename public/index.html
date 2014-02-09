@@ -22,9 +22,11 @@
         <![endif]-->
         
         <div class="container">
-          <header id="header">
+          <header id="header" ng-controller="MenuController">
+            <button type="button" class="" ng-click="localizeMe()">Localize</button>
+            {{position}}
             <h1 class="title">Get(a)Car!</h1>
-            <a href="#" class="btn" id="trigger-overlay">Button</a>
+            <a href="#" class="btn" id="trigger-overlay" ng-click="localizeMe()">Button</a>
           </header>
           
           <div ng-view></div>
