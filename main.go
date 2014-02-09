@@ -12,11 +12,13 @@ import (
 )
 
 type CarEntry struct {
-	Fuel    int     `json:"fuel_level"`
-	Lat     float64 `json:"lat"`
-	Lng     float64 `json:"lon"`
-	Address string  `json:"address"`
-	Type    string
+	Id        string
+	UpdatedAt string
+	Fuel      int     `json:"fuel_level"`
+	Lat       float64 `json:"lat"`
+	Lng       float64 `json:"lon"`
+	Address   string  `json:"address"`
+	Type      string
 	//enjoy only
 	CarPlate string `json:"car_plate"`
 	//car2go only
@@ -77,6 +79,7 @@ func startClock() {
 			select {
 			case <-ticker.C:
 				fetchCarsFromAPI(car2goUrl, enjoyUrl)
+          /* comment.Date = time.Now().In(time.UTC).Format(time.RFC3339) */
 			}
 		}
 	}()

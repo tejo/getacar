@@ -2,11 +2,9 @@ package main
 
 import (
 	"encoding/json"
-	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"time"
 )
 
 func ParseEnjoyJson(b []byte) {
@@ -14,6 +12,7 @@ func ParseEnjoyJson(b []byte) {
 	json.Unmarshal(b, &entries)
 	for index, _ := range entries {
 		entries[index].Type = "enjoy"
+		entries[index].Id = entries[index].CarPlate
 		cars = append(cars, entries[index])
 	}
 	return
@@ -25,6 +24,7 @@ func ParseCar2GoJson(b []byte) {
 	for _, car := range results["placemarks"] {
 		cars = append(cars, CarEntry{
 			Type:    "car2go",
+			Id:     car["vin"].(string),
 			Fuel:    int(car["fuel"].(float64)),
 			Lat:     car["coordinates"].([]interface{})[1].(float64),
 			Lng:     car["coordinates"].([]interface{})[0].(float64),
