@@ -118,6 +118,11 @@ function calculateDistance(lat1,lon1,lat2,lon2) {
   Object that holds info of our Google Map
 */
 mapObj = {
+  removeMarkers: function() {
+    for( var i = 0; i < mapObj.markers.length; i++ ){
+      mapObj.markers[i].setMap(null);
+    }
+  },
   markers: [],
   reference : null,
   init: function(car_array, my_car_id) {
@@ -141,6 +146,7 @@ mapObj = {
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(car_array[i].lat,car_array[i].lon),
         icon: image,
+        animation: google.maps.Animation.DROP,
         map:mapObj.reference
       });
       mapObj.markers.push(marker);
