@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -39,7 +40,12 @@ func main() {
 	r.HandleFunc("/cars/{lat}/{lng}", LoadClosestCars).Methods("GET")
 	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
 	http.Handle("/", r)
-	http.ListenAndServe(":8080", nil)
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+	http.ListenAndServe(":"+port, nil)
 }
 
 func Geocode(w http.ResponseWriter, r *http.Request) {
@@ -79,7 +85,7 @@ func startClock() {
 			select {
 			case <-ticker.C:
 				fetchCarsFromAPI(car2goUrl, enjoyUrl)
-          /* comment.Date = time.Now().In(time.UTC).Format(time.RFC3339) */
+				/* comment.Date = time.Now().In(time.UTC).Format(time.RFC3339) */
 			}
 		}
 	}()
