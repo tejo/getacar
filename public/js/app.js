@@ -102,6 +102,12 @@ gac.factory('GoogleMaps', function() {
 
 
 gac.controller('MenuController', function($scope, $location, $routeParams, carsFactory) {
+});
+
+
+gac.controller('HomeController', function($scope, $location, $routeParams, carsFactory) {
+  
+  /* Auto Localizatio */
   $scope.localizeMe = function() {
     if (Modernizr.geolocation) {
       return navigator.geolocation.getCurrentPosition(
@@ -116,16 +122,12 @@ gac.controller('MenuController', function($scope, $location, $routeParams, carsF
     } else {
         
     }
-  
-  
-  
-  
+
     console.log(carsFactory.localizeMe().coords);
   }
-});
-
-
-gac.controller('HomeController', function($scope, $location, $routeParams, carsFactory) {
+  
+  
+  /* Manual Localization */
   $scope.geoCode = function(){
     carsFactory.geoCode($scope.addrToGeocode).then(function(geo){
       console.log("home",geo)
@@ -171,7 +173,6 @@ gac.controller('CarsController', function($scope, $location, $routeParams, carsF
 });
 
 
-
 function calculateDistance(lat1,lon1,lat2,lon2) {
   var R, a, c, d, dLat, dLon, lon1, lon2, sin_dlat_2, sin_dlon_2;
   R = 6371;
@@ -185,19 +186,3 @@ function calculateDistance(lat1,lon1,lat2,lon2) {
   c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return d = R * c;
 }
-
-
-
-
-/*
-function loadScript() {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyC1AxcPmZKRn3aNr_1scX7jJS-Ha0uFkaM&sensor=false&' +
-      'callback=initialize';
-  document.body.appendChild(script);
-}
-*/
-
-//window.onload = loadScript;
-

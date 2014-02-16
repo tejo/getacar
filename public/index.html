@@ -16,40 +16,51 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1AxcPmZKRn3aNr_1scX7jJS-Ha0uFkaM&sensor=false"></script>
     </script>
     </head>
-    <body ng-app="getacar" >
+    <body data-ng-app="getacar" >
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
         
         <div class="container">
-          <header id="header" ng-controller="MenuController">
-            <button type="button" class="" ng-click="localizeMe()">Localize</button>
-            {{position}}
-            <h1 class="title">Get(a)Car!</h1>
-            <a href="#" class="btn" id="trigger-overlay" ng-click="localizeMe()">Button</a>
+          
+          <!-- <div class="loading">☺</div> -->
+        
+        
+          <header id="header" data-ng-controller="MenuController">
+            <a href="/" class="logo" id="get-a-car">GetACar</a>
+            <!-- <h1 class="title">Get(a)Car!</h1> -->
+            <a href="#" class="btn" id="trigger-overlay" data-ng-click="localizeMe()">Button</a>
           </header>
           
-          <div ng-view></div>
+          <div data-ng-view></div>
   
           <script type="text/ng-template" id="home.html">
-            <form name="geoCodeForm">
-              <input type="text" data-ng-model="addrToGeocode" required />
-              <button ng-disabled='!geoCodeForm.$valid' ng-click="geoCode()">geocode</button>
-              </br>
-            </form>
+            <section class="home">
+              <form name="localizeForm">
+                <h2 class="title-action">Localizza le macchine più vicine a te</h2>
+                <button type="button" class="bt-getme bt-circle" data-ng-click="localizeMe()">Localize</button>
+                {{position}}
+              </form>
+              
+              <form name="geoCodeForm">
+                <input type="text" class="address-box visually-hidden" data-ng-model="addrToGeocode" required />
+                <button type="button" class="bt-search bt-circle" data-ng-disabled='!geoCodeForm.$valid' data-ng-click="geoCode()">Search</button>
+                <h2 class="title-action">Cerca per indirizzo</h2>
+              </form>
+            </section>
+            
           </script>
   
           <script type="text/ng-template" id="map.html">
-            <!-- {{ car }} -->
             <div id="map-canvas"></div>
           </script>
   
           <script type="text/ng-template" id="cars.html">
             <div class="cars-header">{{ cars.length }} cars found</div>
-            <div class="cars" ng-repeat='car in cars | limitTo:30'>
+            <div class="cars" data-ng-repeat='car in cars | limitTo:30'>
             <div class="car">
               <ul>
-                <a ng-href="#/map/{{$index}}/{{lat}}/{{lon}}">map</a>
+                <a data-ng-href="#/map/{{$index}}/{{lat}}/{{lon}}">map</a>
                 <li>distance: {{ getDistance(car.lat, car.lon) }} </li>
                 <li>fuel: {{ car.fuel_level }} </li>
                 <li>lat: {{ car.lat }} </li>
@@ -63,11 +74,7 @@
             </div>
           </div>
           </script>
-  
-<!--           <a href="#" class="btn" id="trigger-overlay">Button</a> -->
-          
-          
-          
+            
           <div class="overlay overlay-contentscale">
             <button type="button" class="overlay-close">Close</button>
             <nav>
@@ -78,141 +85,12 @@
             </nav>
           </div>
           
-          <!-- not sure if we're gonna use this shit or zepto... -->
-          <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-          <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.1.min.js"><\/script>')</script>
-          
+          <script>
+            document.write('<script src=' +
+            ('__proto__' in {} ? 'js/vendor/zepto.min' : 'js/vendor/jquery') +'.js><\/script>')
+          </script>
           <script src="/js/angular.min.js"></script> 
           <script src="/js/angular-route.min.js"></script>
-          
-          <script>
-            /*!
-             * classie - class helper functions
-             * from bonzo https://github.com/ded/bonzo
-             * 
-             * classie.has( elem, 'my-class' ) -> true/false
-             * classie.add( elem, 'my-new-class' )
-             * classie.remove( elem, 'my-unwanted-class' )
-             * classie.toggle( elem, 'my-class' )
-             */
-            
-            /*jshint browser: true, strict: true, undef: true */
-            /*global define: false */
-            
-            ( function( window ) {
-            
-            'use strict';
-            
-            // class helper functions from bonzo https://github.com/ded/bonzo
-            
-            function classReg( className ) {
-              return new RegExp("(^|\\s+)" + className + "(\\s+|$)");
-            }
-            
-            // classList support for class management
-            // altho to be fair, the api sucks because it won't accept multiple classes at once
-            var hasClass, addClass, removeClass;
-            
-            if ( 'classList' in document.documentElement ) {
-              hasClass = function( elem, c ) {
-                return elem.classList.contains( c );
-              };
-              addClass = function( elem, c ) {
-                elem.classList.add( c );
-              };
-              removeClass = function( elem, c ) {
-                elem.classList.remove( c );
-              };
-            }
-            else {
-              hasClass = function( elem, c ) {
-                return classReg( c ).test( elem.className );
-              };
-              addClass = function( elem, c ) {
-                if ( !hasClass( elem, c ) ) {
-                  elem.className = elem.className + ' ' + c;
-                }
-              };
-              removeClass = function( elem, c ) {
-                elem.className = elem.className.replace( classReg( c ), ' ' );
-              };
-            }
-            
-            function toggleClass( elem, c ) {
-              var fn = hasClass( elem, c ) ? removeClass : addClass;
-              fn( elem, c );
-            }
-            
-            var classie = {
-              // full names
-              hasClass: hasClass,
-              addClass: addClass,
-              removeClass: removeClass,
-              toggleClass: toggleClass,
-              // short names
-              has: hasClass,
-              add: addClass,
-              remove: removeClass,
-              toggle: toggleClass
-            };
-            
-            // transport
-            if ( typeof define === 'function' && define.amd ) {
-              // AMD
-              define( classie );
-            } else {
-              // browser global
-              window.classie = classie;
-            }
-            
-            })( window );
-
-          
-            (function() {
-              var container = document.querySelector( 'div.container' ),
-                triggerBttn = document.getElementById( 'trigger-overlay' ),
-                overlay = document.querySelector( 'div.overlay' ),
-                closeBttn = overlay.querySelector( 'button.overlay-close' );
-                transEndEventNames = {
-                  'WebkitTransition': 'webkitTransitionEnd',
-                  'MozTransition': 'transitionend',
-                  'OTransition': 'oTransitionEnd',
-                  'msTransition': 'MSTransitionEnd',
-                  'transition': 'transitionend'
-                },
-                transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ],
-                support = { transitions : Modernizr.csstransitions };
-            
-              function toggleOverlay() {
-                if( classie.has( overlay, 'open' ) ) {
-                  classie.remove( overlay, 'open' );
-                  classie.remove( container, 'overlay-open' );
-                  classie.add( overlay, 'close' );
-                  var onEndTransitionFn = function( ev ) {
-                    if( support.transitions ) {
-                      if( ev.propertyName !== 'visibility' ) return;
-                      this.removeEventListener( transEndEventName, onEndTransitionFn );
-                    }
-                    classie.remove( overlay, 'close' );
-                  };
-                  if( support.transitions ) {
-                    overlay.addEventListener( transEndEventName, onEndTransitionFn );
-                  }
-                  else {
-                    onEndTransitionFn();
-                  }
-                }
-                else if( !classie.has( overlay, 'close' ) ) {
-                  classie.add( overlay, 'open' );
-                  classie.add( container, 'overlay-open' );
-                }
-              }
-            
-              triggerBttn.addEventListener( 'click', toggleOverlay );
-              closeBttn.addEventListener( 'click', toggleOverlay );
-            })();
-          </script>
-          
           <script src="/js/app.js"></script>
           <script src="js/getacar.js"></script>
   

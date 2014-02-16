@@ -1,28 +1,53 @@
+* {-webkit-box-sizing: border-box; -moz-box-sizing: border-box;box-sizing: border-box;}
+
 html {
   height: 100%;
   body {
     height: 100%;
-    background: $blue-dark;
+    background: $green-mid;/*$blue-dark;*/
     color: $white;
     
     .container {
-      background: #34495e;
+      background: $green-mid;//#34495e;
       height: 100%;
       -webkit-transition: -webkit-transform 0.5s;
       transition: transform 0.5s;
+      padding-top: $header-h;
+      
+      
+      .loading {
+        width: 40px;
+        height: 40px;
+        position: absolute;
+        top: 200px;
+        left: 50%;
+        margin: -20px;
+        font-size: 100px;
+        animation: rot 3s infinite linear;
+      }
+      
+      .visually-hidden {
+        @include visuallyhidden();
+      }
       
       #header {
         @include clearfix();
-        height: 40px;
+        position: absolute;
+        top: 0;left: 0; z-index: 9;
+        background: $green-mid;
+        height: $header-h; width: 100%;
+        padding: 0 10px;
+        @include opacity(.8);
         .title {text-align: center; margin: 0 auto;}
-        #trigger-overlay {/* @include btn(100px);  */float: right; display: block; width: 28px; height: 100%; background: url(../images/bt_menu.png) center center no-repeat;}
-        #get-a-car {}
+        #trigger-overlay {float: right; top: 0; display: block; width: 28px; height: 100%; background: url(../images/bt_menu.png) center center no-repeat; background-size: 50%; text-indent: -50000px;}
+        #get-a-car {background: url(../images/logo_getacar.png) left center no-repeat; background-size: 40%; display: block; text-indent: -5000px; width: 100px; height: $header-h; float: left;}
       }
 
       .overlay {
-        background-color: $green-mid;
-        //background: rgba(153,204,51,0.9);
+        background-color: $blue-dark;
+        @include opacity(.9);
         position: fixed;
+        z-index: 99;
         width: 100%;
         height: 100%;
         top: 0;
@@ -115,13 +140,39 @@ html {
     min-height: 34px;
   }
       }
-
-
-    
+      
+      
+      /* HOME */
+      .home {
+        padding-top: 10%;
+        button.bt-circle {
+          @include bt-circle(110px, 110px);
+          margin: 0 auto;
+        }
+        .title-action {
+          text-align: center; text-transform: uppercase; @include font-size(2.0); margin: 0 auto;
+          width: 400px;
+          @media screen and (max-width: $viewport600) {@include font-size(1.5); width: 240px;}
+        }
+        form[name=localizeForm] {
+          .title-action {padding-bottom: 20px;}
+        }
+        form[name=geoCodeForm] {
+          margin-top: 44px;
+          .title-action {padding-top: 20px;}
+          .address-box {
+            margin: 0 auto;
+            @include text-box();
+          }
+        }
+      }
+      
+      
       #map-canvas {
-        width: 100%; //height: 100%;
+        width: 100%; height: 100%;
         position: fixed!important;
         top: 0;
+        z-index: 0;
       }
     } //container
     

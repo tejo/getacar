@@ -25,6 +25,113 @@
 }
 
 
+@mixin text-box($w: 280px, $h: 40px) {
+  width: $w; height: $h;
+  @include border-radius(4px);
+  border: 0;
+  display: block;
+}
+
+@mixin bt-circle ($w: 100px, $h: 100px, $bg:$green-mid) {
+  @include hw-accelerate();
+  width: $w;
+  height: $h;
+  -moz-border-radius: 50%; 
+  -webkit-border-radius: 50%; 
+  border-radius: 50%;
+  border: 3px solid $white;
+  background: $bg;
+  display: block;
+  -webkit-appearance: none;
+
+  -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1);
+  -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+   -moz-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+     -o-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
+        transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275); /* easeOutBack */
+  
+  &:hover {border:10px solid $white;}
+}
+
+@mixin hw-accelerate () {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  -moz-backface-visibility:hidden;
+  -ms-backface-visibility:hidden;
+}
+
+@mixin circle-rwd () {
+  width: 50%;
+  height:0;
+  padding-bottom: 50%;
+  -moz-border-radius: 50%; 
+  -webkit-border-radius: 50%; 
+  border-radius: 50%;
+  background: #4679BD; 
+}
+
+/*
+@mixin circle-text () {
+  .circle-text {
+    width:50%;
+}
+.circle-text:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height:0;
+    padding-bottom: 100%;
+    background: #4679BD; 
+    -moz-border-radius: 50%; 
+    -webkit-border-radius: 50%; 
+    border-radius: 50%;
+}
+.circle-text div {
+    float:left;
+    width:100%;
+    padding-top:50%;
+    line-height:1em;
+    margin-top:-0.5em;
+    text-align:center;
+    color:white;
+}
+}
+*/
+
+
+@mixin visuallyhidden {
+  position: absolute;
+  width: 1px; 
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+
+
+@-webkit-keyframes rot {
+  from {
+    transform: rotate(0deg)
+               translate(-150px)
+               rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg)
+               translate(-150px) 
+               rotate(-360deg);
+  }
+}
+
+
+
+
+
 $default-prefixes: webkit moz ms o;
 @mixin build-prefix-values($property, $value, $prefixes: $default-prefixes) {
   @each $prefix in $prefixes {
@@ -32,8 +139,8 @@ $default-prefixes: webkit moz ms o;
   }
   #{$property}: #{$value};
 }
-@mixin transition($property: all, $delay: 1s, $timing: linear) {
-  $value: $property $delay $timing;
+@mixin transition($property: all, $duration: .6s, $timing: linear) {
+  $value: $property $duration $timing;
   // use default prefixes
   @include build-prefix-values('transition', $value);
 }

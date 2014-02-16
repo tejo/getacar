@@ -68,6 +68,45 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   display: block;
 }
 
+/*
+@mixin circle-text () {
+  .circle-text {
+    width:50%;
+}
+.circle-text:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height:0;
+    padding-bottom: 100%;
+    background: #4679BD; 
+    -moz-border-radius: 50%; 
+    -webkit-border-radius: 50%; 
+    border-radius: 50%;
+}
+.circle-text div {
+    float:left;
+    width:100%;
+    padding-top:50%;
+    line-height:1em;
+    margin-top:-0.5em;
+    text-align:center;
+    color:white;
+}
+}
+*/
+@-webkit-keyframes rot {
+  /* line 119, ../scss/_mixins.scss */
+  from {
+    transform: rotate(0deg) translate(-150px) rotate(0deg);
+  }
+
+  /* line 124, ../scss/_mixins.scss */
+  to {
+    transform: rotate(360deg) translate(-150px) rotate(-360deg);
+  }
+}
+
 /* USAGE */
 /* /USAGE */
 /* line 8, ../scss/_fonts.scss */
@@ -89,52 +128,108 @@ html body h1 {
 }
 
 /* line 1, ../scss/_main.scss */
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* line 3, ../scss/_main.scss */
 html {
   height: 100%;
 }
-/* line 3, ../scss/_main.scss */
+/* line 5, ../scss/_main.scss */
 html body {
   height: 100%;
-  background: #34495e;
+  background: #27a389;
+  /*$blue-dark;*/
   color: #fcfcfc;
 }
-/* line 8, ../scss/_main.scss */
+/* line 10, ../scss/_main.scss */
 html body .container {
-  background: #34495e;
+  background: #27a389;
   height: 100%;
   -webkit-transition: -webkit-transform 0.5s;
   transition: transform 0.5s;
+  padding-top: 40px;
+  /* HOME */
 }
-/* line 14, ../scss/_main.scss */
+/* line 18, ../scss/_main.scss */
+html body .container .loading {
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  margin: -20px;
+  font-size: 100px;
+  animation: rot 3s infinite linear;
+}
+/* line 29, ../scss/_main.scss */
+html body .container .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+}
+/* line 33, ../scss/_main.scss */
 html body .container #header {
   overflow: hidden;
   *zoom: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  background: #27a389;
   height: 40px;
+  width: 100%;
+  padding: 0 10px;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
 }
-/* line 17, ../scss/_main.scss */
+/* line 41, ../scss/_main.scss */
 html body .container #header .title {
   text-align: center;
   margin: 0 auto;
 }
-/* line 18, ../scss/_main.scss */
+/* line 42, ../scss/_main.scss */
 html body .container #header #trigger-overlay {
-  /* @include btn(100px);  */
   float: right;
+  top: 0;
   display: block;
   width: 28px;
   height: 100%;
   background: url(../images/bt_menu.png) center center no-repeat;
+  background-size: 50%;
+  text-indent: -50000px;
 }
-/* line 22, ../scss/_main.scss */
+/* line 43, ../scss/_main.scss */
+html body .container #header #get-a-car {
+  background: url(../images/logo_getacar.png) left center no-repeat;
+  background-size: 40%;
+  display: block;
+  text-indent: -5000px;
+  width: 100px;
+  height: 40px;
+  float: left;
+}
+/* line 46, ../scss/_main.scss */
 html body .container .overlay {
-  background-color: #27a389;
+  background-color: #34495e;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  opacity: 0.9;
   position: fixed;
+  z-index: 99;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
 }
-/* line 31, ../scss/_main.scss */
+/* line 56, ../scss/_main.scss */
 html body .container .overlay nav {
   text-align: center;
   position: relative;
@@ -144,13 +239,13 @@ html body .container .overlay nav {
   transform: translateY(-50%);
 }
 @media screen and (max-height: 30.5em) {
-  /* line 31, ../scss/_main.scss */
+  /* line 56, ../scss/_main.scss */
   html body .container .overlay nav {
     height: 70%;
     font-size: 34px;
   }
 }
-/* line 42, ../scss/_main.scss */
+/* line 67, ../scss/_main.scss */
 html body .container .overlay nav ul {
   list-style: none;
   padding: 0;
@@ -159,7 +254,7 @@ html body .container .overlay nav ul {
   height: 100%;
   position: relative;
 }
-/* line 50, ../scss/_main.scss */
+/* line 75, ../scss/_main.scss */
 html body .container .overlay nav ul li {
   display: block;
   height: 20%;
@@ -167,12 +262,12 @@ html body .container .overlay nav ul li {
   min-height: 54px;
 }
 @media screen and (max-height: 30.5em) {
-  /* line 50, ../scss/_main.scss */
+  /* line 75, ../scss/_main.scss */
   html body .container .overlay nav ul li {
     min-height: 34px;
   }
 }
-/* line 60, ../scss/_main.scss */
+/* line 85, ../scss/_main.scss */
 html body .container .overlay nav ul li a {
   font-size: 54px;
   line-height: 81.0px;
@@ -184,11 +279,11 @@ html body .container .overlay nav ul li a {
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
 }
-/* line 70, ../scss/_main.scss */
+/* line 95, ../scss/_main.scss */
 html body .container .overlay nav ul li a:hover, html body .container .overlay nav ul li a:focus {
   color: #f0f0f0;
 }
-/* line 78, ../scss/_main.scss */
+/* line 103, ../scss/_main.scss */
 html body .container .overlay .overlay-close {
   cursor: pointer;
   width: 80px;
@@ -204,7 +299,7 @@ html body .container .overlay .overlay-close {
   outline: none;
   z-index: 100;
 }
-/* line 94, ../scss/_main.scss */
+/* line 119, ../scss/_main.scss */
 html body .container .overlay-contentscale {
   visibility: hidden;
   -webkit-transform: translateY(100%);
@@ -212,7 +307,7 @@ html body .container .overlay-contentscale {
   -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
   transition: transform 0.5s, visibility 0s 0.5s;
 }
-/* line 101, ../scss/_main.scss */
+/* line 126, ../scss/_main.scss */
 html body .container .overlay-contentscale.open {
   visibility: visible;
   -webkit-transform: translateY(0%);
@@ -221,23 +316,106 @@ html body .container .overlay-contentscale.open {
   transition: transform 0.5s;
 }
 @media screen and (max-height: 30.5em) {
-  /* line 110, ../scss/_main.scss */
+  /* line 135, ../scss/_main.scss */
   html body .container .overlay nav {
     height: 70%;
     font-size: 34px;
   }
-  /* line 114, ../scss/_main.scss */
+  /* line 139, ../scss/_main.scss */
   html body .container .overlay ul li {
     min-height: 34px;
   }
 }
-/* line 121, ../scss/_main.scss */
+/* line 146, ../scss/_main.scss */
+html body .container .home {
+  padding-top: 10%;
+}
+/* line 148, ../scss/_main.scss */
+html body .container .home button.bt-circle {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  width: 110px;
+  height: 110px;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  border: 3px solid #fcfcfc;
+  background: #27a389;
+  display: block;
+  -webkit-appearance: none;
+  -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1);
+  -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -moz-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -o-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* easeOutBack */
+  margin: 0 auto;
+}
+/* line 53, ../scss/_mixins.scss */
+html body .container .home button.bt-circle:hover {
+  border: 10px solid #fcfcfc;
+}
+/* line 152, ../scss/_main.scss */
+html body .container .home .title-action {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  line-height: 30px;
+  font-size: 2rem;
+  line-height: 3rem;
+  margin: 0 auto;
+  width: 400px;
+}
+@media screen and (max-width: 600px) {
+  /* line 152, ../scss/_main.scss */
+  html body .container .home .title-action {
+    font-size: 15px;
+    line-height: 22.5px;
+    font-size: 1.5rem;
+    line-height: 2.25rem;
+    width: 240px;
+  }
+}
+/* line 158, ../scss/_main.scss */
+html body .container .home form[name=localizeForm] .title-action {
+  padding-bottom: 20px;
+}
+/* line 160, ../scss/_main.scss */
+html body .container .home form[name=geoCodeForm] {
+  margin-top: 44px;
+}
+/* line 162, ../scss/_main.scss */
+html body .container .home form[name=geoCodeForm] .title-action {
+  padding-top: 20px;
+}
+/* line 163, ../scss/_main.scss */
+html body .container .home form[name=geoCodeForm] .address-box {
+  margin: 0 auto;
+  width: 280px;
+  height: 40px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+  border: 0;
+  display: block;
+}
+/* line 171, ../scss/_main.scss */
 html body .container #map-canvas {
   width: 100%;
+  height: 100%;
   position: fixed !important;
   top: 0;
+  z-index: 0;
 }
-/* line 128, ../scss/_main.scss */
+/* line 179, ../scss/_main.scss */
 html body .container.overlay-open {
   -webkit-transform: scale(0.8);
   transform: scale(0.8);
