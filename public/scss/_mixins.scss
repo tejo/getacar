@@ -24,6 +24,9 @@
   
 }
 
+@function calc-percent($target, $container) {
+  @return ($target / $container) * 100%;
+}
 
 @mixin text-box($w: 280px, $h: 40px) {
   width: $w; height: $h;
@@ -34,6 +37,7 @@
 
 @mixin bt-circle ($w: 100px, $h: 100px, $bg:$green-mid) {
   @include hw-accelerate();
+  cursor: pointer;
   width: $w;
   height: $h;
   -moz-border-radius: 50%; 

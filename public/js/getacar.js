@@ -5,8 +5,11 @@
 
   ButtonsManager = (function() {
     function ButtonsManager() {
-      $('form[name=geoCodeForm]').on('.bt-search', 'click', function() {
-        return alert('go');
+      $('form[name=geoCodeForm]').on('click', '.bt-search', function(e) {
+        var _bt;
+        _bt = $(this);
+        _bt.toggleClass('active');
+        return _bt.siblings('.address-box').toggleClass('active');
       });
     }
 

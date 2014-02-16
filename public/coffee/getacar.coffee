@@ -1,6 +1,10 @@
 class ButtonsManager
   constructor: () ->
-    $('form[name=geoCodeForm]').on('.bt-search','click', -> alert 'go')
+    $('form[name=geoCodeForm]').on('click','.bt-search', (e) -> 
+      _bt = $(this)
+      _bt.toggleClass 'active'
+      _bt.siblings('.address-box').toggleClass 'active'
+    )
 
 class OverlayManager
   constructor: () ->

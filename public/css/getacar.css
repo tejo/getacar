@@ -96,12 +96,12 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 */
 @-webkit-keyframes rot {
-  /* line 119, ../scss/_mixins.scss */
+  /* line 123, ../scss/_mixins.scss */
   from {
     transform: rotate(0deg) translate(-150px) rotate(0deg);
   }
 
-  /* line 124, ../scss/_mixins.scss */
+  /* line 128, ../scss/_mixins.scss */
   to {
     transform: rotate(360deg) translate(-150px) rotate(-360deg);
   }
@@ -330,8 +330,8 @@ html body .container .overlay-contentscale.open {
 html body .container .home {
   padding-top: 10%;
 }
-/* line 148, ../scss/_main.scss */
-html body .container .home button.bt-circle {
+/* line 150, ../scss/_main.scss */
+html body .container .home .bt-circle {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
   -ms-transform: translate3d(0, 0, 0);
@@ -340,6 +340,7 @@ html body .container .home button.bt-circle {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
+  cursor: pointer;
   width: 110px;
   height: 110px;
   -moz-border-radius: 50%;
@@ -357,11 +358,11 @@ html body .container .home button.bt-circle {
   /* easeOutBack */
   margin: 0 auto;
 }
-/* line 53, ../scss/_mixins.scss */
-html body .container .home button.bt-circle:hover {
+/* line 57, ../scss/_mixins.scss */
+html body .container .home .bt-circle:hover {
   border: 10px solid #fcfcfc;
 }
-/* line 152, ../scss/_main.scss */
+/* line 154, ../scss/_main.scss */
 html body .container .home .title-action {
   text-align: center;
   text-transform: uppercase;
@@ -373,7 +374,7 @@ html body .container .home .title-action {
   width: 400px;
 }
 @media screen and (max-width: 600px) {
-  /* line 152, ../scss/_main.scss */
+  /* line 154, ../scss/_main.scss */
   html body .container .home .title-action {
     font-size: 15px;
     line-height: 22.5px;
@@ -382,21 +383,73 @@ html body .container .home .title-action {
     width: 240px;
   }
 }
-/* line 158, ../scss/_main.scss */
+/* line 160, ../scss/_main.scss */
 html body .container .home form[name=localizeForm] .title-action {
   padding-bottom: 20px;
 }
-/* line 160, ../scss/_main.scss */
+/* line 162, ../scss/_main.scss */
 html body .container .home form[name=geoCodeForm] {
   margin-top: 44px;
 }
-/* line 162, ../scss/_main.scss */
+/* line 164, ../scss/_main.scss */
 html body .container .home form[name=geoCodeForm] .title-action {
   padding-top: 20px;
 }
-/* line 163, ../scss/_main.scss */
-html body .container .home form[name=geoCodeForm] .address-box {
+/* line 165, ../scss/_main.scss */
+html body .container .home form[name=geoCodeForm] .search-box {
+  width: 400px;
   margin: 0 auto;
+  position: relative;
+  overflow: hidden;
+  *zoom: 1;
+  height: 110px;
+}
+/* line 171, ../scss/_main.scss */
+html body .container .home form[name=geoCodeForm] .search-box .bt-search {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+/* line 177, ../scss/_main.scss */
+html body .container .home form[name=geoCodeForm] .search-box .bt-search.active {
+  -webkit-transform: translate3d(-144px, 0, 0);
+  -moz-transform: translate3d(-144px, 0, 0);
+  -ms-transform: translate3d(-144px, 0, 0);
+  -o-transform: translate3d(-144px, 0, 0);
+  transform: translate3d(-144px, 0, 0);
+}
+/* line 179, ../scss/_main.scss */
+html body .container .home form[name=geoCodeForm] .search-box .bt-search.active:hover {
+  border: 2px solid #fcfcfc;
+}
+/* line 182, ../scss/_main.scss */
+html body .container .home form[name=geoCodeForm] .search-box .address-box {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -ms-backface-visibility: hidden;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  margin-top: 35px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  -webkit-transform: translate3d(1000px, 0, 0);
+  -moz-transform: translate3d(1000px, 0, 0);
+  -ms-transform: translate3d(1000px, 0, 0);
+  -o-transform: translate3d(1000px, 0, 0);
+  transform: translate3d(1000px, 0, 0);
   width: 280px;
   height: 40px;
   -webkit-border-radius: 4px;
@@ -407,7 +460,15 @@ html body .container .home form[name=geoCodeForm] .address-box {
   border: 0;
   display: block;
 }
-/* line 171, ../scss/_main.scss */
+/* line 192, ../scss/_main.scss */
+html body .container .home form[name=geoCodeForm] .search-box .address-box.active {
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  -ms-transform: translate3d(0, 0, 0);
+  -o-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+/* line 198, ../scss/_main.scss */
 html body .container #map-canvas {
   width: 100%;
   height: 100%;
@@ -415,7 +476,7 @@ html body .container #map-canvas {
   top: 0;
   z-index: 0;
 }
-/* line 179, ../scss/_main.scss */
+/* line 206, ../scss/_main.scss */
 html body .container.overlay-open {
   -webkit-transform: scale(0.8);
   transform: scale(0.8);

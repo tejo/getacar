@@ -144,14 +144,16 @@ html {
       
       /* HOME */
       .home {
+        $circle-r : 110px;
+        $content-w : 400px;
         padding-top: 10%;
-        button.bt-circle {
-          @include bt-circle(110px, 110px);
+        .bt-circle {
+          @include bt-circle($circle-r, $circle-r);
           margin: 0 auto;
         }
         .title-action {
           text-align: center; text-transform: uppercase; @include font-size(2.0); margin: 0 auto;
-          width: 400px;
+          width: $content-w;
           @media screen and (max-width: $viewport600) {@include font-size(1.5); width: 240px;}
         }
         form[name=localizeForm] {
@@ -160,9 +162,34 @@ html {
         form[name=geoCodeForm] {
           margin-top: 44px;
           .title-action {padding-top: 20px;}
-          .address-box {
-            margin: 0 auto;
-            @include text-box();
+          .search-box {
+            width: $content-w; margin: 0 auto;
+            position: relative;
+            @include clearfix();
+            height: $circle-r;
+            
+            .bt-search {
+              @include hw-accelerate();
+              -webkit-transition: all 0.5s ease;
+              transition: all 0.5s ease;
+              
+            }
+            .bt-search.active {
+              @include build-prefix-values('transform', translate3d(-144px, 0, 0));
+              &:hover {border: 2px solid $white;}
+            }
+            
+            .address-box {
+              @include hw-accelerate();
+              -webkit-transition: all 0.5s ease;
+              transition: all 0.5s ease;
+              margin-top: ($circle-r / 2) - ($touch-area / 2);
+              position: absolute; right: 0; top: 0;
+              
+              @include build-prefix-values('transform', translate3d(1000px, 0, 0));
+              @include text-box();
+            }
+            .address-box.active {@include build-prefix-values('transform', translate3d(0, 0, 0));}
           }
         }
       }

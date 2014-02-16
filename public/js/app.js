@@ -130,7 +130,6 @@ gac.controller('HomeController', function($scope, $location, $routeParams, carsF
   /* Manual Localization */
   $scope.geoCode = function(){
     carsFactory.geoCode($scope.addrToGeocode).then(function(geo){
-      console.log("home",geo)
       if(!geo.Success){
         return
       }

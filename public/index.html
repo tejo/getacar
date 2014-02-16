@@ -43,8 +43,12 @@
               </form>
               
               <form name="geoCodeForm">
-                <input type="text" class="address-box visually-hidden" data-ng-model="addrToGeocode" required />
-                <button type="button" class="bt-search bt-circle" data-ng-disabled='!geoCodeForm.$valid' data-ng-click="geoCode()">Search</button>
+                <div class="search-box">
+                  <!-- visually-hidden -->
+                  <button type="button" class="bt-search bt-circle">Search</button>
+                  <input type="text" class="address-box" data-ng-model="addrToGeocode" required />
+                </div>
+                <!--<button type="button" class="bt-search bt-circle" data-ng-disabled='!geoCodeForm.$valid' data-ng-click="geoCode()">Search</button>-->
                 <h2 class="title-action">Cerca per indirizzo</h2>
               </form>
             </section>
