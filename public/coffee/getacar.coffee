@@ -1,10 +1,6 @@
 class ButtonsManager
   constructor: () ->
-    $('form[name=geoCodeForm]').on('click','.bt-search', (e) -> 
-      _bt = $(this)
-      _bt.toggleClass 'active'
-      _bt.siblings('.address-box').toggleClass 'active'
-    )
+    #$('form[name=geoCodeForm]').on('click','.bt-search', (e) - )
 
 class OverlayManager
   constructor: () ->
@@ -78,7 +74,7 @@ class MapManager
 
 getACar = {
   start : ->
-    btsManager = new ButtonsManager();
+    #btsManager = new ButtonsManager();
     overLayManager = new OverlayManager();
 };
 

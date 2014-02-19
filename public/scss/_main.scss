@@ -175,7 +175,10 @@ html {
               
             }
             .bt-search.active {
-              @include build-prefix-values('transform', translate3d(-144px, 0, 0));
+              //@include build-prefix-values('transform', translate3d(-144px, 0, 0));
+              @include build-prefix-values('transform', translate3d(-117px, 0, 0));
+              text-indent: -50000px;
+              width: 40px; height: 40px; margin-top: 35px;
               &:hover {border: 2px solid $white;}
             }
             
@@ -183,6 +186,7 @@ html {
               @include hw-accelerate();
               -webkit-transition: all 0.5s ease;
               transition: all 0.5s ease;
+              padding: 0 10px;
               margin-top: ($circle-r / 2) - ($touch-area / 2);
               position: absolute; right: 0; top: 0;
               

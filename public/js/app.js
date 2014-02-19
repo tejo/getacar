@@ -126,6 +126,26 @@ gac.controller('HomeController', function($scope, $location, $routeParams, carsF
     console.log(carsFactory.localizeMe().coords);
   }
   
+  /* Open / Close / Geocode */
+  $scope.searchBTMngr = function(e) {
+    var _bt = $('form[name=geoCodeForm] .bt-search');
+    var _textbox = _bt.siblings('.address-box');
+
+    if( _bt.hasClass('active') ) {
+
+      if( _textbox.val() != "" ) {
+        // geocode
+        $scope.geoCode();
+      }else {
+        // close textbox
+        _bt.toggleClass('active');
+        _textbox.toggleClass('active');
+      }
+    }else {
+      _bt.toggleClass('active');
+      _textbox.toggleClass('active');
+    }
+  }
   
   /* Manual Localization */
   $scope.geoCode = function(){
@@ -136,6 +156,7 @@ gac.controller('HomeController', function($scope, $location, $routeParams, carsF
       $location.path("/cars/"+ geo.Lat +"/"+ geo.Lng)
     });
   }
+  
 });
 
 gac.controller('MapController', function($scope, $location, $routeParams, carsFactory, DataSharingObject, GoogleMaps) {

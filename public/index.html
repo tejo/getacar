@@ -45,7 +45,7 @@
               <form name="geoCodeForm">
                 <div class="search-box">
                   <!-- visually-hidden -->
-                  <button type="button" class="bt-search bt-circle">Search</button>
+                  <button type="button" class="bt-search bt-circle" data-ng-click="searchBTMngr()">Search</button>
                   <input type="text" class="address-box" data-ng-model="addrToGeocode" required />
                 </div>
                 <!--<button type="button" class="bt-search bt-circle" data-ng-disabled='!geoCodeForm.$valid' data-ng-click="geoCode()">Search</button>-->
@@ -96,7 +96,7 @@
           <script src="/js/angular.min.js"></script> 
           <script src="/js/angular-route.min.js"></script>
           <script src="/js/app.js"></script>
-          <script src="js/getacar.js"></script>
+          <script src="/js/getacar.js"></script>
   
           <!--
           <script>

@@ -4,14 +4,7 @@
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   ButtonsManager = (function() {
-    function ButtonsManager() {
-      $('form[name=geoCodeForm]').on('click', '.bt-search', function(e) {
-        var _bt;
-        _bt = $(this);
-        _bt.toggleClass('active');
-        return _bt.siblings('.address-box').toggleClass('active');
-      });
-    }
+    function ButtonsManager() {}
 
     return ButtonsManager;
 
@@ -107,8 +100,7 @@
 
   getACar = {
     start: function() {
-      var btsManager, overLayManager;
-      btsManager = new ButtonsManager();
+      var overLayManager;
       return overLayManager = new OverlayManager();
     }
   };
