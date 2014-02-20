@@ -21,7 +21,8 @@ class OverlayManager
     @triggerBttn.on "click", @toggleOverlay
     @closeBttn.on "click", @toggleOverlay
 
-  toggleOverlay : =>
+  toggleOverlay : (e) =>
+    e.preventDefault();
     _clicked  = $(this)
     if @overlay.hasClass("open")
       @overlay.removeClass "open"

@@ -48,11 +48,11 @@
   display: block;
   -webkit-appearance: none;
 
-  -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1);
-  -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
-   -moz-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
-     -o-transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275); 
-        transition: all 500ms cubic-bezier(0.175, 0.885, 0.320, 1.275); /* easeOutBack */
+  -webkit-transition: all 500ms $ease-out-back-old;
+  -webkit-transition: all 500ms $ease-out-back;
+   -moz-transition: all 500ms $ease-out-back;
+     -o-transition: all 500ms $ease-out-back;
+        transition: all 500ms $ease-out-back;
   
   &:hover {border:10px solid $white;}
 }

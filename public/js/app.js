@@ -12,12 +12,13 @@ gac.config(['$routeProvider','$locationProvider',
         templateUrl: 'cars.html',
         controller: 'CarsController'
       }).
+      when('/cars', {
+        templateUrl: 'cars.html',
+        controller: 'CarsController'
+      }).
       when('/map/:carId/:lat/:lon', {
         templateUrl: 'map.html',
         controller: 'MapController'
-      }).
-      otherwise({
-        redirectTo: '/'
       });
   }
 ]);
@@ -25,6 +26,7 @@ gac.config(['$routeProvider','$locationProvider',
 gac.factory('DataSharingObject', function(){
   return {};
 })
+
 
 gac.factory('carsFactory', function($http, $q){
   return {
@@ -60,6 +62,7 @@ gac.factory('carsFactory', function($http, $q){
     }
   };
 });
+
 
 gac.factory('GoogleMaps', function() {
   return {
@@ -153,13 +156,16 @@ gac.controller('HomeController', function($scope, $location, $routeParams, carsF
       if(!geo.Success){
         return
       }
-      $location.path("/cars/"+ geo.Lat +"/"+ geo.Lng)
+      $location.path("/cars/"+ geo.Lat +"/"+ geo.Lng);
+      $('#switcher').addClass('open');
     });
   }
   
 });
 
+
 gac.controller('MapController', function($scope, $location, $routeParams, carsFactory, DataSharingObject, GoogleMaps) {
+
   if (!DataSharingObject.cars) {
     carsFactory.query($routeParams.lat, $routeParams.lon).then(function(data){
       DataSharingObject.cars = data;
@@ -172,14 +178,24 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
     $scope.car = $scope.cars[$routeParams.carId];
     GoogleMaps.init($scope.cars, $routeParams.carId);
   }
+  
+  // metto in scope la (mia/cercata) posizione
+  $scope.myLat = DataSharingObject.myLat;
+  $scope.myLon = DataSharingObject.myLon;
 
 
 });
 
 gac.controller('CarsController', function($scope, $location, $routeParams, carsFactory, DataSharingObject) {
+  
+  // Salvo la posizione (mia/cercata)
+  DataSharingObject.myLat = $routeParams.lat;
+  DataSharingObject.myLon = $routeParams.lon;
+  
   $scope.queryByClosest = function(){
     $scope.lat = $routeParams.lat;
     $scope.lon = $routeParams.lon;
+    
     carsFactory.query($scope.lat, $scope.lon).then(function(data){
       $scope.cars = data;
       DataSharingObject.cars = data;

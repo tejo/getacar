@@ -29,10 +29,10 @@
           <header id="header" data-ng-controller="MenuController">
             <a href="/" class="logo" id="get-a-car">GetACar</a>
             <!-- <h1 class="title">Get(a)Car!</h1> -->
-            <a href="#" class="btn" id="trigger-overlay" data-ng-click="localizeMe()">Button</a>
+            <a href="#" class="btn" id="trigger-overlay">Button</a>
           </header>
           
-          <div data-ng-view></div>
+          <div data-ng-view class="bucket"></div>
   
           <script type="text/ng-template" id="home.html">
             <section class="home">
@@ -57,6 +57,12 @@
   
           <script type="text/ng-template" id="map.html">
             <div id="map-canvas"></div>
+            <div id="switcher" class="open">
+              <ul>
+                <li class="list-view"><a data-ng-href="#/cars/{{myLat}}/{{myLon}}">List</a></li>
+                <li class="map-view active"><a data-ng-disabled>Map</a></li>
+              </ul>
+            </div>
           </script>
   
           <script type="text/ng-template" id="cars.html">
@@ -77,8 +83,16 @@
               </ul>
             </div>
           </div>
+          
+          <div id="switcher" class="open">
+            <ul>
+              <li class="list-view active"><a data-ng-disabled>List</a></li>
+              <li class="map-view"><a data-ng-href="#/map/0/{{lat}}/{{lon}}">Map</a></li>
+            </ul>
+          </div>
+          
           </script>
-            
+          
           <div class="overlay overlay-contentscale">
             <button type="button" class="overlay-close">Close</button>
             <nav>
@@ -106,6 +120,17 @@
               s.parentNode.insertBefore(g,s)}(document,'script'));
           </script>
           -->
+          
+          <!--
+<div id="switcher">
+            <ul>
+              <li class="list-view active"><a data-ng-href="#/map/{{$index}}/{{lat}}/{{lon}}">List</a></li>
+              <li class="map-view"><a data-ng-href="#/map/{{$index}}">Map</a></li>
+            </ul>
+          </div>
+-->
+          
         </div>
+        <!-- /container -->
     </body>
 </html>

@@ -10,7 +10,13 @@ $green-mid: #27a389;
 
 // DIMENSIONS
 $header-h: 40px;
+$switcher-h:66px;
 $gutter: 16px;
 $touch-area: 40px;
 
 $viewport600: 600px;
+
+
+// TIMING FUNCTIONS
+$ease-out-back: cubic-bezier(0.175, 0.885, 0.320, 1.275);
+$ease-out-back-old: cubic-bezier(0.175, 0.885, 0.320, 1);

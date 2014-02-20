@@ -13,8 +13,7 @@ html {
       -webkit-transition: -webkit-transform 0.5s;
       transition: transform 0.5s;
       padding-top: $header-h;
-      
-      
+            
       .loading {
         width: 40px;
         height: 40px;
@@ -47,7 +46,7 @@ html {
         background-color: $blue-dark;
         @include opacity(.9);
         position: fixed;
-        z-index: 99;
+        z-index: 999;
         width: 100%;
         height: 100%;
         top: 0;
@@ -142,8 +141,10 @@ html {
       }
       
       
-      /* HOME */
-      .home {
+      .bucket {
+        padding-bottom: $switcher-h;
+        /* HOME */
+        .home {
         $circle-r : 110px;
         $content-w : 400px;
         padding-top: 10%;
@@ -197,22 +198,39 @@ html {
           }
         }
       }
-      
-      
-      #map-canvas {
-        width: 100%; height: 100%;
-        position: fixed!important;
-        top: 0;
-        z-index: 0;
+        
+        /* MAP */
+        #map-canvas {
+          width: 100%; height: 100%;
+          position: fixed!important;
+          top: 0;
+          z-index: 0;
+        }
+        
+        #switcher {
+        position: fixed; bottom: (-1)*$switcher-h; left: 0; z-index: 99;
+        width: 100%;
+        @include transition(all, .6s, $ease-out-back);
+        ul {
+          @include clearfix();
+          li.active {background: $white;}
+          li {
+            float: left; display: inline; background: $green-mid; width: 50%;
+            a {height: $switcher-h; width: 100%; display: block; text-align: center; line-height: $switcher-h; text-decoration: none;}
+          }
+        }
       }
+      #switcher.open {bottom: 0;}
+      }
+      
+      
+      
     } //container
     
     .container.overlay-open {
       -webkit-transform: scale(0.8);
       transform: scale(0.8);
     }
-    
-    
 
   }
 }

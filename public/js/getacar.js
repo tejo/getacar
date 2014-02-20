@@ -32,9 +32,10 @@
       this.closeBttn.on("click", this.toggleOverlay);
     }
 
-    OverlayManager.prototype.toggleOverlay = function() {
+    OverlayManager.prototype.toggleOverlay = function(e) {
       var onEndTransitionFn, _clicked,
         _this = this;
+      e.preventDefault();
       _clicked = $(this);
       if (this.overlay.hasClass("open")) {
         this.overlay.removeClass("open");
