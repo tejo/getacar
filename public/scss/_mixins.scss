@@ -5,6 +5,11 @@
   line-height: $line + rem;
 }
 
+@mixin x-rem($property, $value) {
+  #{$property}: $value * $base-font-size;
+  #{$property}: #{$value}rem;
+}
+
 @mixin btn ($width: auto) {
   
   @include transition(all,0.3s,ease-in-out);
@@ -107,6 +112,25 @@
 */
 
 
+@mixin retinaready($bg, $bg_retina, $size) {
+  background: $bg;
+  @media 
+  (-webkit-min-device-pixel-ratio: 2), 
+  (min-resolution: 192dpi) {
+    background:$bg_retina;
+    background-size: $size;
+  }
+  /*
+  background: url(../images/ico_search.png) center center no-repeat;
+  @media 
+  (-webkit-min-device-pixel-ratio: 2), 
+  (min-resolution: 192dpi) {
+    background:url(../images/ico_search@x2.png) center center no-repeat;
+    background-size: 40px;
+  }
+  */
+}
+
 @mixin visuallyhidden {
   position: absolute;
   width: 1px; 
@@ -119,17 +143,34 @@
 }
 
 
-@-webkit-keyframes rot {
-  from {
-    transform: rotate(0deg)
-               translate(-150px)
-               rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg)
-               translate(-150px) 
-               rotate(-360deg);
-  }
+
+@-moz-keyframes spin {
+    0% {
+        -moz-transform: rotate(0deg);
+    }
+
+    100% {
+        -moz-transform: rotate(360deg);
+    };
+}
+
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    };
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    };
 }
 
 
@@ -148,6 +189,12 @@ $default-prefixes: webkit moz ms o;
   // use default prefixes
   @include build-prefix-values('transition', $value);
 }
+@mixin transform($property, $value) {
+  $params: "#{$property}(#{$value})";
+  // use default prefixes
+  @include build-prefix-values('transform', $params);
+}
+
 
 /* USAGE */
 /*

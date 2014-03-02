@@ -1,29 +1,22 @@
 * {-webkit-box-sizing: border-box; -moz-box-sizing: border-box;box-sizing: border-box;}
+textarea:focus, input:focus, button:focus {
+  outline: 0;
+}
 
 html {
   height: 100%;
   body {
     height: 100%;
-    background: $green-mid;/*$blue-dark;*/
+    background: $green;/*$blue-dark;*/
     color: $white;
+    //@include all-icons-sprites; /* includes sprite */
     
     .container {
-      background: $green-mid;//#34495e;
+      background: $green;
       height: 100%;
       -webkit-transition: -webkit-transform 0.5s;
       transition: transform 0.5s;
       padding-top: $header-h;
-            
-      .loading {
-        width: 40px;
-        height: 40px;
-        position: absolute;
-        top: 200px;
-        left: 50%;
-        margin: -20px;
-        font-size: 100px;
-        animation: rot 3s infinite linear;
-      }
       
       .visually-hidden {
         @include visuallyhidden();
@@ -33,18 +26,18 @@ html {
         @include clearfix();
         position: absolute;
         top: 0;left: 0; z-index: 9;
-        background: $green-mid;
+        //background: $green;
         height: $header-h; width: 100%;
         padding: 0 10px;
         @include opacity(.8);
         .title {text-align: center; margin: 0 auto;}
         #trigger-overlay {float: right; top: 0; display: block; width: 28px; height: 100%; background: url(../images/bt_menu.png) center center no-repeat; background-size: 50%; text-indent: -50000px;}
-        #get-a-car {background: url(../images/logo_getacar.png) left center no-repeat; background-size: 40%; display: block; text-indent: -5000px; width: 100px; height: $header-h; float: left;}
+        #get-a-car {background: url(../images/logo_getacar_w.png) left center no-repeat; background-size: 30%; display: block; text-indent: -5000px; width: 100px; height: $header-h; float: left;}
       }
 
       .overlay {
-        background-color: $blue-dark;
-        @include opacity(.9);
+        background-color: $white;
+        @include opacity(.95);
         position: fixed;
         z-index: 999;
         width: 100%;
@@ -65,10 +58,10 @@ html {
           transform: translateY(-50%);
           ul {
             list-style: none;
-            padding: 0;
+            padding: 0 0 20px;
             margin: 0 auto;
             display: inline-block;
-            height: 100%;
+            //height: 100%;
             position: relative;
             
             li {
@@ -82,11 +75,13 @@ html {
               }
               
               a {
-                @include font-size(5.4);
+                @include font-size(2.7);
+                text-decoration: none;
+                text-transform: uppercase;
                 //font-size: 54px;
-                font-weight: 300;
+                font-weight: 700;
                 display: block;
-                color: #fff;
+                color: $gray;
                 -webkit-transition: color 0.2s;
                 transition: color 0.2s;
                 
@@ -97,23 +92,40 @@ html {
               }
             }
           }
+          .logo-getacar {
+            display: block;
+            width: 100%; height: 127px;
+            background: url(../images/logo_getacar_complete@x2.png) center center no-repeat;
+            background-size: 106px;
+          }
+        }
+        .copy {
+          @include font-size(1.2);
+          color: $gray;
+          position: absolute; bottom: 10px; left: 0; text-align: center; width: 100%;
         }
         
         .overlay-close {
-        cursor: pointer;
-        width: 80px;
-        height: 80px;
-        position: absolute;
-        right: 20px;
-        top: 20px;
-        overflow: hidden;
-        border: none;
-        background: url(../images/cross.png) no-repeat center center;
-        text-indent: 200%;
-        color: transparent;
-        outline: none;
-        z-index: 100;
-      }
+          cursor: pointer;
+          width: 80px;
+          height: 80px;
+          position: absolute;
+          right: 20px;
+          top: 20px;
+          overflow: hidden;
+          border: none;
+          background: url(../images/cross.png) no-repeat center center;
+          @media 
+            (-webkit-min-device-pixel-ratio: 2), 
+            (min-resolution: 192dpi) {
+              background: url(../images/cross@x2.png) 12px 10px no-repeat;
+              background-size: 30px;
+            }
+          text-indent: 200%;
+          color: transparent;
+          outline: none;
+          z-index: 100;
+        }
       }
       .overlay-contentscale {
         visibility: hidden;
@@ -143,61 +155,189 @@ html {
       
       .bucket {
         padding-bottom: $switcher-h;
+        
         /* HOME */
         .home {
-        $circle-r : 110px;
-        $content-w : 400px;
-        padding-top: 10%;
-        .bt-circle {
-          @include bt-circle($circle-r, $circle-r);
-          margin: 0 auto;
-        }
-        .title-action {
-          text-align: center; text-transform: uppercase; @include font-size(2.0); margin: 0 auto;
+          $circle-r : 110px;
+          $content-w : 290px;
+          
           width: $content-w;
-          @media screen and (max-width: $viewport600) {@include font-size(1.5); width: 240px;}
-        }
-        form[name=localizeForm] {
-          .title-action {padding-bottom: 20px;}
-        }
-        form[name=geoCodeForm] {
-          margin-top: 44px;
-          .title-action {padding-top: 20px;}
-          .search-box {
-            width: $content-w; margin: 0 auto;
-            position: relative;
-            @include clearfix();
-            height: $circle-r;
-            
-            .bt-search {
-              @include hw-accelerate();
-              -webkit-transition: all 0.5s ease;
-              transition: all 0.5s ease;
-              
-            }
-            .bt-search.active {
-              //@include build-prefix-values('transform', translate3d(-144px, 0, 0));
-              @include build-prefix-values('transform', translate3d(-117px, 0, 0));
+          margin: 0 auto;
+          padding-top: 10%;
+          .bt-circle {
+            @include bt-circle($circle-r, $circle-r);
+            margin: 0 auto;
+          }
+          .title-action {
+            text-align: center; text-transform: uppercase; @include font-size(2.0); margin: 0 auto;
+            width: $content-w;
+            @media screen and (max-width: $viewport600) {@include font-size(1.5); width: 240px;}
+          }
+          form[name=localizeForm] {
+            .title-action {padding-bottom: 20px;}
+            .bt-getme {
               text-indent: -50000px;
-              width: 40px; height: 40px; margin-top: 35px;
-              &:hover {border: 2px solid $white;}
+              @include retinaready(
+                url(../images/ico_geo.png) center center no-repeat, 
+                url(../images/ico_geo@x2.png) center center no-repeat, 
+                40px
+              );
             }
-            
-            .address-box {
-              @include hw-accelerate();
-              -webkit-transition: all 0.5s ease;
-              transition: all 0.5s ease;
-              padding: 0 10px;
-              margin-top: ($circle-r / 2) - ($touch-area / 2);
-              position: absolute; right: 0; top: 0;
+            .spin {
+              //@include transform(rotate,360deg);
+              -webkit-animation: spin 2s $ease-out-back infinite;
+/*
+              -moz-transform: rotate(360deg);
+              -webkit-transform: rotate(360deg);
+              -o-transform: rotate(360deg);
+              -ms-transform: rotate(360deg);
+              transform: rotate(360deg);
               
-              @include build-prefix-values('transform', translate3d(1000px, 0, 0));
-              @include text-box();
+              
+*/
             }
-            .address-box.active {@include build-prefix-values('transform', translate3d(0, 0, 0));}
+          }
+          form[name=geoCodeForm] {
+            margin-top: 44px;
+            .title-action {padding-top: 20px;}
+            .search-box {
+              margin: 0 auto;
+              position: relative;
+              @include clearfix();
+              height: $circle-r;
+              
+              .bt-search {
+                @include hw-accelerate();
+                -webkit-transition: all 0.5s ease;
+                transition: all 0.5s ease;
+                text-indent: -50000px;
+                
+                @include retinaready(
+                  url(../images/ico_search.png) center center no-repeat, 
+                  url(../images/ico_search@x2.png) center center no-repeat, 
+                  40px
+                );
+              }
+              .bt-search.active {
+                @include build-prefix-values('transform', translate3d(-115px, 0, 0));
+                //@include build-prefix-values('transform', translate3d(-123px, 0, 0));
+                @media all and (max-width: $viewport480) {
+                  @include build-prefix-values('transform', translate3d(-115px, 0, 0));
+                }
+                background-size: 20px;
+                text-indent: -50000px;
+                width: 40px; height: 40px; margin-top: 35px;
+                &:hover {border: 2px solid $white;}
+              }
+              
+              .address-box {
+                @include hw-accelerate();
+                -webkit-transition: all 0.5s ease;
+                transition: all 0.5s ease;
+                padding: 0 10px;
+                margin-top: ($circle-r / 2) - ($touch-area / 2);
+                position: absolute; right: 0; top: 0;
+                
+                @include build-prefix-values('transform', translate3d(1000px, 0, 0));
+                @include text-box(200px);
+              }
+              .address-box.active {
+                //@include build-prefix-values('transform', translate3d(0, 0, 0));
+                @include build-prefix-values('transform', translate3d(-25px, 0, 0));
+                /*
+@media all and (max-width: $viewport480) {
+                  @include build-prefix-values('transform', translate3d(-25px, 0, 0));
+                }
+*/
+              }
+            }
           }
         }
-      }
+        
+        /* LIST */
+        .car-list {
+          padding: 10px 0 0;
+          .header {
+                    -webkit-box-shadow:inset 0 -11px 14px -15px #040404;
+box-shadow:inset 0 -11px 14px -15px #040404;
+            background: url(../images/car_list_start.png) 13px 10px no-repeat;
+            min-height: 33px;
+            padding: 10px 28px 10px 12px;
+            @media 
+            (-webkit-min-device-pixel-ratio: 2), 
+            (min-resolution: 192dpi) {
+              background: url(../images/car_list_start@x2.png) 9px 0 no-repeat;
+              background-size: 41px;
+            }
+            @include clearfix();
+            .go-search {
+              float: right; background: url(../images/ico_search.png) right center no-repeat; width: 48px; height:49px; display: block;
+              @media 
+              (-webkit-min-device-pixel-ratio: 2), 
+              (min-resolution: 192dpi) {
+                background: url(../images/ico_search@x2.png) center center no-repeat;
+                background-size: 28px;
+              }
+            }
+            .my-search {
+              float: left;
+              .city {padding-left: 50px; color: $green-dark; @include font-size(1.2); @include x-rem(line-height, 1.2); font-weight: $font-bold; }
+              .address {padding-left: 50px; @include font-size(1.5); @include x-rem(line-height, 1.5); font-weight: $font-bold;}
+            }
+          }
+          .cars {
+            padding-left: 27px; background: $green-mid;
+            border-bottom: 1px solid $white;
+            .car.enjoy {
+              background: url(../images/ico_enj.png) left center no-repeat;
+              @media 
+              (-webkit-min-device-pixel-ratio: 2), 
+              (min-resolution: 192dpi) {
+                background: url(../images/ico_enj@x2.png) 0px center no-repeat;
+                background-size: 42px;
+              }
+            }
+            .car.car2go {
+              background: url(../images/ico_c2g.png) left center no-repeat;
+              @media 
+              (-webkit-min-device-pixel-ratio: 2), 
+              (min-resolution: 192dpi) {
+                background: url(../images/ico_c2g@x2.png) 0px center no-repeat;
+                background-size: 42px;
+              }
+            }
+            .car {
+              border-left: 2px solid $white;
+              padding: 12px 28px 12px 50px;
+              @include clearfix();
+              
+              ul {
+                float: left;
+                @include clearfix();
+                padding-top: 16px;
+                .vendor {font-family: 'Lato', sans-serif; @include font-size(1.5); @include x-rem(line-height, 1.5); font-weight: 700; text-transform: capitalize;}
+                .model {font-family: 'Lato', sans-serif;@include font-size(2.4); @include x-rem(line-height, 2.4);  font-weight: 100; text-transform: uppercase;}
+                .distance {font-family: 'Lato', sans-serif;@include font-size(1.2); @include x-rem(line-height, 1.2);  font-weight: 400; color: $green-dark;}
+              }
+              .bt-goto-map {
+                display: block; width: 40px; height: 80px; float: right; /* @include icons-sprite(ico_arrow); */ text-indent: -50000px;
+                //img.ico-arrow{top:-300px; left: 0; }
+                background:url(../images/ico_arrow.png) right center no-repeat;
+                @media 
+                (-webkit-min-device-pixel-ratio: 2), 
+                (min-resolution: 192dpi) {
+                  background:url(../images/ico_arrow@x2.png) right center no-repeat;
+                  background-size: 40px;
+                }
+              }
+              /*.sprite-img {
+                position: relative; overflow: hidden;
+                img {position: absolute; width: 40px; height: auto;}
+              }*/
+            }
+          }
+          .cars:nth-child(2n) {background-color: $green-light;}
+        }
         
         /* MAP */
         #map-canvas {
@@ -205,22 +345,79 @@ html {
           position: fixed!important;
           top: 0;
           z-index: 0;
+          .map-overlay {
+            background: $green;
+            @include opacity(.2);
+            position: absolute;
+          }
+        }
+        
+        #car-info {
+          background-color: $white;
+          padding: 10px;
+          position: absolute;
+          bottom: $switcher-h;
+          left: 0;
+          width: 100%;
+          z-index: 99;
+          ul {
+            li {
+              float: left;
+              width: 33%;
+              span {color: $gray; display: block; text-align: center;}
+              .feature {color: $green-dark; @include font-size(0.9);text-transform: uppercase;}
+              .value {color: $green-mid; @include font-size(2.4); font-weight: $font-normal;}
+            }
+          }
+          
         }
         
         #switcher {
-        position: fixed; bottom: (-1)*$switcher-h; left: 0; z-index: 99;
-        width: 100%;
-        @include transition(all, .6s, $ease-out-back);
-        ul {
-          @include clearfix();
-          li.active {background: $white;}
-          li {
-            float: left; display: inline; background: $green-mid; width: 50%;
-            a {height: $switcher-h; width: 100%; display: block; text-align: center; line-height: $switcher-h; text-decoration: none;}
+          position: fixed; bottom: (-1)*$switcher-h; left: 0; z-index: 99;
+          border-top: 1px solid $white;
+          width: 100%;
+          @include transition(all, .6s, $ease-out-back);
+          ul {
+            @include clearfix();
+            li {
+              float: left; display: inline; background: $green-mid; width: 50%; text-indent: -50000px;
+              a {height: $switcher-h; width: 100%; display: block; text-align: center; line-height: $switcher-h; text-decoration: none;}
+            }
+            .list-view {
+              background: $green-mid url(../images/ico_list_off.png) center center no-repeat; background-size: 3em;
+              @media 
+              (-webkit-min-device-pixel-ratio: 2), 
+              (min-resolution: 192dpi) {
+                background: $green-mid url(../images/ico_list_off@x2.png) center center no-repeat; background-size: 3em;
+              }
+            }
+            .list-view.active {
+              background: $white url(../images/ico_list_on.png) center center no-repeat;background-size: 3em;
+              @media 
+              (-webkit-min-device-pixel-ratio: 2), 
+              (min-resolution: 192dpi) {
+                background: $white url(../images/ico_list_on@x2.png) center center no-repeat;background-size: 3em;
+              }
+            }
+            .map-view {
+              background: $green-mid url(../images/ico_map_off.png) center center no-repeat; background-size: 3em;
+              @media 
+              (-webkit-min-device-pixel-ratio: 2), 
+              (min-resolution: 192dpi) {
+                background: $green-mid url(../images/ico_map_off@x2.png) center center no-repeat; background-size: 3em;
+              }
+            }
+            .map-view.active {
+              background: $white url(../images/ico_map_on.png) center center no-repeat;background-size: 3em;
+              @media 
+              (-webkit-min-device-pixel-ratio: 2), 
+              (min-resolution: 192dpi) {
+                background: $white url(../images/ico_map_on@x2.png) center center no-repeat;background-size: 3em;
+              }
+            }
           }
         }
-      }
-      #switcher.open {bottom: 0;}
+        #switcher.open {bottom: 0;}
       }
       
       

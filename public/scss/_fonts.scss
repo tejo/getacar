@@ -3,12 +3,13 @@
 //$base-line-height: 16px;
 //@include establish-baseline;
 
-@import url(http://fonts.googleapis.com/css?family=Ropa+Sans);
+//@import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
 
 html {
-  font-size: 100%;
+  font-size: 62.5%;
   body {
-    font-family: 'Ropa Sans', sans-serif;
+    font-family: 'Lato', sans-serif;
     color: $white;
     font-size: 62.5%;
     

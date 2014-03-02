@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Ropa+Sans);
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
 /* Welcome to Compass.
  * In this file you should write your main styles. (or centralize your imports)
  * Import this file using the following HTML or equivalent:
@@ -95,31 +95,55 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 }
 */
-@-webkit-keyframes rot {
-  /* line 123, ../scss/_mixins.scss */
-  from {
-    transform: rotate(0deg) translate(-150px) rotate(0deg);
+@-moz-keyframes spin {
+  /* line 148, ../scss/_mixins.scss */
+  0% {
+    -moz-transform: rotate(0deg);
   }
 
-  /* line 128, ../scss/_mixins.scss */
-  to {
-    transform: rotate(360deg) translate(-150px) rotate(-360deg);
+  /* line 152, ../scss/_mixins.scss */
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  /* line 158, ../scss/_mixins.scss */
+  0% {
+    -webkit-transform: rotate(0deg);
+  }
+
+  /* line 162, ../scss/_mixins.scss */
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  /* line 167, ../scss/_mixins.scss */
+  0% {
+    transform: rotate(0deg);
+  }
+
+  /* line 171, ../scss/_mixins.scss */
+  100% {
+    transform: rotate(360deg);
   }
 }
 
 /* USAGE */
 /* /USAGE */
-/* line 8, ../scss/_fonts.scss */
+/* line 9, ../scss/_fonts.scss */
 html {
-  font-size: 100%;
+  font-size: 62.5%;
 }
-/* line 10, ../scss/_fonts.scss */
+/* line 11, ../scss/_fonts.scss */
 html body {
-  font-family: 'Ropa Sans', sans-serif;
+  font-family: 'Lato', sans-serif;
   color: #fcfcfc;
   font-size: 62.5%;
 }
-/* line 15, ../scss/_fonts.scss */
+/* line 16, ../scss/_fonts.scss */
 html body h1 {
   font-size: 20px;
   line-height: 30px;
@@ -134,37 +158,31 @@ html body h1 {
   box-sizing: border-box;
 }
 
-/* line 3, ../scss/_main.scss */
+/* line 2, ../scss/_main.scss */
+textarea:focus, input:focus, button:focus {
+  outline: 0;
+}
+
+/* line 6, ../scss/_main.scss */
 html {
   height: 100%;
 }
-/* line 5, ../scss/_main.scss */
+/* line 8, ../scss/_main.scss */
 html body {
   height: 100%;
-  background: #27a389;
+  background: #16a085;
   /*$blue-dark;*/
   color: #fcfcfc;
 }
-/* line 10, ../scss/_main.scss */
+/* line 14, ../scss/_main.scss */
 html body .container {
-  background: #27a389;
+  background: #16a085;
   height: 100%;
   -webkit-transition: -webkit-transform 0.5s;
   transition: transform 0.5s;
   padding-top: 40px;
 }
-/* line 17, ../scss/_main.scss */
-html body .container .loading {
-  width: 40px;
-  height: 40px;
-  position: absolute;
-  top: 200px;
-  left: 50%;
-  margin: -20px;
-  font-size: 100px;
-  animation: rot 3s infinite linear;
-}
-/* line 28, ../scss/_main.scss */
+/* line 21, ../scss/_main.scss */
 html body .container .visually-hidden {
   position: absolute;
   width: 1px;
@@ -175,7 +193,7 @@ html body .container .visually-hidden {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
-/* line 32, ../scss/_main.scss */
+/* line 25, ../scss/_main.scss */
 html body .container #header {
   overflow: hidden;
   *zoom: 1;
@@ -183,19 +201,18 @@ html body .container #header {
   top: 0;
   left: 0;
   z-index: 9;
-  background: #27a389;
   height: 40px;
   width: 100%;
   padding: 0 10px;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
 }
-/* line 40, ../scss/_main.scss */
+/* line 33, ../scss/_main.scss */
 html body .container #header .title {
   text-align: center;
   margin: 0 auto;
 }
-/* line 41, ../scss/_main.scss */
+/* line 34, ../scss/_main.scss */
 html body .container #header #trigger-overlay {
   float: right;
   top: 0;
@@ -206,21 +223,21 @@ html body .container #header #trigger-overlay {
   background-size: 50%;
   text-indent: -50000px;
 }
-/* line 42, ../scss/_main.scss */
+/* line 35, ../scss/_main.scss */
 html body .container #header #get-a-car {
-  background: url(../images/logo_getacar.png) left center no-repeat;
-  background-size: 40%;
+  background: url(../images/logo_getacar_w.png) left center no-repeat;
+  background-size: 30%;
   display: block;
   text-indent: -5000px;
   width: 100px;
   height: 40px;
   float: left;
 }
-/* line 45, ../scss/_main.scss */
+/* line 38, ../scss/_main.scss */
 html body .container .overlay {
-  background-color: #34495e;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
-  opacity: 0.9;
+  background-color: #fcfcfc;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
+  opacity: 0.95;
   position: fixed;
   z-index: 999;
   width: 100%;
@@ -228,7 +245,7 @@ html body .container .overlay {
   top: 0;
   left: 0;
 }
-/* line 55, ../scss/_main.scss */
+/* line 48, ../scss/_main.scss */
 html body .container .overlay nav {
   text-align: center;
   position: relative;
@@ -238,22 +255,21 @@ html body .container .overlay nav {
   transform: translateY(-50%);
 }
 @media screen and (max-height: 30.5em) {
-  /* line 55, ../scss/_main.scss */
+  /* line 48, ../scss/_main.scss */
   html body .container .overlay nav {
     height: 70%;
     font-size: 34px;
   }
 }
-/* line 66, ../scss/_main.scss */
+/* line 59, ../scss/_main.scss */
 html body .container .overlay nav ul {
   list-style: none;
-  padding: 0;
+  padding: 0 0 20px;
   margin: 0 auto;
   display: inline-block;
-  height: 100%;
   position: relative;
 }
-/* line 74, ../scss/_main.scss */
+/* line 67, ../scss/_main.scss */
 html body .container .overlay nav ul li {
   display: block;
   height: 20%;
@@ -261,28 +277,51 @@ html body .container .overlay nav ul li {
   min-height: 54px;
 }
 @media screen and (max-height: 30.5em) {
-  /* line 74, ../scss/_main.scss */
+  /* line 67, ../scss/_main.scss */
   html body .container .overlay nav ul li {
     min-height: 34px;
   }
 }
-/* line 84, ../scss/_main.scss */
+/* line 77, ../scss/_main.scss */
 html body .container .overlay nav ul li a {
-  font-size: 54px;
-  line-height: 81.0px;
-  font-size: 5.4rem;
-  line-height: 8.1rem;
-  font-weight: 300;
+  font-size: 27px;
+  line-height: 40.5px;
+  font-size: 2.7rem;
+  line-height: 4.05rem;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 700;
   display: block;
-  color: #fff;
+  color: #a1a1a1;
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
 }
-/* line 94, ../scss/_main.scss */
+/* line 89, ../scss/_main.scss */
 html body .container .overlay nav ul li a:hover, html body .container .overlay nav ul li a:focus {
   color: #f0f0f0;
 }
+/* line 95, ../scss/_main.scss */
+html body .container .overlay nav .logo-getacar {
+  display: block;
+  width: 100%;
+  height: 127px;
+  background: url(../images/logo_getacar_complete@x2.png) center center no-repeat;
+  background-size: 106px;
+}
 /* line 102, ../scss/_main.scss */
+html body .container .overlay .copy {
+  font-size: 12px;
+  line-height: 18px;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  color: #a1a1a1;
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  text-align: center;
+  width: 100%;
+}
+/* line 108, ../scss/_main.scss */
 html body .container .overlay .overlay-close {
   cursor: pointer;
   width: 80px;
@@ -298,7 +337,14 @@ html body .container .overlay .overlay-close {
   outline: none;
   z-index: 100;
 }
-/* line 118, ../scss/_main.scss */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 108, ../scss/_main.scss */
+  html body .container .overlay .overlay-close {
+    background: url(../images/cross@x2.png) 12px 10px no-repeat;
+    background-size: 30px;
+  }
+}
+/* line 130, ../scss/_main.scss */
 html body .container .overlay-contentscale {
   visibility: hidden;
   -webkit-transform: translateY(100%);
@@ -306,7 +352,7 @@ html body .container .overlay-contentscale {
   -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
   transition: transform 0.5s, visibility 0s 0.5s;
 }
-/* line 125, ../scss/_main.scss */
+/* line 137, ../scss/_main.scss */
 html body .container .overlay-contentscale.open {
   visibility: visible;
   -webkit-transform: translateY(0%);
@@ -315,27 +361,30 @@ html body .container .overlay-contentscale.open {
   transition: transform 0.5s;
 }
 @media screen and (max-height: 30.5em) {
-  /* line 134, ../scss/_main.scss */
+  /* line 146, ../scss/_main.scss */
   html body .container .overlay nav {
     height: 70%;
     font-size: 34px;
   }
-  /* line 138, ../scss/_main.scss */
+  /* line 150, ../scss/_main.scss */
   html body .container .overlay ul li {
     min-height: 34px;
   }
 }
-/* line 144, ../scss/_main.scss */
+/* line 156, ../scss/_main.scss */
 html body .container .bucket {
   padding-bottom: 66px;
   /* HOME */
+  /* LIST */
   /* MAP */
 }
-/* line 147, ../scss/_main.scss */
+/* line 160, ../scss/_main.scss */
 html body .container .bucket .home {
+  width: 290px;
+  margin: 0 auto;
   padding-top: 10%;
 }
-/* line 151, ../scss/_main.scss */
+/* line 167, ../scss/_main.scss */
 html body .container .bucket .home .bt-circle {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
@@ -352,7 +401,7 @@ html body .container .bucket .home .bt-circle {
   -webkit-border-radius: 50%;
   border-radius: 50%;
   border: 3px solid #fcfcfc;
-  background: #27a389;
+  background: #5bbca9;
   display: block;
   -webkit-appearance: none;
   -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1);
@@ -362,11 +411,11 @@ html body .container .bucket .home .bt-circle {
   transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   margin: 0 auto;
 }
-/* line 57, ../scss/_mixins.scss */
+/* line 62, ../scss/_mixins.scss */
 html body .container .bucket .home .bt-circle:hover {
   border: 10px solid #fcfcfc;
 }
-/* line 155, ../scss/_main.scss */
+/* line 171, ../scss/_main.scss */
 html body .container .bucket .home .title-action {
   text-align: center;
   text-transform: uppercase;
@@ -375,10 +424,10 @@ html body .container .bucket .home .title-action {
   font-size: 2rem;
   line-height: 3rem;
   margin: 0 auto;
-  width: 400px;
+  width: 290px;
 }
 @media screen and (max-width: 600px) {
-  /* line 155, ../scss/_main.scss */
+  /* line 171, ../scss/_main.scss */
   html body .container .bucket .home .title-action {
     font-size: 15px;
     line-height: 22.5px;
@@ -387,28 +436,61 @@ html body .container .bucket .home .title-action {
     width: 240px;
   }
 }
-/* line 161, ../scss/_main.scss */
+/* line 177, ../scss/_main.scss */
 html body .container .bucket .home form[name=localizeForm] .title-action {
   padding-bottom: 20px;
 }
-/* line 163, ../scss/_main.scss */
+/* line 178, ../scss/_main.scss */
+html body .container .bucket .home form[name=localizeForm] .bt-getme {
+  text-indent: -50000px;
+  background: url(../images/ico_geo.png) center center no-repeat;
+  /*
+  background: url(../images/ico_search.png) center center no-repeat;
+  @media 
+  (-webkit-min-device-pixel-ratio: 2), 
+  (min-resolution: 192dpi) {
+    background:url(../images/ico_search@x2.png) center center no-repeat;
+    background-size: 40px;
+  }
+  */
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 178, ../scss/_main.scss */
+  html body .container .bucket .home form[name=localizeForm] .bt-getme {
+    background: url(../images/ico_geo@x2.png) center center no-repeat;
+    background-size: 40px;
+  }
+}
+/* line 186, ../scss/_main.scss */
+html body .container .bucket .home form[name=localizeForm] .spin {
+  -webkit-animation: spin 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+  /*
+                -moz-transform: rotate(360deg);
+                -webkit-transform: rotate(360deg);
+                -o-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+                
+                
+  */
+}
+/* line 200, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] {
   margin-top: 44px;
 }
-/* line 165, ../scss/_main.scss */
+/* line 202, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .title-action {
   padding-top: 20px;
 }
-/* line 166, ../scss/_main.scss */
+/* line 203, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box {
-  width: 400px;
   margin: 0 auto;
   position: relative;
   overflow: hidden;
   *zoom: 1;
   height: 110px;
 }
-/* line 172, ../scss/_main.scss */
+/* line 209, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
@@ -420,24 +502,53 @@ html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search
   -ms-backface-visibility: hidden;
   -webkit-transition: all 0.5s ease;
   transition: all 0.5s ease;
+  text-indent: -50000px;
+  background: url(../images/ico_search.png) center center no-repeat;
+  /*
+  background: url(../images/ico_search.png) center center no-repeat;
+  @media 
+  (-webkit-min-device-pixel-ratio: 2), 
+  (min-resolution: 192dpi) {
+    background:url(../images/ico_search@x2.png) center center no-repeat;
+    background-size: 40px;
+  }
+  */
 }
-/* line 178, ../scss/_main.scss */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 209, ../scss/_main.scss */
+  html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search {
+    background: url(../images/ico_search@x2.png) center center no-repeat;
+    background-size: 40px;
+  }
+}
+/* line 221, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search.active {
-  -webkit-transform: translate3d(-117px, 0, 0);
-  -moz-transform: translate3d(-117px, 0, 0);
-  -ms-transform: translate3d(-117px, 0, 0);
-  -o-transform: translate3d(-117px, 0, 0);
-  transform: translate3d(-117px, 0, 0);
+  -webkit-transform: translate3d(-115px, 0, 0);
+  -moz-transform: translate3d(-115px, 0, 0);
+  -ms-transform: translate3d(-115px, 0, 0);
+  -o-transform: translate3d(-115px, 0, 0);
+  transform: translate3d(-115px, 0, 0);
+  background-size: 20px;
   text-indent: -50000px;
   width: 40px;
   height: 40px;
   margin-top: 35px;
 }
-/* line 183, ../scss/_main.scss */
+@media all and (max-width: 480px) {
+  /* line 221, ../scss/_main.scss */
+  html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search.active {
+    -webkit-transform: translate3d(-115px, 0, 0);
+    -moz-transform: translate3d(-115px, 0, 0);
+    -ms-transform: translate3d(-115px, 0, 0);
+    -o-transform: translate3d(-115px, 0, 0);
+    transform: translate3d(-115px, 0, 0);
+  }
+}
+/* line 230, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search.active:hover {
   border: 2px solid #fcfcfc;
 }
-/* line 186, ../scss/_main.scss */
+/* line 233, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box .address-box {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
@@ -459,7 +570,7 @@ html body .container .bucket .home form[name=geoCodeForm] .search-box .address-b
   -ms-transform: translate3d(1000px, 0, 0);
   -o-transform: translate3d(1000px, 0, 0);
   transform: translate3d(1000px, 0, 0);
-  width: 280px;
+  width: 200px;
   height: 40px;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -469,15 +580,186 @@ html body .container .bucket .home form[name=geoCodeForm] .search-box .address-b
   border: 0;
   display: block;
 }
-/* line 197, ../scss/_main.scss */
+/* line 244, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box .address-box.active {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  -o-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(-25px, 0, 0);
+  -moz-transform: translate3d(-25px, 0, 0);
+  -ms-transform: translate3d(-25px, 0, 0);
+  -o-transform: translate3d(-25px, 0, 0);
+  transform: translate3d(-25px, 0, 0);
+                /*
+@media all and (max-width: $viewport480) {
+                  @include build-prefix-values('transform', translate3d(-25px, 0, 0));
+                }
+*/
 }
-/* line 203, ../scss/_main.scss */
+/* line 258, ../scss/_main.scss */
+html body .container .bucket .car-list {
+  padding: 10px 0 0;
+}
+/* line 260, ../scss/_main.scss */
+html body .container .bucket .car-list .header {
+  -webkit-box-shadow: inset 0 -11px 14px -15px #040404;
+  box-shadow: inset 0 -11px 14px -15px #040404;
+  background: url(../images/car_list_start.png) 13px 10px no-repeat;
+  min-height: 33px;
+  padding: 10px 28px 10px 12px;
+  overflow: hidden;
+  *zoom: 1;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 260, ../scss/_main.scss */
+  html body .container .bucket .car-list .header {
+    background: url(../images/car_list_start@x2.png) 9px 0 no-repeat;
+    background-size: 41px;
+  }
+}
+/* line 273, ../scss/_main.scss */
+html body .container .bucket .car-list .header .go-search {
+  float: right;
+  background: url(../images/ico_search.png) right center no-repeat;
+  width: 48px;
+  height: 49px;
+  display: block;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 273, ../scss/_main.scss */
+  html body .container .bucket .car-list .header .go-search {
+    background: url(../images/ico_search@x2.png) center center no-repeat;
+    background-size: 28px;
+  }
+}
+/* line 282, ../scss/_main.scss */
+html body .container .bucket .car-list .header .my-search {
+  float: left;
+}
+/* line 284, ../scss/_main.scss */
+html body .container .bucket .car-list .header .my-search .city {
+  padding-left: 50px;
+  color: #266258;
+  font-size: 12px;
+  line-height: 18px;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  line-height: 12px;
+  line-height: 1.2rem;
+  font-weight: 700;
+}
+/* line 285, ../scss/_main.scss */
+html body .container .bucket .car-list .header .my-search .address {
+  padding-left: 50px;
+  font-size: 15px;
+  line-height: 22.5px;
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  line-height: 15px;
+  line-height: 1.5rem;
+  font-weight: 700;
+}
+/* line 288, ../scss/_main.scss */
+html body .container .bucket .car-list .cars {
+  padding-left: 27px;
+  background: #5bbca9;
+  border-bottom: 1px solid #fcfcfc;
+}
+/* line 291, ../scss/_main.scss */
+html body .container .bucket .car-list .cars .car.enjoy {
+  background: url(../images/ico_enj.png) left center no-repeat;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 291, ../scss/_main.scss */
+  html body .container .bucket .car-list .cars .car.enjoy {
+    background: url(../images/ico_enj@x2.png) 0px center no-repeat;
+    background-size: 42px;
+  }
+}
+/* line 300, ../scss/_main.scss */
+html body .container .bucket .car-list .cars .car.car2go {
+  background: url(../images/ico_c2g.png) left center no-repeat;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 300, ../scss/_main.scss */
+  html body .container .bucket .car-list .cars .car.car2go {
+    background: url(../images/ico_c2g@x2.png) 0px center no-repeat;
+    background-size: 42px;
+  }
+}
+/* line 309, ../scss/_main.scss */
+html body .container .bucket .car-list .cars .car {
+  border-left: 2px solid #fcfcfc;
+  padding: 12px 28px 12px 50px;
+  overflow: hidden;
+  *zoom: 1;
+  /*.sprite-img {
+    position: relative; overflow: hidden;
+    img {position: absolute; width: 40px; height: auto;}
+  }*/
+}
+/* line 314, ../scss/_main.scss */
+html body .container .bucket .car-list .cars .car ul {
+  float: left;
+  overflow: hidden;
+  *zoom: 1;
+  padding-top: 16px;
+}
+/* line 318, ../scss/_main.scss */
+html body .container .bucket .car-list .cars .car ul .vendor {
+  font-family: 'Lato', sans-serif;
+  font-size: 15px;
+  line-height: 22.5px;
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  line-height: 15px;
+  line-height: 1.5rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+/* line 319, ../scss/_main.scss */
+html body .container .bucket .car-list .cars .car ul .model {
+  font-family: 'Lato', sans-serif;
+  font-size: 24px;
+  line-height: 36px;
+  font-size: 2.4rem;
+  line-height: 3.6rem;
+  line-height: 24px;
+  line-height: 2.4rem;
+  font-weight: 100;
+  text-transform: uppercase;
+}
+/* line 320, ../scss/_main.scss */
+html body .container .bucket .car-list .cars .car ul .distance {
+  font-family: 'Lato', sans-serif;
+  font-size: 12px;
+  line-height: 18px;
+  font-size: 1.2rem;
+  line-height: 1.8rem;
+  line-height: 12px;
+  line-height: 1.2rem;
+  font-weight: 400;
+  color: #266258;
+}
+/* line 322, ../scss/_main.scss */
+html body .container .bucket .car-list .cars .car .bt-goto-map {
+  display: block;
+  width: 40px;
+  height: 80px;
+  float: right;
+  /* @include icons-sprite(ico_arrow); */
+  text-indent: -50000px;
+  background: url(../images/ico_arrow.png) right center no-repeat;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 322, ../scss/_main.scss */
+  html body .container .bucket .car-list .cars .car .bt-goto-map {
+    background: url(../images/ico_arrow@x2.png) right center no-repeat;
+    background-size: 40px;
+  }
+}
+/* line 339, ../scss/_main.scss */
+html body .container .bucket .car-list .cars:nth-child(2n) {
+  background-color: #73c6b6;
+}
+/* line 343, ../scss/_main.scss */
 html body .container .bucket #map-canvas {
   width: 100%;
   height: 100%;
@@ -485,12 +767,59 @@ html body .container .bucket #map-canvas {
   top: 0;
   z-index: 0;
 }
-/* line 210, ../scss/_main.scss */
+/* line 348, ../scss/_main.scss */
+html body .container .bucket #map-canvas .map-overlay {
+  background: #16a085;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
+  opacity: 0.2;
+  position: absolute;
+}
+/* line 355, ../scss/_main.scss */
+html body .container .bucket #car-info {
+  background-color: #fcfcfc;
+  padding: 10px;
+  position: absolute;
+  bottom: 66px;
+  left: 0;
+  width: 100%;
+  z-index: 99;
+}
+/* line 364, ../scss/_main.scss */
+html body .container .bucket #car-info ul li {
+  float: left;
+  width: 33%;
+}
+/* line 367, ../scss/_main.scss */
+html body .container .bucket #car-info ul li span {
+  color: #a1a1a1;
+  display: block;
+  text-align: center;
+}
+/* line 368, ../scss/_main.scss */
+html body .container .bucket #car-info ul li .feature {
+  color: #266258;
+  font-size: 9px;
+  line-height: 13.5px;
+  font-size: 0.9rem;
+  line-height: 1.35rem;
+  text-transform: uppercase;
+}
+/* line 369, ../scss/_main.scss */
+html body .container .bucket #car-info ul li .value {
+  color: #5bbca9;
+  font-size: 24px;
+  line-height: 36px;
+  font-size: 2.4rem;
+  line-height: 3.6rem;
+  font-weight: 400;
+}
+/* line 375, ../scss/_main.scss */
 html body .container .bucket #switcher {
   position: fixed;
   bottom: -66px;
   left: 0;
   z-index: 99;
+  border-top: 1px solid #fcfcfc;
   width: 100%;
   -webkit-transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -moz-transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -498,23 +827,20 @@ html body .container .bucket #switcher {
   -o-transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-/* line 214, ../scss/_main.scss */
+/* line 380, ../scss/_main.scss */
 html body .container .bucket #switcher ul {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 216, ../scss/_main.scss */
-html body .container .bucket #switcher ul li.active {
-  background: #fcfcfc;
-}
-/* line 217, ../scss/_main.scss */
+/* line 382, ../scss/_main.scss */
 html body .container .bucket #switcher ul li {
   float: left;
   display: inline;
-  background: #27a389;
+  background: #5bbca9;
   width: 50%;
+  text-indent: -50000px;
 }
-/* line 219, ../scss/_main.scss */
+/* line 384, ../scss/_main.scss */
 html body .container .bucket #switcher ul li a {
   height: 66px;
   width: 100%;
@@ -523,11 +849,59 @@ html body .container .bucket #switcher ul li a {
   line-height: 66px;
   text-decoration: none;
 }
-/* line 223, ../scss/_main.scss */
+/* line 386, ../scss/_main.scss */
+html body .container .bucket #switcher ul .list-view {
+  background: #5bbca9 url(../images/ico_list_off.png) center center no-repeat;
+  background-size: 3em;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 386, ../scss/_main.scss */
+  html body .container .bucket #switcher ul .list-view {
+    background: #5bbca9 url(../images/ico_list_off@x2.png) center center no-repeat;
+    background-size: 3em;
+  }
+}
+/* line 394, ../scss/_main.scss */
+html body .container .bucket #switcher ul .list-view.active {
+  background: #fcfcfc url(../images/ico_list_on.png) center center no-repeat;
+  background-size: 3em;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 394, ../scss/_main.scss */
+  html body .container .bucket #switcher ul .list-view.active {
+    background: #fcfcfc url(../images/ico_list_on@x2.png) center center no-repeat;
+    background-size: 3em;
+  }
+}
+/* line 402, ../scss/_main.scss */
+html body .container .bucket #switcher ul .map-view {
+  background: #5bbca9 url(../images/ico_map_off.png) center center no-repeat;
+  background-size: 3em;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 402, ../scss/_main.scss */
+  html body .container .bucket #switcher ul .map-view {
+    background: #5bbca9 url(../images/ico_map_off@x2.png) center center no-repeat;
+    background-size: 3em;
+  }
+}
+/* line 410, ../scss/_main.scss */
+html body .container .bucket #switcher ul .map-view.active {
+  background: #fcfcfc url(../images/ico_map_on.png) center center no-repeat;
+  background-size: 3em;
+}
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* line 410, ../scss/_main.scss */
+  html body .container .bucket #switcher ul .map-view.active {
+    background: #fcfcfc url(../images/ico_map_on@x2.png) center center no-repeat;
+    background-size: 3em;
+  }
+}
+/* line 420, ../scss/_main.scss */
 html body .container .bucket #switcher.open {
   bottom: 0;
 }
-/* line 230, ../scss/_main.scss */
+/* line 427, ../scss/_main.scss */
 html body .container.overlay-open {
   -webkit-transform: scale(0.8);
   transform: scale(0.8);
