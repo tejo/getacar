@@ -12,21 +12,6 @@ import (
 	"github.com/tejo/geogo"
 )
 
-type CarEntry struct {
-	Id        string
-	UpdatedAt string
-	Fuel      int     `json:"fuel_level"`
-	Lat       float64 `json:"lat"`
-	Lng       float64 `json:"lon"`
-	Address   string  `json:"address"`
-	Type      string
-	//enjoy only
-	CarPlate string `json:"car_plate"`
-	//car2go only
-	Name string
-	Vin  string
-}
-
 var cars = make([]CarEntry, 0)
 var car2goUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=milano&oauth_consumer_key=car2gowebsite&format=json"
 var enjoyUrl string = "http://enjoy.eni.com/get_vetture"
