@@ -156,7 +156,7 @@ gac.factory('carsFactory', function($http, $q){
 });
 
 
-gac.factory('GoogleMaps', function() {
+gac.factory('googleMapsFactory', function() {
   return {
     removeMarkers: function() {
       for( var i = 0; i < this.markers.length; i++ ){
@@ -164,6 +164,7 @@ gac.factory('GoogleMaps', function() {
       }
     },
     markers: [],
+    marker_limit: 30,
     reference : null,
     init: function(car_array, my_car_id, DataSharingObject) {
       
@@ -230,10 +231,10 @@ gac.factory('GoogleMaps', function() {
       });
       //overlay = new ColorOverlay(this.reference);
       
-      this.addCarMarkers(car_array, my_car_id, DataSharingObject);
+      return this.addCarMarkers(car_array, my_car_id, DataSharingObject);
     },
     addCarMarkers: function(car_array, my_car_id, DataSharingObject) {
-      for(var i=0, len=car_array.length; i<len; i++) {
+      for(var i=0, len=this.marker_limit; i<len; i++) {
         var type = car_array[i].Type;
         var marker = null;
         var image = '/images/car_'+type+'.png';
@@ -247,7 +248,17 @@ gac.factory('GoogleMaps', function() {
           map:this.reference
         });
         this.markers.push(marker);
+        //this.addListener(marker, DataSharingObject, i);
       }
+      return this.markers;
+    },
+    getMarkerList: function() {
+      return this.markers;
+    },
+    addListener: function(marker, DataSharingObject, car_index) {
+      google.maps.event.addListener(marker, 'click', function() {
+        //$scope.car.fuel_level = DataSharingObject.cars[car_index].fuel_level;
+      });
     }
   }
 });
@@ -271,6 +282,8 @@ gac.controller('HomeController', function($scope, $location, $routeParams, carsF
       $scope.address = address;
       DataSharingObject.myCity = address.city;
       DataSharingObject.myStreet = address.street;
+      DataSharingObject.myLat = address.lat;
+      DataSharingObject.myLon = address.lng;
       
       $location.path("/cars/"+ address.lat +"/"+ address.lng +"/"+ address.city +"/"+ address.street);
       $('#switcher').addClass('open');
@@ -306,6 +319,9 @@ gac.controller('HomeController', function($scope, $location, $routeParams, carsF
       }
 
       DataSharingObject.myStreet = $scope.addrToGeocode;
+      DataSharingObject.myLat = geo.Lat;
+      DataSharingObject.myLon = geo.Lng;
+      
       $location.path("/cars/"+ geo.Lat +"/"+ geo.Lng +"/"+ $scope.addrToGeocode);
       $('#switcher').addClass('open');
     });
@@ -314,7 +330,16 @@ gac.controller('HomeController', function($scope, $location, $routeParams, carsF
 });
 
 
-gac.controller('MapController', function($scope, $location, $routeParams, carsFactory, DataSharingObject, GoogleMaps) {
+gac.controller('MapController', function($scope, $location, $routeParams, carsFactory, DataSharingObject, googleMapsFactory) {
+  
+  $scope.lat = $routeParams.lat;
+  $scope.lon = $routeParams.lon;
+  $scope.getDistance = function(lat, lon) {
+    var distance =
+      ((calculateDistance($scope.lat, $scope.lon, lat, lon)*1000)
+              .toPrecision(4)).toString() + "mt";
+    return distance;
+  }
   
   if (!DataSharingObject.cars) {
     carsFactory.query($routeParams.lat, $routeParams.lon).then(function(data){
@@ -322,16 +347,25 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
       $scope.cars = DataSharingObject.cars;
       $scope.car = $scope.cars[$routeParams.carId];
       $scope.distance = $routeParams.dist;
-      
-      // metto in scope la (mia/cercata) posizione
       $scope.myLat = $routeParams.lat;
       $scope.myLon = $routeParams.lon;
+      $scope.fuel = $scope.car.fuel_level;
+      
+      var markers = googleMapsFactory.init($scope.cars, $routeParams.carId, DataSharingObject);
+      
+      for(var i=0, len=markers; i<len.length; i++) {
+      
+        (function(index){google.maps.event.addListener(markers[index], 'click', function() {
+          $scope.$apply(
+            function(){$scope.fuel = DataSharingObject.cars[index].fuel_level;}
+          );
+        });})(i)
+        
+      }
+      
 
       
-      GoogleMaps.init($scope.cars, $routeParams.carId, DataSharingObject);
-      
-      switch($scope.car.Type)
-      {
+      switch($scope.car.Type) {
         case 'car2go':
           DataSharingObject.price = 0.29
         break;
@@ -346,42 +380,83 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
       $scope.price = DataSharingObject.price;
       
     });
-  }else{
+  } 
+  else {
     $scope.cars = DataSharingObject.cars;
     $scope.car = $scope.cars[$routeParams.carId];
     $scope.distance = $routeParams.dist;
     $scope.myLat = $routeParams.lat;
     $scope.myLon = $routeParams.lon;
-    GoogleMaps.init($scope.cars, $routeParams.carId, DataSharingObject);
+    $scope.fuel = $scope.car.fuel_level;
     
-    switch($scope.car.Type)
-      {
-        case 'car2go':
-          DataSharingObject.price = 0.29
-        break;
-        case 'enjoy':
-          DataSharingObject.price = 0.25
-        break;
-        default:
-          0
-      }
+    var markers = googleMapsFactory.init($scope.cars, $routeParams.carId, DataSharingObject);
+    
+    for(var i=0, len=markers; i<len.length; i++) {
+    
+      (function(index){google.maps.event.addListener(markers[index], 'click', function(e) {
+        $scope.$apply(
+          function(){
+            $scope.fuel = DataSharingObject.cars[index].fuel_level;
+            var carLat = e.latLng.lat().toFixed(3);
+            var carLon = e.latLng.lng().toFixed(3);
+            $scope.distance = $scope.getDistance(carLat,carLon);
+
+          }
+        );
+      });})(i)
       
-      // aggiungo attributo Price
-      $scope.price = DataSharingObject.price;
+    }
+    
+    /*
+    
+    for(var i=0, len=m; i<len.length; i++) {
+      google.maps.event.addListener(m[i], 'click', function(innerKey) {
+        $scope.fuel = DataSharingObject.cars[innerKey].fuel_level;
+        return function() {
+            //$scope.car.fuel_level = DataSharingObject.cars[innerKey].fuel_level;
+            $scope.fuel = DataSharingObject.cars[innerKey].fuel_level;
+
+            
+        }
+      }(i));
+    }*/
+    
+        
+    switch($scope.car.Type) {
+      case 'car2go':
+        DataSharingObject.price = 0.29
+        break;
+      case 'enjoy':
+        DataSharingObject.price = 0.25
+        break;
+      default:
+        0
+    }
+      
+    // aggiungo attributo Price
+    $scope.price = DataSharingObject.price;
   }
   
   
 });
 
-
+/*
+  DataSharingObject [campi valorizzati]:
+  - myLat
+  - myLon
+  - myCity
+  - myStreet
+  - price
+*/
 gac.controller('CarsController', function($scope, $location, $routeParams, carsFactory, DataSharingObject) {
   
-  // Salvo la posizione (mia/cercata)
-  DataSharingObject.myLat = $routeParams.lat;
-  DataSharingObject.myLon = $routeParams.lon;
   
-  $scope.city = DataSharingObject.myCity;//$routeParams.city;
-  $scope.street = DataSharingObject.myStreet;//$routeParams.street;
+  // Salvo la posizione (mia/cercata)
+  //DataSharingObject.myLat = $routeParams.lat;
+  //DataSharingObject.myLon = $routeParams.lon;
+  
+  $scope.city = $routeParams.city;//DataSharingObject.myCity;
+  $scope.street = $routeParams.street;//DataSharingObject.myStreet;
     
   $scope.queryByClosest = function(){
     $scope.lat = $routeParams.lat;
@@ -393,16 +468,19 @@ gac.controller('CarsController', function($scope, $location, $routeParams, carsF
     });
   }();
   $scope.getDistance = function(lat, lon) {
-    //DataSharingObject.distance = 
     var distance =
       ((calculateDistance($scope.lat, $scope.lon, lat, lon)*1000)
               .toPrecision(4)).toString() + "mt";
-    //return DataSharingObject.distance;
     return distance;
   }
 });
 
-
+/*
+  lat1: myLat
+  lon1: myLon
+  lat2: selected car lat
+  lon2: selected car lon
+*/
 function calculateDistance(lat1,lon1,lat2,lon2) {
   var R, a, c, d, dLat, dLon, lon1, lon2, sin_dlat_2, sin_dlon_2;
   R = 6371;
