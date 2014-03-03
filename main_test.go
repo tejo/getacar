@@ -17,6 +17,13 @@ func TestCalculateDistance(t *testing.T) {
 	}
 }
 
+func TestCarStore(t *testing.T) {
+	carStore := NewCarStore()
+	carStore.Set(CarEntry{})
+	if len(carStore.cars) != 1 {
+		t.Error("error creating carstore")
+	}
+}
 
 func TestClosestCars(t *testing.T) {
 	cars = make([]CarEntry, 0)
