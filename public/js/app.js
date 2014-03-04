@@ -166,6 +166,7 @@ gac.factory('googleMapsFactory', function() {
     markers: [],
     marker_limit: 30,
     reference : null,
+    max_cars : 3,
     init: function(car_array, my_car_id, DataSharingObject) {
       
       /*
@@ -190,7 +191,7 @@ gac.factory('googleMapsFactory', function() {
         div.style.height = ($(window).height()*2) + 'px';
       }
       */
-    
+      
       var myLatLng = new google.maps.LatLng(DataSharingObject.myLat, DataSharingObject.myLon);
       var map_options = {
         zoom: 16,
@@ -234,6 +235,7 @@ gac.factory('googleMapsFactory', function() {
       return this.addCarMarkers(car_array, my_car_id, DataSharingObject);
     },
     addCarMarkers: function(car_array, my_car_id, DataSharingObject) {
+      var confini = new google.maps.LatLngBounds();
       for(var i=0, len=this.marker_limit; i<len; i++) {
         var type = car_array[i].Type;
         var marker = null;
@@ -248,8 +250,13 @@ gac.factory('googleMapsFactory', function() {
           map:this.reference
         });
         this.markers.push(marker);
-        //this.addListener(marker, DataSharingObject, i);
+        if(i<this.max_cars) {
+          var position = marker.position;
+          confini.extend(position);
+        }
       }
+      // ristringo lo zoom a max_cars
+      this.reference.fitBounds(confini);
       return this.markers;
     },
     getMarkerList: function() {
@@ -270,7 +277,7 @@ gac.controller('MenuController', function($scope, $location, $routeParams, carsF
 
 gac.controller('HomeController', function($scope, $location, $routeParams, carsFactory, DataSharingObject) {
   
-  // Reset
+  // Reset dati condivisi
   DataSharingObject.reset();
   
   /* Auto Localization */
@@ -284,7 +291,7 @@ gac.controller('HomeController', function($scope, $location, $routeParams, carsF
       DataSharingObject.myStreet = address.street;
       DataSharingObject.myLat = address.lat;
       DataSharingObject.myLon = address.lng;
-      
+
       $location.path("/cars/"+ address.lat +"/"+ address.lng +"/"+ address.city +"/"+ address.street);
       $('#switcher').addClass('open');
     });
@@ -400,7 +407,7 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
             var carLat = e.latLng.lat().toFixed(3);
             var carLon = e.latLng.lng().toFixed(3);
             $scope.distance = $scope.getDistance(carLat,carLon);
-
+            $scope.price = DataSharingObject.price;
           }
         );
       });})(i)
@@ -468,10 +475,15 @@ gac.controller('CarsController', function($scope, $location, $routeParams, carsF
     });
   }();
   $scope.getDistance = function(lat, lon) {
+    var unit = 'mt';
     var distance =
       ((calculateDistance($scope.lat, $scope.lon, lat, lon)*1000)
-              .toPrecision(4)).toString() + "mt";
-    return distance;
+              .toPrecision(4)).toString();
+    if (distance > 1000) {
+      unit = 'km'
+      return (distance/1000) + unit;
+    }
+    return distance + unit;
   }
 });
 
@@ -492,6 +504,7 @@ function calculateDistance(lat1,lon1,lat2,lon2) {
   sin_dlat_2 = Math.sin(dLat / 2);
   a = sin_dlat_2 * sin_dlat_2 + sin_dlon_2 * sin_dlon_2 * Math.cos(lat1) * Math.cos(lat2);
   c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  d = R * c;
   return d = R * c;
 }
 

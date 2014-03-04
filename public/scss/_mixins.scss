@@ -42,6 +42,7 @@
 
 @mixin bt-circle ($w: 100px, $h: 100px, $bg:$green-mid) {
   @include hw-accelerate();
+  @include transition(all, .5s, ease);
   cursor: pointer;
   width: $w;
   height: $h;
@@ -52,12 +53,6 @@
   background: $bg;
   display: block;
   -webkit-appearance: none;
-
-  -webkit-transition: all 500ms $ease-out-back-old;
-  -webkit-transition: all 500ms $ease-out-back;
-   -moz-transition: all 500ms $ease-out-back;
-     -o-transition: all 500ms $ease-out-back;
-        transition: all 500ms $ease-out-back;
   
   &:hover {border:10px solid $white;}
 }
@@ -143,6 +138,12 @@
 }
 
 
+@mixin spin-animation() {
+  -webkit-animation: spin 2s $ease-out-back infinite;
+  -moz-animation: spin 2s $ease-out-back infinite;
+  -ms-animation: spin 2s $ease-out-back infinite;
+  animation: spin 2s $ease-out-back infinite;
+}
 
 @-moz-keyframes spin {
     0% {

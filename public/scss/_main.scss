@@ -14,8 +14,10 @@ html {
     .container {
       background: $green;
       height: 100%;
+/*
       -webkit-transition: -webkit-transform 0.5s;
       transition: transform 0.5s;
+*/
       padding-top: $header-h;
       
       .visually-hidden {
@@ -163,7 +165,7 @@ html {
           
           width: $content-w;
           margin: 0 auto;
-          padding-top: 10%;
+          padding-top: 5%;
           .bt-circle {
             @include bt-circle($circle-r, $circle-r);
             margin: 0 auto;
@@ -177,25 +179,15 @@ html {
             .title-action {padding-bottom: 20px;}
             .bt-getme {
               text-indent: -50000px;
+              //box-shadow: -4px 6px 2px 3px #266257;
+              
               @include retinaready(
                 url(../images/ico_geo.png) center center no-repeat, 
                 url(../images/ico_geo@x2.png) center center no-repeat, 
                 40px
               );
             }
-            .spin {
-              //@include transform(rotate,360deg);
-              -webkit-animation: spin 2s $ease-out-back infinite;
-/*
-              -moz-transform: rotate(360deg);
-              -webkit-transform: rotate(360deg);
-              -o-transform: rotate(360deg);
-              -ms-transform: rotate(360deg);
-              transform: rotate(360deg);
-              
-              
-*/
-            }
+            .spin {@include spin-animation();}
           }
           form[name=geoCodeForm] {
             margin-top: 44px;
@@ -207,11 +199,7 @@ html {
               height: $circle-r;
               
               .bt-search {
-                @include hw-accelerate();
-                -webkit-transition: all 0.5s ease;
-                transition: all 0.5s ease;
                 text-indent: -50000px;
-                
                 @include retinaready(
                   url(../images/ico_search.png) center center no-repeat, 
                   url(../images/ico_search@x2.png) center center no-repeat, 
@@ -219,11 +207,8 @@ html {
                 );
               }
               .bt-search.active {
-                @include build-prefix-values('transform', translate3d(-115px, 0, 0));
-                //@include build-prefix-values('transform', translate3d(-123px, 0, 0));
-                @media all and (max-width: $viewport480) {
-                  @include build-prefix-values('transform', translate3d(-115px, 0, 0));
-                }
+                //@include build-prefix-values('transform', translate3d(-115px, 0, 0));
+                @include build-prefix-values('transform', translate3d(115px, 0, 0));
                 background-size: 20px;
                 text-indent: -50000px;
                 width: 40px; height: 40px; margin-top: 35px;
@@ -232,23 +217,18 @@ html {
               
               .address-box {
                 @include hw-accelerate();
-                -webkit-transition: all 0.5s ease;
-                transition: all 0.5s ease;
+                @include transition(all, .5s, $custom);
                 padding: 0 10px;
                 margin-top: ($circle-r / 2) - ($touch-area / 2);
                 position: absolute; right: 0; top: 0;
                 
-                @include build-prefix-values('transform', translate3d(1000px, 0, 0));
+                //@include build-prefix-values('transform', translate3d(1000px, 0, 0));
+                @include build-prefix-values('transform', translate3d(-700px, 0, 0));
                 @include text-box(200px);
               }
               .address-box.active {
-                //@include build-prefix-values('transform', translate3d(0, 0, 0));
-                @include build-prefix-values('transform', translate3d(-25px, 0, 0));
-                /*
-@media all and (max-width: $viewport480) {
-                  @include build-prefix-values('transform', translate3d(-25px, 0, 0));
-                }
-*/
+                //@include build-prefix-values('transform', translate3d(-25px, 0, 0));
+                @include build-prefix-values('transform', translate3d(-60px, 0, 0));
               }
             }
           }
@@ -258,8 +238,8 @@ html {
         .car-list {
           padding: 10px 0 0;
           .header {
-                    -webkit-box-shadow:inset 0 -11px 14px -15px #040404;
-box-shadow:inset 0 -11px 14px -15px #040404;
+            -webkit-box-shadow:inset 0 -11px 14px -15px #040404;
+            box-shadow:inset 0 -11px 14px -15px #040404;
             background: url(../images/car_list_start.png) 13px 10px no-repeat;
             min-height: 33px;
             padding: 10px 28px 10px 12px;
@@ -287,7 +267,7 @@ box-shadow:inset 0 -11px 14px -15px #040404;
           }
           .cars {
             padding-left: 27px; background: $green-mid;
-            border-bottom: 1px solid $white;
+            border-bottom: 1px solid $green;
             .car.enjoy {
               background: url(../images/ico_enj.png) left center no-repeat;
               @media 

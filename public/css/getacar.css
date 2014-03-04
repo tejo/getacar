@@ -96,36 +96,36 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 */
 @-moz-keyframes spin {
-  /* line 148, ../scss/_mixins.scss */
+  /* line 149, ../scss/_mixins.scss */
   0% {
     -moz-transform: rotate(0deg);
   }
 
-  /* line 152, ../scss/_mixins.scss */
+  /* line 153, ../scss/_mixins.scss */
   100% {
     -moz-transform: rotate(360deg);
   }
 }
 
 @-webkit-keyframes spin {
-  /* line 158, ../scss/_mixins.scss */
+  /* line 159, ../scss/_mixins.scss */
   0% {
     -webkit-transform: rotate(0deg);
   }
 
-  /* line 162, ../scss/_mixins.scss */
+  /* line 163, ../scss/_mixins.scss */
   100% {
     -webkit-transform: rotate(360deg);
   }
 }
 
 @keyframes spin {
-  /* line 167, ../scss/_mixins.scss */
+  /* line 168, ../scss/_mixins.scss */
   0% {
     transform: rotate(0deg);
   }
 
-  /* line 171, ../scss/_mixins.scss */
+  /* line 172, ../scss/_mixins.scss */
   100% {
     transform: rotate(360deg);
   }
@@ -178,11 +178,13 @@ html body {
 html body .container {
   background: #16a085;
   height: 100%;
-  -webkit-transition: -webkit-transform 0.5s;
-  transition: transform 0.5s;
+  /*
+        -webkit-transition: -webkit-transform 0.5s;
+        transition: transform 0.5s;
+  */
   padding-top: 40px;
 }
-/* line 21, ../scss/_main.scss */
+/* line 23, ../scss/_main.scss */
 html body .container .visually-hidden {
   position: absolute;
   width: 1px;
@@ -193,7 +195,7 @@ html body .container .visually-hidden {
   clip: rect(0 0 0 0);
   overflow: hidden;
 }
-/* line 25, ../scss/_main.scss */
+/* line 27, ../scss/_main.scss */
 html body .container #header {
   overflow: hidden;
   *zoom: 1;
@@ -207,12 +209,12 @@ html body .container #header {
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
   opacity: 0.8;
 }
-/* line 33, ../scss/_main.scss */
+/* line 35, ../scss/_main.scss */
 html body .container #header .title {
   text-align: center;
   margin: 0 auto;
 }
-/* line 34, ../scss/_main.scss */
+/* line 36, ../scss/_main.scss */
 html body .container #header #trigger-overlay {
   float: right;
   top: 0;
@@ -223,7 +225,7 @@ html body .container #header #trigger-overlay {
   background-size: 50%;
   text-indent: -50000px;
 }
-/* line 35, ../scss/_main.scss */
+/* line 37, ../scss/_main.scss */
 html body .container #header #get-a-car {
   background: url(../images/logo_getacar_w.png) left center no-repeat;
   background-size: 30%;
@@ -233,7 +235,7 @@ html body .container #header #get-a-car {
   height: 40px;
   float: left;
 }
-/* line 38, ../scss/_main.scss */
+/* line 40, ../scss/_main.scss */
 html body .container .overlay {
   background-color: #fcfcfc;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=95);
@@ -245,7 +247,7 @@ html body .container .overlay {
   top: 0;
   left: 0;
 }
-/* line 48, ../scss/_main.scss */
+/* line 50, ../scss/_main.scss */
 html body .container .overlay nav {
   text-align: center;
   position: relative;
@@ -255,13 +257,13 @@ html body .container .overlay nav {
   transform: translateY(-50%);
 }
 @media screen and (max-height: 30.5em) {
-  /* line 48, ../scss/_main.scss */
+  /* line 50, ../scss/_main.scss */
   html body .container .overlay nav {
     height: 70%;
     font-size: 34px;
   }
 }
-/* line 59, ../scss/_main.scss */
+/* line 61, ../scss/_main.scss */
 html body .container .overlay nav ul {
   list-style: none;
   padding: 0 0 20px;
@@ -269,7 +271,7 @@ html body .container .overlay nav ul {
   display: inline-block;
   position: relative;
 }
-/* line 67, ../scss/_main.scss */
+/* line 69, ../scss/_main.scss */
 html body .container .overlay nav ul li {
   display: block;
   height: 20%;
@@ -277,12 +279,12 @@ html body .container .overlay nav ul li {
   min-height: 54px;
 }
 @media screen and (max-height: 30.5em) {
-  /* line 67, ../scss/_main.scss */
+  /* line 69, ../scss/_main.scss */
   html body .container .overlay nav ul li {
     min-height: 34px;
   }
 }
-/* line 77, ../scss/_main.scss */
+/* line 79, ../scss/_main.scss */
 html body .container .overlay nav ul li a {
   font-size: 27px;
   line-height: 40.5px;
@@ -296,11 +298,11 @@ html body .container .overlay nav ul li a {
   -webkit-transition: color 0.2s;
   transition: color 0.2s;
 }
-/* line 89, ../scss/_main.scss */
+/* line 91, ../scss/_main.scss */
 html body .container .overlay nav ul li a:hover, html body .container .overlay nav ul li a:focus {
   color: #f0f0f0;
 }
-/* line 95, ../scss/_main.scss */
+/* line 97, ../scss/_main.scss */
 html body .container .overlay nav .logo-getacar {
   display: block;
   width: 100%;
@@ -308,7 +310,7 @@ html body .container .overlay nav .logo-getacar {
   background: url(../images/logo_getacar_complete@x2.png) center center no-repeat;
   background-size: 106px;
 }
-/* line 102, ../scss/_main.scss */
+/* line 104, ../scss/_main.scss */
 html body .container .overlay .copy {
   font-size: 12px;
   line-height: 18px;
@@ -321,7 +323,7 @@ html body .container .overlay .copy {
   text-align: center;
   width: 100%;
 }
-/* line 108, ../scss/_main.scss */
+/* line 110, ../scss/_main.scss */
 html body .container .overlay .overlay-close {
   cursor: pointer;
   width: 80px;
@@ -338,13 +340,13 @@ html body .container .overlay .overlay-close {
   z-index: 100;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 108, ../scss/_main.scss */
+  /* line 110, ../scss/_main.scss */
   html body .container .overlay .overlay-close {
     background: url(../images/cross@x2.png) 12px 10px no-repeat;
     background-size: 30px;
   }
 }
-/* line 130, ../scss/_main.scss */
+/* line 132, ../scss/_main.scss */
 html body .container .overlay-contentscale {
   visibility: hidden;
   -webkit-transform: translateY(100%);
@@ -352,7 +354,7 @@ html body .container .overlay-contentscale {
   -webkit-transition: -webkit-transform 0.5s, visibility 0s 0.5s;
   transition: transform 0.5s, visibility 0s 0.5s;
 }
-/* line 137, ../scss/_main.scss */
+/* line 139, ../scss/_main.scss */
 html body .container .overlay-contentscale.open {
   visibility: visible;
   -webkit-transform: translateY(0%);
@@ -361,30 +363,30 @@ html body .container .overlay-contentscale.open {
   transition: transform 0.5s;
 }
 @media screen and (max-height: 30.5em) {
-  /* line 146, ../scss/_main.scss */
+  /* line 148, ../scss/_main.scss */
   html body .container .overlay nav {
     height: 70%;
     font-size: 34px;
   }
-  /* line 150, ../scss/_main.scss */
+  /* line 152, ../scss/_main.scss */
   html body .container .overlay ul li {
     min-height: 34px;
   }
 }
-/* line 156, ../scss/_main.scss */
+/* line 158, ../scss/_main.scss */
 html body .container .bucket {
   padding-bottom: 66px;
   /* HOME */
   /* LIST */
   /* MAP */
 }
-/* line 160, ../scss/_main.scss */
+/* line 162, ../scss/_main.scss */
 html body .container .bucket .home {
   width: 290px;
   margin: 0 auto;
-  padding-top: 10%;
+  padding-top: 5%;
 }
-/* line 167, ../scss/_main.scss */
+/* line 169, ../scss/_main.scss */
 html body .container .bucket .home .bt-circle {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
@@ -394,6 +396,11 @@ html body .container .bucket .home .bt-circle {
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -ms-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
   cursor: pointer;
   width: 110px;
   height: 110px;
@@ -404,18 +411,13 @@ html body .container .bucket .home .bt-circle {
   background: #5bbca9;
   display: block;
   -webkit-appearance: none;
-  -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1);
-  -webkit-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  -moz-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  -o-transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  transition: all 500ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
   margin: 0 auto;
 }
-/* line 62, ../scss/_mixins.scss */
+/* line 57, ../scss/_mixins.scss */
 html body .container .bucket .home .bt-circle:hover {
   border: 10px solid #fcfcfc;
 }
-/* line 171, ../scss/_main.scss */
+/* line 173, ../scss/_main.scss */
 html body .container .bucket .home .title-action {
   text-align: center;
   text-transform: uppercase;
@@ -427,7 +429,7 @@ html body .container .bucket .home .title-action {
   width: 290px;
 }
 @media screen and (max-width: 600px) {
-  /* line 171, ../scss/_main.scss */
+  /* line 173, ../scss/_main.scss */
   html body .container .bucket .home .title-action {
     font-size: 15px;
     line-height: 22.5px;
@@ -436,11 +438,11 @@ html body .container .bucket .home .title-action {
     width: 240px;
   }
 }
-/* line 177, ../scss/_main.scss */
+/* line 179, ../scss/_main.scss */
 html body .container .bucket .home form[name=localizeForm] .title-action {
   padding-bottom: 20px;
 }
-/* line 178, ../scss/_main.scss */
+/* line 180, ../scss/_main.scss */
 html body .container .bucket .home form[name=localizeForm] .bt-getme {
   text-indent: -50000px;
   background: url(../images/ico_geo.png) center center no-repeat;
@@ -455,34 +457,28 @@ html body .container .bucket .home form[name=localizeForm] .bt-getme {
   */
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 178, ../scss/_main.scss */
+  /* line 180, ../scss/_main.scss */
   html body .container .bucket .home form[name=localizeForm] .bt-getme {
     background: url(../images/ico_geo@x2.png) center center no-repeat;
     background-size: 40px;
   }
 }
-/* line 186, ../scss/_main.scss */
+/* line 190, ../scss/_main.scss */
 html body .container .bucket .home form[name=localizeForm] .spin {
   -webkit-animation: spin 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
-  /*
-                -moz-transform: rotate(360deg);
-                -webkit-transform: rotate(360deg);
-                -o-transform: rotate(360deg);
-                -ms-transform: rotate(360deg);
-                transform: rotate(360deg);
-                
-                
-  */
+  -moz-animation: spin 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+  -ms-animation: spin 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
+  animation: spin 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) infinite;
 }
-/* line 200, ../scss/_main.scss */
+/* line 192, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] {
   margin-top: 44px;
 }
-/* line 202, ../scss/_main.scss */
+/* line 194, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .title-action {
   padding-top: 20px;
 }
-/* line 203, ../scss/_main.scss */
+/* line 195, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box {
   margin: 0 auto;
   position: relative;
@@ -490,18 +486,8 @@ html body .container .bucket .home form[name=geoCodeForm] .search-box {
   *zoom: 1;
   height: 110px;
 }
-/* line 209, ../scss/_main.scss */
+/* line 201, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search {
-  -webkit-transform: translate3d(0, 0, 0);
-  -moz-transform: translate3d(0, 0, 0);
-  -ms-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -ms-backface-visibility: hidden;
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
   text-indent: -50000px;
   background: url(../images/ico_search.png) center center no-repeat;
   /*
@@ -515,40 +501,30 @@ html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search
   */
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 209, ../scss/_main.scss */
+  /* line 201, ../scss/_main.scss */
   html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search {
     background: url(../images/ico_search@x2.png) center center no-repeat;
     background-size: 40px;
   }
 }
-/* line 221, ../scss/_main.scss */
+/* line 209, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search.active {
-  -webkit-transform: translate3d(-115px, 0, 0);
-  -moz-transform: translate3d(-115px, 0, 0);
-  -ms-transform: translate3d(-115px, 0, 0);
-  -o-transform: translate3d(-115px, 0, 0);
-  transform: translate3d(-115px, 0, 0);
+  -webkit-transform: translate3d(115px, 0, 0);
+  -moz-transform: translate3d(115px, 0, 0);
+  -ms-transform: translate3d(115px, 0, 0);
+  -o-transform: translate3d(115px, 0, 0);
+  transform: translate3d(115px, 0, 0);
   background-size: 20px;
   text-indent: -50000px;
   width: 40px;
   height: 40px;
   margin-top: 35px;
 }
-@media all and (max-width: 480px) {
-  /* line 221, ../scss/_main.scss */
-  html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search.active {
-    -webkit-transform: translate3d(-115px, 0, 0);
-    -moz-transform: translate3d(-115px, 0, 0);
-    -ms-transform: translate3d(-115px, 0, 0);
-    -o-transform: translate3d(-115px, 0, 0);
-    transform: translate3d(-115px, 0, 0);
-  }
-}
-/* line 230, ../scss/_main.scss */
+/* line 215, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box .bt-search.active:hover {
   border: 2px solid #fcfcfc;
 }
-/* line 233, ../scss/_main.scss */
+/* line 218, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box .address-box {
   -webkit-transform: translate3d(0, 0, 0);
   -moz-transform: translate3d(0, 0, 0);
@@ -558,18 +534,21 @@ html body .container .bucket .home form[name=geoCodeForm] .search-box .address-b
   -webkit-backface-visibility: hidden;
   -moz-backface-visibility: hidden;
   -ms-backface-visibility: hidden;
-  -webkit-transition: all 0.5s ease;
-  transition: all 0.5s ease;
+  -webkit-transition: all 0.5s cubic-bezier(0.1, 0.1, 0.25, 0.9);
+  -moz-transition: all 0.5s cubic-bezier(0.1, 0.1, 0.25, 0.9);
+  -ms-transition: all 0.5s cubic-bezier(0.1, 0.1, 0.25, 0.9);
+  -o-transition: all 0.5s cubic-bezier(0.1, 0.1, 0.25, 0.9);
+  transition: all 0.5s cubic-bezier(0.1, 0.1, 0.25, 0.9);
   padding: 0 10px;
   margin-top: 35px;
   position: absolute;
   right: 0;
   top: 0;
-  -webkit-transform: translate3d(1000px, 0, 0);
-  -moz-transform: translate3d(1000px, 0, 0);
-  -ms-transform: translate3d(1000px, 0, 0);
-  -o-transform: translate3d(1000px, 0, 0);
-  transform: translate3d(1000px, 0, 0);
+  -webkit-transform: translate3d(-700px, 0, 0);
+  -moz-transform: translate3d(-700px, 0, 0);
+  -ms-transform: translate3d(-700px, 0, 0);
+  -o-transform: translate3d(-700px, 0, 0);
+  transform: translate3d(-700px, 0, 0);
   width: 200px;
   height: 40px;
   -webkit-border-radius: 4px;
@@ -580,24 +559,19 @@ html body .container .bucket .home form[name=geoCodeForm] .search-box .address-b
   border: 0;
   display: block;
 }
-/* line 244, ../scss/_main.scss */
+/* line 229, ../scss/_main.scss */
 html body .container .bucket .home form[name=geoCodeForm] .search-box .address-box.active {
-  -webkit-transform: translate3d(-25px, 0, 0);
-  -moz-transform: translate3d(-25px, 0, 0);
-  -ms-transform: translate3d(-25px, 0, 0);
-  -o-transform: translate3d(-25px, 0, 0);
-  transform: translate3d(-25px, 0, 0);
-                /*
-@media all and (max-width: $viewport480) {
-                  @include build-prefix-values('transform', translate3d(-25px, 0, 0));
-                }
-*/
+  -webkit-transform: translate3d(-60px, 0, 0);
+  -moz-transform: translate3d(-60px, 0, 0);
+  -ms-transform: translate3d(-60px, 0, 0);
+  -o-transform: translate3d(-60px, 0, 0);
+  transform: translate3d(-60px, 0, 0);
 }
-/* line 258, ../scss/_main.scss */
+/* line 238, ../scss/_main.scss */
 html body .container .bucket .car-list {
   padding: 10px 0 0;
 }
-/* line 260, ../scss/_main.scss */
+/* line 240, ../scss/_main.scss */
 html body .container .bucket .car-list .header {
   -webkit-box-shadow: inset 0 -11px 14px -15px #040404;
   box-shadow: inset 0 -11px 14px -15px #040404;
@@ -608,13 +582,13 @@ html body .container .bucket .car-list .header {
   *zoom: 1;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 260, ../scss/_main.scss */
+  /* line 240, ../scss/_main.scss */
   html body .container .bucket .car-list .header {
     background: url(../images/car_list_start@x2.png) 9px 0 no-repeat;
     background-size: 41px;
   }
 }
-/* line 273, ../scss/_main.scss */
+/* line 253, ../scss/_main.scss */
 html body .container .bucket .car-list .header .go-search {
   float: right;
   background: url(../images/ico_search.png) right center no-repeat;
@@ -623,17 +597,17 @@ html body .container .bucket .car-list .header .go-search {
   display: block;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 273, ../scss/_main.scss */
+  /* line 253, ../scss/_main.scss */
   html body .container .bucket .car-list .header .go-search {
     background: url(../images/ico_search@x2.png) center center no-repeat;
     background-size: 28px;
   }
 }
-/* line 282, ../scss/_main.scss */
+/* line 262, ../scss/_main.scss */
 html body .container .bucket .car-list .header .my-search {
   float: left;
 }
-/* line 284, ../scss/_main.scss */
+/* line 264, ../scss/_main.scss */
 html body .container .bucket .car-list .header .my-search .city {
   padding-left: 50px;
   color: #266258;
@@ -645,7 +619,7 @@ html body .container .bucket .car-list .header .my-search .city {
   line-height: 1.2rem;
   font-weight: 700;
 }
-/* line 285, ../scss/_main.scss */
+/* line 265, ../scss/_main.scss */
 html body .container .bucket .car-list .header .my-search .address {
   padding-left: 50px;
   font-size: 15px;
@@ -656,35 +630,35 @@ html body .container .bucket .car-list .header .my-search .address {
   line-height: 1.5rem;
   font-weight: 700;
 }
-/* line 288, ../scss/_main.scss */
+/* line 268, ../scss/_main.scss */
 html body .container .bucket .car-list .cars {
   padding-left: 27px;
   background: #5bbca9;
-  border-bottom: 1px solid #fcfcfc;
+  border-bottom: 1px solid #16a085;
 }
-/* line 291, ../scss/_main.scss */
+/* line 271, ../scss/_main.scss */
 html body .container .bucket .car-list .cars .car.enjoy {
   background: url(../images/ico_enj.png) left center no-repeat;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 291, ../scss/_main.scss */
+  /* line 271, ../scss/_main.scss */
   html body .container .bucket .car-list .cars .car.enjoy {
     background: url(../images/ico_enj@x2.png) 0px center no-repeat;
     background-size: 42px;
   }
 }
-/* line 300, ../scss/_main.scss */
+/* line 280, ../scss/_main.scss */
 html body .container .bucket .car-list .cars .car.car2go {
   background: url(../images/ico_c2g.png) left center no-repeat;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 300, ../scss/_main.scss */
+  /* line 280, ../scss/_main.scss */
   html body .container .bucket .car-list .cars .car.car2go {
     background: url(../images/ico_c2g@x2.png) 0px center no-repeat;
     background-size: 42px;
   }
 }
-/* line 309, ../scss/_main.scss */
+/* line 289, ../scss/_main.scss */
 html body .container .bucket .car-list .cars .car {
   border-left: 2px solid #fcfcfc;
   padding: 12px 28px 12px 50px;
@@ -695,14 +669,14 @@ html body .container .bucket .car-list .cars .car {
     img {position: absolute; width: 40px; height: auto;}
   }*/
 }
-/* line 314, ../scss/_main.scss */
+/* line 294, ../scss/_main.scss */
 html body .container .bucket .car-list .cars .car ul {
   float: left;
   overflow: hidden;
   *zoom: 1;
   padding-top: 16px;
 }
-/* line 318, ../scss/_main.scss */
+/* line 298, ../scss/_main.scss */
 html body .container .bucket .car-list .cars .car ul .vendor {
   font-family: 'Lato', sans-serif;
   font-size: 15px;
@@ -714,7 +688,7 @@ html body .container .bucket .car-list .cars .car ul .vendor {
   font-weight: 700;
   text-transform: capitalize;
 }
-/* line 319, ../scss/_main.scss */
+/* line 299, ../scss/_main.scss */
 html body .container .bucket .car-list .cars .car ul .model {
   font-family: 'Lato', sans-serif;
   font-size: 24px;
@@ -726,7 +700,7 @@ html body .container .bucket .car-list .cars .car ul .model {
   font-weight: 100;
   text-transform: uppercase;
 }
-/* line 320, ../scss/_main.scss */
+/* line 300, ../scss/_main.scss */
 html body .container .bucket .car-list .cars .car ul .distance {
   font-family: 'Lato', sans-serif;
   font-size: 12px;
@@ -738,7 +712,7 @@ html body .container .bucket .car-list .cars .car ul .distance {
   font-weight: 400;
   color: #266258;
 }
-/* line 322, ../scss/_main.scss */
+/* line 302, ../scss/_main.scss */
 html body .container .bucket .car-list .cars .car .bt-goto-map {
   display: block;
   width: 40px;
@@ -749,17 +723,17 @@ html body .container .bucket .car-list .cars .car .bt-goto-map {
   background: url(../images/ico_arrow.png) right center no-repeat;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 322, ../scss/_main.scss */
+  /* line 302, ../scss/_main.scss */
   html body .container .bucket .car-list .cars .car .bt-goto-map {
     background: url(../images/ico_arrow@x2.png) right center no-repeat;
     background-size: 40px;
   }
 }
-/* line 339, ../scss/_main.scss */
+/* line 319, ../scss/_main.scss */
 html body .container .bucket .car-list .cars:nth-child(2n) {
   background-color: #73c6b6;
 }
-/* line 343, ../scss/_main.scss */
+/* line 323, ../scss/_main.scss */
 html body .container .bucket #map-canvas {
   width: 100%;
   height: 100%;
@@ -767,14 +741,14 @@ html body .container .bucket #map-canvas {
   top: 0;
   z-index: 0;
 }
-/* line 348, ../scss/_main.scss */
+/* line 328, ../scss/_main.scss */
 html body .container .bucket #map-canvas .map-overlay {
   background: #16a085;
   filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
   opacity: 0.2;
   position: absolute;
 }
-/* line 355, ../scss/_main.scss */
+/* line 335, ../scss/_main.scss */
 html body .container .bucket #car-info {
   background-color: #fcfcfc;
   padding: 10px;
@@ -784,18 +758,18 @@ html body .container .bucket #car-info {
   width: 100%;
   z-index: 99;
 }
-/* line 364, ../scss/_main.scss */
+/* line 344, ../scss/_main.scss */
 html body .container .bucket #car-info ul li {
   float: left;
   width: 33%;
 }
-/* line 367, ../scss/_main.scss */
+/* line 347, ../scss/_main.scss */
 html body .container .bucket #car-info ul li span {
   color: #a1a1a1;
   display: block;
   text-align: center;
 }
-/* line 368, ../scss/_main.scss */
+/* line 348, ../scss/_main.scss */
 html body .container .bucket #car-info ul li .feature {
   color: #266258;
   font-size: 9px;
@@ -804,7 +778,7 @@ html body .container .bucket #car-info ul li .feature {
   line-height: 1.35rem;
   text-transform: uppercase;
 }
-/* line 369, ../scss/_main.scss */
+/* line 349, ../scss/_main.scss */
 html body .container .bucket #car-info ul li .value {
   color: #5bbca9;
   font-size: 24px;
@@ -813,7 +787,7 @@ html body .container .bucket #car-info ul li .value {
   line-height: 3.6rem;
   font-weight: 400;
 }
-/* line 375, ../scss/_main.scss */
+/* line 355, ../scss/_main.scss */
 html body .container .bucket #switcher {
   position: fixed;
   bottom: -66px;
@@ -827,12 +801,12 @@ html body .container .bucket #switcher {
   -o-transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-/* line 380, ../scss/_main.scss */
+/* line 360, ../scss/_main.scss */
 html body .container .bucket #switcher ul {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 382, ../scss/_main.scss */
+/* line 362, ../scss/_main.scss */
 html body .container .bucket #switcher ul li {
   float: left;
   display: inline;
@@ -840,7 +814,7 @@ html body .container .bucket #switcher ul li {
   width: 50%;
   text-indent: -50000px;
 }
-/* line 384, ../scss/_main.scss */
+/* line 364, ../scss/_main.scss */
 html body .container .bucket #switcher ul li a {
   height: 66px;
   width: 100%;
@@ -849,59 +823,59 @@ html body .container .bucket #switcher ul li a {
   line-height: 66px;
   text-decoration: none;
 }
-/* line 386, ../scss/_main.scss */
+/* line 366, ../scss/_main.scss */
 html body .container .bucket #switcher ul .list-view {
   background: #5bbca9 url(../images/ico_list_off.png) center center no-repeat;
   background-size: 3em;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 386, ../scss/_main.scss */
+  /* line 366, ../scss/_main.scss */
   html body .container .bucket #switcher ul .list-view {
     background: #5bbca9 url(../images/ico_list_off@x2.png) center center no-repeat;
     background-size: 3em;
   }
 }
-/* line 394, ../scss/_main.scss */
+/* line 374, ../scss/_main.scss */
 html body .container .bucket #switcher ul .list-view.active {
   background: #fcfcfc url(../images/ico_list_on.png) center center no-repeat;
   background-size: 3em;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 394, ../scss/_main.scss */
+  /* line 374, ../scss/_main.scss */
   html body .container .bucket #switcher ul .list-view.active {
     background: #fcfcfc url(../images/ico_list_on@x2.png) center center no-repeat;
     background-size: 3em;
   }
 }
-/* line 402, ../scss/_main.scss */
+/* line 382, ../scss/_main.scss */
 html body .container .bucket #switcher ul .map-view {
   background: #5bbca9 url(../images/ico_map_off.png) center center no-repeat;
   background-size: 3em;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 402, ../scss/_main.scss */
+  /* line 382, ../scss/_main.scss */
   html body .container .bucket #switcher ul .map-view {
     background: #5bbca9 url(../images/ico_map_off@x2.png) center center no-repeat;
     background-size: 3em;
   }
 }
-/* line 410, ../scss/_main.scss */
+/* line 390, ../scss/_main.scss */
 html body .container .bucket #switcher ul .map-view.active {
   background: #fcfcfc url(../images/ico_map_on.png) center center no-repeat;
   background-size: 3em;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 410, ../scss/_main.scss */
+  /* line 390, ../scss/_main.scss */
   html body .container .bucket #switcher ul .map-view.active {
     background: #fcfcfc url(../images/ico_map_on@x2.png) center center no-repeat;
     background-size: 3em;
   }
 }
-/* line 420, ../scss/_main.scss */
+/* line 400, ../scss/_main.scss */
 html body .container .bucket #switcher.open {
   bottom: 0;
 }
-/* line 427, ../scss/_main.scss */
+/* line 407, ../scss/_main.scss */
 html body .container.overlay-open {
   -webkit-transform: scale(0.8);
   transform: scale(0.8);
