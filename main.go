@@ -56,7 +56,7 @@ func LoadClosestCars(w http.ResponseWriter, r *http.Request) {
 	lngStr := vars["lng"]
 	lat, _ := strconv.ParseFloat(latStr, 64)
 	lng, _ := strconv.ParseFloat(lngStr, 64)
-	closestCars := ClosestCars(lat, lng)
+	closestCars := ClosestCars(lat, lng, 30)
 	encoder := json.NewEncoder(w)
 	if err := encoder.Encode(&closestCars); err != nil {
 		http.Error(w, fmt.Sprintf("Cannot encode response data: %v", err), 500)

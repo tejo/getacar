@@ -30,9 +30,21 @@ func TestClosestCars(t *testing.T) {
 	car2go := NewTestServer("fixtures/car2go.json")
 	enjoy := NewTestServer("fixtures/enjoy.json")
 	fetchCarsFromAPI(car2go.URL, enjoy.URL)
-	closestCars := ClosestCars(45.47665, 9.22389)
+	closestCars := ClosestCars(45.47665, 9.22389, 100)
 	if closestCars[0].Name != "118/ER805NP" {
 		t.Error("error fetching closest cars")
+	}
+}
+
+func TestClosestCarsWithLimit(t *testing.T) {
+	cars = make([]CarEntry, 0)
+	limit := 10
+	car2go := NewTestServer("fixtures/car2go.json")
+	enjoy := NewTestServer("fixtures/enjoy.json")
+	fetchCarsFromAPI(car2go.URL, enjoy.URL)
+	closestCars := ClosestCars(45.47665, 9.22389, limit)
+	if len(closestCars) != limit {
+		t.Error("error fetching and limiting closest cars")
 	}
 }
 

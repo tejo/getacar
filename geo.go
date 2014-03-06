@@ -19,7 +19,7 @@ func CalculateDistance(lat1, lng1, lat2, lng2 float64) float64 {
 	return R * c
 }
 
-func ClosestCars(lat, lng float64) (result []CarEntry) {
+func ClosestCars(lat, lng float64, limit int) (result []CarEntry) {
 	distances := make(map[float64]int)
 	carsIndex := make([]float64, 0)
 	for index, _ := range cars {
@@ -28,8 +28,12 @@ func ClosestCars(lat, lng float64) (result []CarEntry) {
 		carsIndex = append(carsIndex, distance)
 	}
 	sort.Float64s(carsIndex)
-	for _, index := range carsIndex {
-		result = append(result, cars[distances[index]])
+	for index, distance := range carsIndex {
+		if index < limit {
+			result = append(result, cars[distances[distance]])
+		} else {
+			return
+		}
 	}
 	return
 }

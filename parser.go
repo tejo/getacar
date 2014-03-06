@@ -13,6 +13,7 @@ func ParseEnjoyJson(b []byte) {
 	for index, _ := range entries {
 		entries[index].Type = "enjoy"
 		entries[index].Id = entries[index].CarPlate
+		entries[index].Price = 0.25
 		cars = append(cars, entries[index])
 	}
 	return
@@ -24,13 +25,14 @@ func ParseCar2GoJson(b []byte) {
 	for _, car := range results["placemarks"] {
 		cars = append(cars, CarEntry{
 			Type:    "car2go",
-			Id:     car["vin"].(string),
+			Id:      car["vin"].(string),
 			Fuel:    int(car["fuel"].(float64)),
 			Lat:     car["coordinates"].([]interface{})[1].(float64),
 			Lng:     car["coordinates"].([]interface{})[0].(float64),
 			Address: car["address"].(string),
 			Name:    car["name"].(string),
 			Vin:     car["vin"].(string),
+			Price:   0.25,
 		})
 	}
 	return
