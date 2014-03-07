@@ -193,23 +193,45 @@ gac.factory('googleMapsFactory', function() {
       */
       
       var myLatLng = new google.maps.LatLng(DataSharingObject.myLat, DataSharingObject.myLon);
+      var styles = [
+                      {"featureType":"water","elementType":"geometry","stylers":[{"color":"#4ca6a2"}]},
+                      {"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#59b7a3"}]},
+                      {"featureType":"road","elementType":"geometry","stylers":[{"color":"#4b9b8c"},{"lightness":0}]},
+                      {"featureType":"poi","elementType":"geometry","stylers":[{"color":"#4b9b8c"}]},
+                      {"featureType":"transit","elementType":"geometry","stylers":[{"color":"#4b9b8c"}]},
+                      {"elementType":"labels.text.stroke","stylers":[{"visibility":"off"},{"color":"#0b3930"},{"weight":2},{"gamma":0.84}]},
+                      {"elementType":"labels.text.fill","stylers":[{"color":"#083a30"}]},
+                      {"featureType":"administrative","elementType":"geometry","stylers":[{"weight":0.6},{"color":"#000000"}]},
+                      {"elementType":"labels.icon","stylers":[{"visibility":"off"}]},
+                      {"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#4b9b8c"}]}
+                    ]
+
       var map_options = {
+        mapTypeControlOptions: {
+          mapTypeIds: ['Styled']
+        },
         zoom: 16,
+        disableDefaultUI: true,
+        zoomControl: true,
         zoomControlOptions: {
-          style: google.maps.ZoomControlStyle.LARGE,
+          style: google.maps.ZoomControlStyle.SMALL,
           position: google.maps.ControlPosition.RIGHT_CENTER
         },
         panControl: false,
         mapTypeControl: false,
         streetViewControl: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeId: 'Styled',
+        //mapTypeId: google.maps.MapTypeId.ROADMAP,
         //center: new google.maps.LatLng(car_array[my_car_id].lat, car_array[my_car_id].lon)
         center: myLatLng
       }
-      this.reference = new google.maps.Map(document.getElementById('map-canvas'),map_options);
 
-      var trafficLayer = new google.maps.TrafficLayer();
-      trafficLayer.setMap(this.reference);
+      this.reference = new google.maps.Map(document.getElementById('map-canvas'),map_options);
+      var styledMapType = new google.maps.StyledMapType(styles, { name: 'Styled' });  
+      this.reference.mapTypes.set('Styled', styledMapType); 
+
+      //var trafficLayer = new google.maps.TrafficLayer();
+      //trafficLayer.setMap(this.reference);
       
       var myPosition = new google.maps.Marker({
         position: myLatLng,
@@ -219,6 +241,7 @@ gac.factory('googleMapsFactory', function() {
       });
       
       // add colored overlay
+      /*
       var bounds = new google.maps.LatLngBounds(
         new google.maps.LatLng(-84.999999, -179.999999),
         new google.maps.LatLng(84.999999, 179.999999)
@@ -230,6 +253,7 @@ gac.factory('googleMapsFactory', function() {
         strokeWeight: 0,
         map: this.reference
       });
+      */
       //overlay = new ColorOverlay(this.reference);
       
       return this.addCarMarkers(car_array, my_car_id, DataSharingObject);
@@ -472,6 +496,7 @@ gac.controller('CarsController', function($scope, $location, $routeParams, carsF
     carsFactory.query($scope.lat, $scope.lon).then(function(data){
       $scope.cars = data;
       DataSharingObject.cars = data;
+      debugger;
     });
   }();
   $scope.getDistance = function(lat, lon) {
