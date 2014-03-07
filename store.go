@@ -25,6 +25,7 @@ type CarEntry struct {
 	Lng       float64 `json:"lon"`
 	Address   string  `json:"address"`
 	Type      string
+	Price     float64
 	//enjoy only
 	CarPlate string `json:"car_plate"`
 	//car2go only
