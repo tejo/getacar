@@ -32,7 +32,7 @@ func ParseCar2GoJson(b []byte) {
 			Address: car["address"].(string),
 			Name:    car["name"].(string),
 			Vin:     car["vin"].(string),
-			Price:   0.25,
+			Price:   0.29,
 		})
 	}
 	return
