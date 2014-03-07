@@ -340,14 +340,7 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
   
   $scope.lat = $routeParams.lat;
   $scope.lon = $routeParams.lon;
-  /*
-  $scope.getDistance = function(lat, lon) {
-    var distance =
-      ((calculateDistance($scope.lat, $scope.lon, lat, lon)*1000)
-              .toPrecision(4)).toString() + " m";
-    return distance;
-  }
-  */
+
   $scope.getDistance = function(lat, lon) {
     var unit = 'm';
     var distance =
@@ -356,10 +349,10 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
     if (distance >= 1000) {
       unit = 'km'
       //return (distance/1000) + unit;
-      var rounding = precise_round(distance/1000, 2);
-      return rounding + " " + unit;
+      var rounding = preciseRound(distance/1000, 2);
+      return rounding + unit;
     }
-    return distance + " " + unit;
+    return distance + unit;
   }
   
   if (!DataSharingObject.cars) {
@@ -381,11 +374,13 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
         (function(index){google.maps.event.addListener(markers[index], 'click', function(e) {
           $scope.$apply(
             function(){
+              if ($scope.fuel != DataSharingObject.cars[index].fuel_level)
+                $scope.fuel_changed = true;
               $scope.fuel = DataSharingObject.cars[index].fuel_level;
               $scope.price = DataSharingObject.cars[index].Price;
-              $scope.distance = $scope.getDistance(carLat,carLon);
               var carLat = e.latLng.lat().toFixed(3);
               var carLon = e.latLng.lng().toFixed(3);
+              $scope.distance = $scope.getDistance(carLat,carLon);
             }
           );
         });})(i)
@@ -410,11 +405,13 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
       (function(index){google.maps.event.addListener(markers[index], 'click', function(e) {
         $scope.$apply(
           function(){
+            if ($scope.fuel != DataSharingObject.cars[index].fuel_level)
+                $scope.fuel_changed = true;
             $scope.fuel = DataSharingObject.cars[index].fuel_level;
             $scope.price = DataSharingObject.cars[index].Price;
-            $scope.distance = $scope.getDistance(carLat,carLon);
             var carLat = e.latLng.lat().toFixed(3);
             var carLon = e.latLng.lng().toFixed(3);
+            $scope.distance = $scope.getDistance(carLat,carLon);
           }
         );
       });})(i)
@@ -460,10 +457,10 @@ gac.controller('CarsController', function($scope, $location, $routeParams, carsF
     if (distance >= 1000) {
       unit = 'km'
       //return (distance/1000) + unit;
-      var rounding = precise_round(distance/1000, 2);
-      return rounding + " " + unit;
+      var rounding = preciseRound(distance/1000, 2);
+      return rounding + unit;
     }
-    return distance + " " + unit;
+    return distance + unit;
   }
 });
 
@@ -484,14 +481,13 @@ function calculateDistance(lat1,lon1,lat2,lon2) {
   sin_dlat_2 = Math.sin(dLat / 2);
   a = sin_dlat_2 * sin_dlat_2 + sin_dlon_2 * sin_dlon_2 * Math.cos(lat1) * Math.cos(lat2);
   c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  d = R * c;
   return d = R * c;
 }
 
 /*
   Round distance to two decimals if in kms
 */
-function precise_round(num, decimals) {
+function preciseRound(num, decimals) {
   var sign = num >= 0 ? 1 : -1;
   return (Math.round((num*Math.pow(10,decimals))+(sign*0.001))/Math.pow(10,decimals)).toFixed(decimals);
 }

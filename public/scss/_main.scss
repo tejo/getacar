@@ -14,6 +14,7 @@ html {
     .container {
       background: $green;
       height: 100%;
+      @include transition(all, .5s, $custom);
 /*
       -webkit-transition: -webkit-transform 0.5s;
       transition: transform 0.5s;
