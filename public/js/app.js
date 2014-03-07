@@ -265,11 +265,6 @@ gac.factory('googleMapsFactory', function() {
     },
     getMarkerList: function() {
       return this.markers;
-    },
-    addListener: function(marker, DataSharingObject, car_index) {
-      google.maps.event.addListener(marker, 'click', function() {
-        //$scope.car.fuel_level = DataSharingObject.cars[car_index].fuel_level;
-      });
     }
   }
 });
@@ -378,7 +373,8 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
       $scope.fuel = $scope.car.fuel_level;
       $scope.price = $scope.car.Price;
       
-      var markers = googleMapsFactory.init($scope.cars, $routeParams.carId, DataSharingObject);
+      googleMapsFactory.init($scope.cars, $routeParams.carId, DataSharingObject);
+      var markers = googleMapsFactory.getMarkerList();
       
       for(var i=0, len=markers; i<len.length; i++) {
       
@@ -387,6 +383,7 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
             function(){
               $scope.fuel = DataSharingObject.cars[index].fuel_level;
               $scope.price = DataSharingObject.cars[index].Price;
+              $scope.distance = $scope.getDistance(carLat,carLon);
               var carLat = e.latLng.lat().toFixed(3);
               var carLon = e.latLng.lng().toFixed(3);
             }
@@ -394,24 +391,6 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
         });})(i)
         
       }
-      
-
-      /*
-      switch($scope.car.Type) {
-        case 'car2go':
-          DataSharingObject.price = 0.29
-        break;
-        case 'enjoy':
-          DataSharingObject.price = 0.25
-        break;
-        default:
-          0
-      }
-
-      // aggiungo attributo prezzo (levare da DataSharingObject?)
-      $scope.price = DataSharingObject.price;
-      */
-      
     });
   } 
   else {
@@ -423,7 +402,8 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
     $scope.fuel = $scope.car.fuel_level;
     $scope.price = $scope.car.Price;
     
-    var markers = googleMapsFactory.init($scope.cars, $routeParams.carId, DataSharingObject);
+    googleMapsFactory.init($scope.cars, $routeParams.carId, DataSharingObject);
+    var markers = googleMapsFactory.getMarkerList();
     
     for(var i=0, len=markers; i<len.length; i++) {
     
@@ -432,44 +412,14 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
           function(){
             $scope.fuel = DataSharingObject.cars[index].fuel_level;
             $scope.price = DataSharingObject.cars[index].Price;
+            $scope.distance = $scope.getDistance(carLat,carLon);
             var carLat = e.latLng.lat().toFixed(3);
             var carLon = e.latLng.lng().toFixed(3);
-            $scope.distance = $scope.getDistance(carLat,carLon);
           }
         );
       });})(i)
       
     }
-    
-    /*
-    
-    for(var i=0, len=m; i<len.length; i++) {
-      google.maps.event.addListener(m[i], 'click', function(innerKey) {
-        $scope.fuel = DataSharingObject.cars[innerKey].fuel_level;
-        return function() {
-            //$scope.car.fuel_level = DataSharingObject.cars[innerKey].fuel_level;
-            $scope.fuel = DataSharingObject.cars[innerKey].fuel_level;
-
-            
-        }
-      }(i));
-    }*/
-    
-    /*    
-    switch($scope.car.Type) {
-      case 'car2go':
-        DataSharingObject.price = 0.29
-        break;
-      case 'enjoy':
-        DataSharingObject.price = 0.25
-        break;
-      default:
-        0
-    }
-      
-    // aggiungo attributo Price
-    $scope.price = DataSharingObject.price;
-    */
   }
   
   
