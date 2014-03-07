@@ -496,7 +496,6 @@ gac.controller('CarsController', function($scope, $location, $routeParams, carsF
     carsFactory.query($scope.lat, $scope.lon).then(function(data){
       $scope.cars = data;
       DataSharingObject.cars = data;
-      debugger;
     });
   }();
   $scope.getDistance = function(lat, lon) {
