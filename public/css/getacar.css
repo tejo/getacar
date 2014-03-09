@@ -131,6 +131,75 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
   }
 }
 
+@-webkit-keyframes tada {
+  /* line 183, ../scss/_mixins.scss */
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  /* line 188, ../scss/_mixins.scss */
+  10%, 20% {
+    -webkit-transform: scale(0.9) rotate(-3deg);
+    transform: scale(0.9) rotate(-3deg);
+  }
+
+  /* line 193, ../scss/_mixins.scss */
+  30%, 50%, 70%, 90% {
+    -webkit-transform: scale(1.1) rotate(3deg);
+    transform: scale(1.1) rotate(3deg);
+  }
+
+  /* line 198, ../scss/_mixins.scss */
+  40%, 60%, 80% {
+    -webkit-transform: scale(1.1) rotate(-3deg);
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  /* line 203, ../scss/_mixins.scss */
+  100% {
+    -webkit-transform: scale(1) rotate(0);
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes tada {
+  /* line 210, ../scss/_mixins.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  /* line 216, ../scss/_mixins.scss */
+  10%, 20% {
+    -webkit-transform: scale(0.9) rotate(-3deg);
+    -ms-transform: scale(0.9) rotate(-3deg);
+    transform: scale(0.9) rotate(-3deg);
+  }
+
+  /* line 222, ../scss/_mixins.scss */
+  30%, 50%, 70%, 90% {
+    -webkit-transform: scale(1.1) rotate(3deg);
+    -ms-transform: scale(1.1) rotate(3deg);
+    transform: scale(1.1) rotate(3deg);
+  }
+
+  /* line 228, ../scss/_mixins.scss */
+  40%, 60%, 80% {
+    -webkit-transform: scale(1.1) rotate(-3deg);
+    -ms-transform: scale(1.1) rotate(-3deg);
+    transform: scale(1.1) rotate(-3deg);
+  }
+
+  /* line 234, ../scss/_mixins.scss */
+  100% {
+    -webkit-transform: scale(1) rotate(0);
+    -ms-transform: scale(1) rotate(0);
+    transform: scale(1) rotate(0);
+  }
+}
+
 /* USAGE */
 /* /USAGE */
 /* line 9, ../scss/_fonts.scss */
@@ -745,15 +814,15 @@ html body .container .bucket #map-canvas {
   position: fixed !important;
   top: 0;
   z-index: 0;
+  /*
+  .map-overlay {
+    background: $green;
+    @include opacity(.2);
+    position: absolute;
+  }
+  */
 }
-/* line 329, ../scss/_main.scss */
-html body .container .bucket #map-canvas .map-overlay {
-  background: #16a085;
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20);
-  opacity: 0.2;
-  position: absolute;
-}
-/* line 336, ../scss/_main.scss */
+/* line 338, ../scss/_main.scss */
 html body .container .bucket #car-info {
   background-color: #fcfcfc;
   padding: 10px;
@@ -763,18 +832,18 @@ html body .container .bucket #car-info {
   width: 100%;
   z-index: 99;
 }
-/* line 345, ../scss/_main.scss */
+/* line 347, ../scss/_main.scss */
 html body .container .bucket #car-info ul li {
   float: left;
   width: 33%;
 }
-/* line 348, ../scss/_main.scss */
+/* line 350, ../scss/_main.scss */
 html body .container .bucket #car-info ul li span {
   color: #a1a1a1;
   display: block;
   text-align: center;
 }
-/* line 349, ../scss/_main.scss */
+/* line 351, ../scss/_main.scss */
 html body .container .bucket #car-info ul li .feature {
   color: #266258;
   font-size: 9px;
@@ -783,7 +852,7 @@ html body .container .bucket #car-info ul li .feature {
   line-height: 1.35rem;
   text-transform: uppercase;
 }
-/* line 350, ../scss/_main.scss */
+/* line 352, ../scss/_main.scss */
 html body .container .bucket #car-info ul li .value {
   color: #5bbca9;
   font-size: 24px;
@@ -792,7 +861,16 @@ html body .container .bucket #car-info ul li .value {
   line-height: 3.6rem;
   font-weight: 400;
 }
-/* line 356, ../scss/_main.scss */
+/* line 353, ../scss/_main.scss */
+html body .container .bucket #car-info ul li .value.updated {
+  -webkit-animation-name: tada;
+  animation-name: tada;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: backwards;
+  animation-fill-mode: backwards;
+}
+/* line 360, ../scss/_main.scss */
 html body .container .bucket #switcher {
   position: fixed;
   bottom: -66px;
@@ -806,12 +884,12 @@ html body .container .bucket #switcher {
   -o-transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
-/* line 361, ../scss/_main.scss */
+/* line 365, ../scss/_main.scss */
 html body .container .bucket #switcher ul {
   overflow: hidden;
   *zoom: 1;
 }
-/* line 363, ../scss/_main.scss */
+/* line 367, ../scss/_main.scss */
 html body .container .bucket #switcher ul li {
   float: left;
   display: inline;
@@ -819,7 +897,7 @@ html body .container .bucket #switcher ul li {
   width: 50%;
   text-indent: -50000px;
 }
-/* line 365, ../scss/_main.scss */
+/* line 369, ../scss/_main.scss */
 html body .container .bucket #switcher ul li a {
   height: 66px;
   width: 100%;
@@ -828,59 +906,59 @@ html body .container .bucket #switcher ul li a {
   line-height: 66px;
   text-decoration: none;
 }
-/* line 367, ../scss/_main.scss */
+/* line 371, ../scss/_main.scss */
 html body .container .bucket #switcher ul .list-view {
   background: #5bbca9 url(../images/ico_list_off.png) center center no-repeat;
   background-size: 3em;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 367, ../scss/_main.scss */
+  /* line 371, ../scss/_main.scss */
   html body .container .bucket #switcher ul .list-view {
     background: #5bbca9 url(../images/ico_list_off@x2.png) center center no-repeat;
     background-size: 3em;
   }
 }
-/* line 375, ../scss/_main.scss */
+/* line 379, ../scss/_main.scss */
 html body .container .bucket #switcher ul .list-view.active {
   background: #fcfcfc url(../images/ico_list_on.png) center center no-repeat;
   background-size: 3em;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 375, ../scss/_main.scss */
+  /* line 379, ../scss/_main.scss */
   html body .container .bucket #switcher ul .list-view.active {
     background: #fcfcfc url(../images/ico_list_on@x2.png) center center no-repeat;
     background-size: 3em;
   }
 }
-/* line 383, ../scss/_main.scss */
+/* line 387, ../scss/_main.scss */
 html body .container .bucket #switcher ul .map-view {
   background: #5bbca9 url(../images/ico_map_off.png) center center no-repeat;
   background-size: 3em;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 383, ../scss/_main.scss */
+  /* line 387, ../scss/_main.scss */
   html body .container .bucket #switcher ul .map-view {
     background: #5bbca9 url(../images/ico_map_off@x2.png) center center no-repeat;
     background-size: 3em;
   }
 }
-/* line 391, ../scss/_main.scss */
+/* line 395, ../scss/_main.scss */
 html body .container .bucket #switcher ul .map-view.active {
   background: #fcfcfc url(../images/ico_map_on.png) center center no-repeat;
   background-size: 3em;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-  /* line 391, ../scss/_main.scss */
+  /* line 395, ../scss/_main.scss */
   html body .container .bucket #switcher ul .map-view.active {
     background: #fcfcfc url(../images/ico_map_on@x2.png) center center no-repeat;
     background-size: 3em;
   }
 }
-/* line 401, ../scss/_main.scss */
+/* line 405, ../scss/_main.scss */
 html body .container .bucket #switcher.open {
   bottom: 0;
 }
-/* line 408, ../scss/_main.scss */
+/* line 412, ../scss/_main.scss */
 html body .container.overlay-open {
   -webkit-transform: scale(0.8);
   transform: scale(0.8);

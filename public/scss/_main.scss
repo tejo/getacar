@@ -326,11 +326,13 @@ html {
           position: fixed!important;
           top: 0;
           z-index: 0;
+          /*
           .map-overlay {
             background: $green;
             @include opacity(.2);
             position: absolute;
           }
+          */
         }
         
         #car-info {
@@ -348,6 +350,8 @@ html {
               span {color: $gray; display: block; text-align: center;}
               .feature {color: $green-dark; @include font-size(0.9);text-transform: uppercase;}
               .value {color: $green-mid; @include font-size(2.4); font-weight: $font-normal;}
+              .value.updated {@include tada()}
+              .value.not-updated {}
             }
           }
           

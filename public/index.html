@@ -56,15 +56,21 @@
   
           <script type="text/ng-template" id="map.html">
             <div id="map-canvas"></div>
-            <div id="car-info">
+            <div id="car-info" ng-hide="viewall">
               <ul>
                 <li>
                   <span class="feature">Distanza</span>
-                  <span ng-class="distance_changed === true ? 'value distance updated' : 'value distance' ">{{distance}}</span>
+                  <!--span ng-class="distance_changed === true ? 'value distance updated' : 'value distance' ">{{distance}}</span-->
+                  <span class="value distance">{{distance}}</span>
                 </li>
                 <li>
                   <span class="feature">Carburante</span>
-                  <span ng-class="fuel_changed === true ? 'value fuel updated' : 'value fuel' ">{{fuel}}%</span>
+                  <!--span ng-class="fuel_changed === true ? 'value fuel updated' : 'value fuel' ">{{fuel}}%</span-->
+                  <!--span class="value fuel" ng-class="{true: 'updated', false: 'not-updated'}[fuel_changed]">{{fuel}}%</span-->
+                  <!--span class="value fuel" hilight="fuel_changed" ng-class="{true: 'updated', false: ''}[fuel_changed]">{{fuel}}%</span-->
+                  <span class="value fuel">{{fuel}}%</span>
+                  
+                  <!--span class="value fuel" ng-class="{{fuel_changed}}">{{fuel}}%</span-->
                 </li>
                 <li>
                   <span class="feature">&euro;/min</span>
@@ -74,7 +80,7 @@
             </div>
             <div id="switcher" class="open">
               <ul>
-                <li class="list-view"><a data-ng-href="#/cars/{{myLat}}/{{myLon}}">List</a></li>
+                <li class="list-view"><a data-ng-href="#/cars/{{myLat}}/{{myLon}}/{{city}}/{{street}}">List</a></li>
                 <li class="map-view active"><a data-ng-disabled>Map</a></li>
               </ul>
             </div>
@@ -113,7 +119,7 @@
             <div id="switcher" class="open">
             <ul>
               <li class="list-view active"><a data-ng-disabled>List</a></li>
-              <li class="map-view"><a data-ng-href="#/map/0/{{lat}}/{{lon}}">Map</a></li>
+              <li class="map-view"><a data-ng-model="cars" data-ng-href="#/map/0/{{lat}}/{{lon}}/{{ getDistance(cars[0].lat, cars[0].lon) }}">Map</a></li>
             </ul>
           </div>
           
