@@ -117,11 +117,11 @@ html {
           top: 20px;
           overflow: hidden;
           border: none;
-          background: url(../images/cross.png) no-repeat center center;
+          background: url(../images/cross_blue.png) no-repeat center center;
           @media 
             (-webkit-min-device-pixel-ratio: 2), 
             (min-resolution: 192dpi) {
-              background: url(../images/cross@x2.png) 12px 10px no-repeat;
+              background: url(../images/cross_blue@x2.png) 12px 10px no-repeat;
               background-size: 30px;
             }
           text-indent: 200%;
