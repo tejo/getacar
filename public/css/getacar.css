@@ -95,68 +95,74 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 }
 */
+/********************************************************
+  ANIMATION: SPIN
+*********************************************************/
 @-moz-keyframes spin {
-  /* line 149, ../scss/_mixins.scss */
+  /* line 145, ../scss/_mixins.scss */
   0% {
     -moz-transform: rotate(0deg);
   }
 
-  /* line 153, ../scss/_mixins.scss */
+  /* line 149, ../scss/_mixins.scss */
   100% {
     -moz-transform: rotate(360deg);
   }
 }
 
 @-webkit-keyframes spin {
-  /* line 159, ../scss/_mixins.scss */
+  /* line 155, ../scss/_mixins.scss */
   0% {
     -webkit-transform: rotate(0deg);
   }
 
-  /* line 163, ../scss/_mixins.scss */
+  /* line 159, ../scss/_mixins.scss */
   100% {
     -webkit-transform: rotate(360deg);
   }
 }
 
 @keyframes spin {
-  /* line 168, ../scss/_mixins.scss */
+  /* line 164, ../scss/_mixins.scss */
   0% {
     transform: rotate(0deg);
   }
 
-  /* line 172, ../scss/_mixins.scss */
+  /* line 168, ../scss/_mixins.scss */
   100% {
     transform: rotate(360deg);
   }
 }
 
+/********************************************************
+  ANIMATION: TADA
+*********************************************************/
 @-webkit-keyframes tada {
-  /* line 183, ../scss/_mixins.scss */
+  /* line 188, ../scss/_mixins.scss */
   0% {
     -webkit-transform: scale(1);
     transform: scale(1);
   }
 
-  /* line 188, ../scss/_mixins.scss */
+  /* line 193, ../scss/_mixins.scss */
   10%, 20% {
     -webkit-transform: scale(0.9) rotate(-3deg);
     transform: scale(0.9) rotate(-3deg);
   }
 
-  /* line 193, ../scss/_mixins.scss */
+  /* line 198, ../scss/_mixins.scss */
   30%, 50%, 70%, 90% {
     -webkit-transform: scale(1.1) rotate(3deg);
     transform: scale(1.1) rotate(3deg);
   }
 
-  /* line 198, ../scss/_mixins.scss */
+  /* line 203, ../scss/_mixins.scss */
   40%, 60%, 80% {
     -webkit-transform: scale(1.1) rotate(-3deg);
     transform: scale(1.1) rotate(-3deg);
   }
 
-  /* line 203, ../scss/_mixins.scss */
+  /* line 208, ../scss/_mixins.scss */
   100% {
     -webkit-transform: scale(1) rotate(0);
     transform: scale(1) rotate(0);
@@ -164,39 +170,109 @@ article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, 
 }
 
 @keyframes tada {
-  /* line 210, ../scss/_mixins.scss */
+  /* line 216, ../scss/_mixins.scss */
   0% {
     -webkit-transform: scale(1);
     -ms-transform: scale(1);
     transform: scale(1);
   }
 
-  /* line 216, ../scss/_mixins.scss */
+  /* line 222, ../scss/_mixins.scss */
   10%, 20% {
     -webkit-transform: scale(0.9) rotate(-3deg);
     -ms-transform: scale(0.9) rotate(-3deg);
     transform: scale(0.9) rotate(-3deg);
   }
 
-  /* line 222, ../scss/_mixins.scss */
+  /* line 228, ../scss/_mixins.scss */
   30%, 50%, 70%, 90% {
     -webkit-transform: scale(1.1) rotate(3deg);
     -ms-transform: scale(1.1) rotate(3deg);
     transform: scale(1.1) rotate(3deg);
   }
 
-  /* line 228, ../scss/_mixins.scss */
+  /* line 234, ../scss/_mixins.scss */
   40%, 60%, 80% {
     -webkit-transform: scale(1.1) rotate(-3deg);
     -ms-transform: scale(1.1) rotate(-3deg);
     transform: scale(1.1) rotate(-3deg);
   }
 
-  /* line 234, ../scss/_mixins.scss */
+  /* line 240, ../scss/_mixins.scss */
   100% {
     -webkit-transform: scale(1) rotate(0);
     -ms-transform: scale(1) rotate(0);
     transform: scale(1) rotate(0);
+  }
+}
+
+/********************************************************
+  ANIMATION: PULSE
+*********************************************************/
+@-webkit-keyframes pulse {
+  /* line 261, ../scss/_mixins.scss */
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  /* line 266, ../scss/_mixins.scss */
+  50% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 271, ../scss/_mixins.scss */
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  /* line 278, ../scss/_mixins.scss */
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  /* line 284, ../scss/_mixins.scss */
+  50% {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  /* line 290, ../scss/_mixins.scss */
+  100% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+/********************************************************
+  ANIMATION: HILIGHT
+*********************************************************/
+@-webkit-keyframes hilight {
+  /* line 312, ../scss/_mixins.scss */
+  50% {
+    text-shadow: 0px 2px 3px #266258;
+  }
+}
+
+@-moz-keyframes hilight {
+  /* line 315, ../scss/_mixins.scss */
+  50% {
+    text-shadow: 0px 2px 3px #266258;
+  }
+}
+
+@keyframes hilight {
+  /* line 318, ../scss/_mixins.scss */
+  50% {
+    text-shadow: 0px 2px 3px #266258;
   }
 }
 
@@ -863,12 +939,16 @@ html body .container .bucket #car-info ul li .featurevalue {
 }
 /* line 353, ../scss/_main.scss */
 html body .container .bucket #car-info ul li .featurevalue.updated {
-  -webkit-animation-name: tada;
-  animation-name: tada;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
+  /*@include tada()*/
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+  -webkit-animation-duration: .6s;
+  animation-duration: .6s;
+  animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  -webkit-animation-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   -webkit-animation-fill-mode: backwards;
   animation-fill-mode: backwards;
+  /* @include hilight(); */
 }
 /* line 360, ../scss/_main.scss */
 html body .container .bucket #switcher {

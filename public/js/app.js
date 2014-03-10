@@ -271,12 +271,6 @@ gac.factory('googleMapsFactory', function() {
     },
     removeMarkers: function() {
       this.markers.length = 0;
-      /*
-for( var i = 0; i < this.markers.length; i++ ){
-        this.markers[i].setMap(null);
-        this.markers.splice(i, 1);
-      }
-*/
     },
     getMarkerList: function() {
       return this.markers;

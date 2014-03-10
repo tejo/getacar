@@ -138,13 +138,9 @@
 }
 
 
-@mixin spin-animation() {
-  -webkit-animation: spin 2s $ease-out-back infinite;
-  -moz-animation: spin 2s $ease-out-back infinite;
-  -ms-animation: spin 2s $ease-out-back infinite;
-  animation: spin 2s $ease-out-back infinite;
-}
-
+/********************************************************
+  ANIMATION: SPIN
+*********************************************************/
 @-moz-keyframes spin {
     0% {
         -moz-transform: rotate(0deg);
@@ -173,11 +169,20 @@
         transform: rotate(360deg);
     };
 }
+@mixin spin-animation() {
+  -webkit-animation: spin 2s $ease-out-back infinite;
+  -moz-animation: spin 2s $ease-out-back infinite;
+  -ms-animation: spin 2s $ease-out-back infinite;
+  animation: spin 2s $ease-out-back infinite;
+}
 
 
 
 
 
+/********************************************************
+  ANIMATION: TADA
+*********************************************************/
 
 @-webkit-keyframes tada {
   0% {
@@ -205,6 +210,7 @@
     transform: scale(1) rotate(0);
   }
 }
+
 
 @keyframes tada {
   0% {
@@ -237,7 +243,6 @@
     transform: scale(1) rotate(0);
   }
 }
-
 @mixin tada() {
   -webkit-animation-name: tada;
   animation-name: tada;
@@ -248,6 +253,78 @@
 }
 
 
+/********************************************************
+  ANIMATION: PULSE
+*********************************************************/
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+}
+@mixin pulse() {
+  -webkit-animation-name: pulse;
+  animation-name: pulse;
+  -webkit-animation-duration: .6s;
+  animation-duration: .6s;
+  animation-timing-function: $ease-out-back;
+  -webkit-animation-timing-function: $ease-out-back;  
+  -webkit-animation-fill-mode: backwards;
+  animation-fill-mode: backwards;
+}
+
+
+/********************************************************
+  ANIMATION: HILIGHT
+*********************************************************/
+@-webkit-keyframes hilight {
+  50% {text-shadow: 0px 2px 3px $green-dark;}
+}
+@-moz-keyframes hilight {
+  50% {text-shadow: 0px 2px 3px $green-dark;}
+}
+@keyframes hilight {
+  50% {text-shadow: 0px 2px 3px $green-dark;}
+}
+@mixin hilight() {
+  -webkit-animation-name: hilight;
+  animation-name: hilight;
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: backwards;
+  animation-fill-mode: backwards;
+}
 
 
 
