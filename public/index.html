@@ -10,7 +10,7 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <!--meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" /-->
         <link rel="apple-touch-icon-precomposed" sizes="57x57" href="touch-icon-iphone-114.png" />
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="touch-icon-ipad-144.png" />
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="touch-icon-iphone-114.png" />
@@ -51,7 +51,6 @@
                 <h2 class="title-action">Cerca per indirizzo</h2>
               </form>
             </section>
-            
           </script>
   
           <script type="text/ng-template" id="map.html">
@@ -61,20 +60,21 @@
                 <li>
                   <span class="feature">Distanza</span>
                   <!--span ng-class="distance_changed === true ? 'value distance updated' : 'value distance' ">{{distance}}</span-->
-                  <span class="value distance">{{distance}}</span>
+                  <span class="featurevalue distance">{{distance}}</span>
                 </li>
                 <li>
                   <span class="feature">Carburante</span>
                   <!--span ng-class="fuel_changed === true ? 'value fuel updated' : 'value fuel' ">{{fuel}}%</span-->
                   <!--span class="value fuel" ng-class="{true: 'updated', false: 'not-updated'}[fuel_changed]">{{fuel}}%</span-->
                   <!--span class="value fuel" hilight="fuel_changed" ng-class="{true: 'updated', false: ''}[fuel_changed]">{{fuel}}%</span-->
-                  <span class="value fuel">{{fuel}}%</span>
+                  <span class="featurevalue fuel">{{fuel}}%</span>
                   
                   <!--span class="value fuel" ng-class="{{fuel_changed}}">{{fuel}}%</span-->
                 </li>
                 <li>
                   <span class="feature">&euro;/min</span>
-                  <span ng-class="price_changed === true ? 'value price updated' : 'value price' ">{{price}}</span>
+                  <!--span ng-class="price_changed === true ? 'value price updated' : 'value price' ">{{price}}</span-->
+                  <span class="featurevalue price">{{price}}</span>
                 </li>
               </ul>
             </div>
@@ -122,7 +122,6 @@
               <li class="map-view"><a data-ng-model="cars" data-ng-href="#/map/0/{{lat}}/{{lon}}/{{ getDistance(cars[0].lat, cars[0].lon) }}">Map</a></li>
             </ul>
           </div>
-          
           </script>
           
           <div class="overlay overlay-contentscale">

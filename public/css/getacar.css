@@ -853,7 +853,7 @@ html body .container .bucket #car-info ul li .feature {
   text-transform: uppercase;
 }
 /* line 352, ../scss/_main.scss */
-html body .container .bucket #car-info ul li .value {
+html body .container .bucket #car-info ul li .featurevalue {
   color: #5bbca9;
   font-size: 24px;
   line-height: 36px;
@@ -862,7 +862,7 @@ html body .container .bucket #car-info ul li .value {
   font-weight: 400;
 }
 /* line 353, ../scss/_main.scss */
-html body .container .bucket #car-info ul li .value.updated {
+html body .container .bucket #car-info ul li .featurevalue.updated {
   -webkit-animation-name: tada;
   animation-name: tada;
   -webkit-animation-duration: 1s;
