@@ -27,7 +27,7 @@ func isIt(l string) bool { return l == "it" }
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.WriteHeader(200)
-	homeTpl.Execute(w, "")
+	homeTpl.Execute(w, map[string]interface{}{"CDNPath":os.Getenv("CDN_PATH")})
 }
 
 func main() {
