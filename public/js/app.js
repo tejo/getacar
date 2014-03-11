@@ -1,3 +1,7 @@
+// @codekit-prepend "angular.min.js"
+// @codekit-prepend "angular-route.min.js"
+// @codekit-append "getacar.min.js"
+
 var gac = angular.module('getacar', ['ngRoute']);
 
 gac.config(['$routeProvider','$locationProvider',
@@ -60,7 +64,7 @@ gac.factory('DataSharingObject', function(){
 })
 
 
-gac.factory('carsFactory', function($http, $q){
+gac.factory('carsFactory', ['$http', '$q', function($http, $q){
   return {
     query: function(lat, lng) {
       var carsUrl = "/cars"
@@ -159,7 +163,7 @@ gac.factory('carsFactory', function($http, $q){
     }
     
   };
-});
+}]);
 
 
 gac.factory('googleMapsFactory', function() {
@@ -279,11 +283,11 @@ gac.factory('googleMapsFactory', function() {
 });
 
 
-gac.controller('MenuController', function($scope, $location, $routeParams, carsFactory) {
-});
+gac.controller('MenuController',['$scope', '$location', '$routeParams', 'carsFactory', function($scope, $location, $routeParams, carsFactory) {
+}]);
 
 
-gac.controller('HomeController', function($scope, $location, $routeParams, carsFactory, DataSharingObject) {
+gac.controller('HomeController', ['$scope', '$location', '$routeParams', 'carsFactory', 'DataSharingObject', function($scope, $location, $routeParams, carsFactory, DataSharingObject) {
   
   // Reset dati condivisi
   DataSharingObject.reset();
@@ -342,10 +346,10 @@ gac.controller('HomeController', function($scope, $location, $routeParams, carsF
     });
   }
   
-});
+}]);
 
 
-gac.directive('featurevalue', function ($timeout) {
+gac.directive('featurevalue', ['$timeout',function ($timeout) {
   return {
     restrict: 'C',
     link: function (scope, element, attrs) {
@@ -392,10 +396,10 @@ scope.featurevalues = ['fuel', 'distance', 'price'];
 */
     }
   };
-});
+}]);
 
 
-gac.controller('MapController', function($scope, $location, $routeParams, carsFactory, DataSharingObject, googleMapsFactory) {
+gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFactory', 'DataSharingObject', 'googleMapsFactory', function($scope, $location, $routeParams, carsFactory, DataSharingObject, googleMapsFactory) {
   
   $scope.lat = $routeParams.lat;
   $scope.lon = $routeParams.lon;
@@ -495,7 +499,7 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
   }
   
   
-});
+}]);
 
 /*
   DataSharingObject [campi valorizzati]:
@@ -505,7 +509,7 @@ gac.controller('MapController', function($scope, $location, $routeParams, carsFa
   - myStreet
   - price
 */
-gac.controller('CarsController', function($scope, $location, $routeParams, carsFactory, DataSharingObject) {
+gac.controller('CarsController', ['$scope', '$location', '$routeParams', 'carsFactory', 'DataSharingObject', function($scope, $location, $routeParams, carsFactory, DataSharingObject) {
   
   
   // Salvo la posizione (mia/cercata)
@@ -543,7 +547,7 @@ gac.controller('CarsController', function($scope, $location, $routeParams, carsF
     }
     return distance + unit;
   }
-});
+}]);
 
 /*
   lat1: myLat
