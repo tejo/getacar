@@ -16,32 +16,34 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="touch-icon-iphone-114.png" />
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="touch-icon-ipad-144.png" />
 
-        <link rel="stylesheet" href="/css/getacar.css">
-        
-        <script src="js/vendor/modernizr 2.7.1.min.js"></script>
+
+        <!--link rel="stylesheet" href="/css/getacar.css">
+        <script src="js/vendor/modernizr 2.7.1.min.js"></script-->
+
+        <link rel="stylesheet" href="<% .CDNPath  %>/css/getacar.css">
+        <script src="<% .CDNPath  %>/js/vendor/modernizr 2.7.1.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1AxcPmZKRn3aNr_1scX7jJS-Ha0uFkaM&sensor=false"></script>
     </head>
     <body data-ng-app="getacar" >
         <!--[if lt IE 7]>
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
-        
+
         <div class="container">
           <header id="header" data-ng-controller="MenuController">
             <a href="/" class="logo" id="get-a-car">GetACar</a>
-            <!-- <h1 class="title">Get(a)Car!</h1> -->
             <a href="#" class="btn si-icon si-icon-hamburger-cross" data-icon-name="hamburgerCross" id="trigger-overlay">Button</a>
           </header>
-          
+
           <div data-ng-view class="bucket"></div>
-  
+
           <script type="text/ng-template" id="home.html">
             <section class="home">
               <form name="localizeForm">
                 <h2 class="title-action">Localizza le macchine più vicine a te</h2>
                 <button type="button" class="bt-getme bt-circle" data-ng-click="localizeMe()">Localize</button>
               </form>
-              
+
               <form name="geoCodeForm">
                 <div class="search-box">
                   <!-- visually-hidden -->
@@ -52,28 +54,21 @@
               </form>
             </section>
           </script>
-  
+
           <script type="text/ng-template" id="map.html">
             <div id="map-canvas"></div>
             <div id="car-info" ng-hide="viewall">
               <ul>
                 <li>
                   <span class="feature">Distanza</span>
-                  <!--span ng-class="distance_changed === true ? 'value distance updated' : 'value distance' ">{{distance}}</span-->
                   <span class="featurevalue distance">{{distance}}</span>
                 </li>
                 <li>
                   <span class="feature">Carburante</span>
-                  <!--span ng-class="fuel_changed === true ? 'value fuel updated' : 'value fuel' ">{{fuel}}%</span-->
-                  <!--span class="value fuel" ng-class="{true: 'updated', false: 'not-updated'}[fuel_changed]">{{fuel}}%</span-->
-                  <!--span class="value fuel" hilight="fuel_changed" ng-class="{true: 'updated', false: ''}[fuel_changed]">{{fuel}}%</span-->
                   <span class="featurevalue fuel">{{fuel}}%</span>
-                  
-                  <!--span class="value fuel" ng-class="{{fuel_changed}}">{{fuel}}%</span-->
                 </li>
                 <li>
                   <span class="feature">&euro;/min</span>
-                  <!--span ng-class="price_changed === true ? 'value price updated' : 'value price' ">{{price}}</span-->
                   <span class="featurevalue price">{{price}}</span>
                 </li>
               </ul>
@@ -85,7 +80,7 @@
               </ul>
             </div>
           </script>
-  
+
           <script type="text/ng-template" id="cars.html">
             <section class="car-list">
               <div class="header">
@@ -107,7 +102,7 @@
                 </div>
               </div>
             </section>
-          
+
             <div id="switcher" class="open">
             <ul>
               <li class="list-view active"><a data-ng-disabled>List</a></li>
@@ -115,7 +110,7 @@
             </ul>
           </div>
           </script>
-          
+
           <div class="overlay overlay-contentscale">
             <button type="button" class="overlay-close">Close</button>
             <nav>
@@ -126,21 +121,20 @@
             </nav>
             <p class="copy">&copy; Copyright 2014 - GetACar <span>info@getacar.me</span></p>
           </div>
-          
-          <script>
+
+          <!--script>
             document.write('<script src=' +
             ('__proto__' in {} ? '/js/vendor/zepto.min' : '/js/vendor/jquery') +'.js><\/script>')
           </script>
-          <script src="/js/app.min.js"></script>
-  
-          <!--
+          <script src="/js/app.min.js"></script-->
           <script>
-              var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-              (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-              g.src='//www.google-analytics.com/ga.js';
-              s.parentNode.insertBefore(g,s)}(document,'script'));
+            ('__proto__' in {} ? '<% .CDNPath  %>/js/vendor/zepto.min' : '<% .CDNPath  %>/js/vendor/jquery') +'.js><\/script>')
           </script>
-          -->
+          <!--script src="<% .CDNPath  %>/js/angular.min.js"></script>
+          <script src="<% .CDNPath  %>/js/angular-route.min.js"></script>
+          <script src="<% .CDNPath  %>/js/app.js"></script>
+          <script src="<% .CDNPath  %>/js/getacar.js"></script-->
+          <script src="<% .CDNPath  %>/js/app.min.js"></script>
         </div>
         <!-- /container -->
     </body>

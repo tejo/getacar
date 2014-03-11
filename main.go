@@ -6,8 +6,10 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"text/template"
 	"time"
 
+	"bitbucket.org/kardianos/osext"
 	"github.com/gorilla/mux"
 	"github.com/tejo/geogo"
 )
@@ -16,14 +18,35 @@ var cars = make([]CarEntry, 0)
 var car2goUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=milano&oauth_consumer_key=car2gowebsite&format=json"
 var enjoyUrl string = "http://enjoy.eni.com/get_vetture"
 
+var homeTpl *template.Template
+var funcs = template.FuncMap{
+	"isIt": isIt,
+}
+
+func isIt(l string) bool { return l == "it" }
+
+func loadTemplate(folderPath string) {
+	homeTpl = template.Must(template.New("index.html").Delims("<%", "%>").Funcs(funcs).ParseFiles(folderPath + "public/index.html"))
+	return
+}
+
+func homeHandler(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	w.WriteHeader(200)
+	homeTpl.Execute(w, map[string]interface{}{"CDNPath": os.Getenv("CDN_PATH")})
+}
+
 func main() {
+	folderPath, _ := osext.ExecutableFolder()
+	loadTemplate(folderPath)
 	startClock()
 	fetchCarsFromAPI(car2goUrl, enjoyUrl)
 	r := mux.NewRouter()
+	r.HandleFunc("/", homeHandler).Methods("GET")
 	r.HandleFunc("/geocode", Geocode).Methods("GET")
 	r.HandleFunc("/cars", LoadCars)
 	r.HandleFunc("/cars/{lat}/{lng}", LoadClosestCars).Methods("GET")
-	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
+	r.PathPrefix("/").Handler(http.FileServer(http.Dir(folderPath + "public/")))
 	http.Handle("/", r)
 
 	port := os.Getenv("PORT")
