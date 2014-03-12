@@ -17,6 +17,7 @@ import (
 var cars = make([]CarEntry, 0)
 var car2goUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=milano&oauth_consumer_key=car2gowebsite&format=json"
 var enjoyUrl string = "http://enjoy.eni.com/get_vetture"
+var assetVersion string
 
 var homeTpl *template.Template
 var funcs = template.FuncMap{
@@ -33,12 +34,13 @@ func loadTemplate(folderPath string) {
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.WriteHeader(200)
-	homeTpl.Execute(w, map[string]interface{}{"CDNPath": os.Getenv("CDN_PATH")})
+	homeTpl.Execute(w, map[string]interface{}{"AssetsPath": os.Getenv("CDN_PATH") + assetVersion })
 }
 
 func main() {
 	folderPath, _ := osext.ExecutableFolder()
 	loadTemplate(folderPath)
+  assetVersion = fmt.Sprintf("%d", time.Now().UnixNano())
 	startClock()
 	fetchCarsFromAPI(car2goUrl, enjoyUrl)
 	r := mux.NewRouter()
@@ -46,7 +48,7 @@ func main() {
 	r.HandleFunc("/geocode", Geocode).Methods("GET")
 	r.HandleFunc("/cars", LoadCars)
 	r.HandleFunc("/cars/{lat}/{lng}", LoadClosestCars).Methods("GET")
-  http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(folderPath + "public/"))))
+	http.Handle("/"+assetVersion+"/", http.StripPrefix("/"+assetVersion+"/", http.FileServer(http.Dir(folderPath+"public/"))))
 	http.Handle("/", r)
 
 	port := os.Getenv("PORT")
