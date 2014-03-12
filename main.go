@@ -46,7 +46,7 @@ func main() {
 	r.HandleFunc("/geocode", Geocode).Methods("GET")
 	r.HandleFunc("/cars", LoadCars)
 	r.HandleFunc("/cars/{lat}/{lng}", LoadClosestCars).Methods("GET")
-	r.PathPrefix("/").Handler(http.FileServer(http.Dir(folderPath + "public/")))
+  http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir(folderPath + "public/"))))
 	http.Handle("/", r)
 
 	port := os.Getenv("PORT")
