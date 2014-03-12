@@ -122,13 +122,10 @@
             <p class="copy">&copy; Copyright 2014 - GetACar <span>info@getacar.me</span></p>
           </div>
 
-          <!--script>
-            document.write('<script src=' +
-            ('__proto__' in {} ? '/js/vendor/zepto.min' : '/js/vendor/jquery') +'.js><\/script>')
-          </script>
-          <script src="/js/app.min.js"></script-->
           <script>
-            ('__proto__' in {} ? '<% .CDNPath  %>/js/vendor/zepto.min' : '<% .CDNPath  %>/js/vendor/jquery') +'.js><\/script>')
+            document.write('<script src=' +
+            ('__proto__' in {} ? '<% .CDNPath  %>/js/vendor/zepto.min' : '<% .CDNPath  %>/js/vendor/jquery') +
+            '.js><\/script>')
           </script>
           <!--script src="<% .CDNPath  %>/js/angular.min.js"></script>
           <script src="<% .CDNPath  %>/js/angular-route.min.js"></script>
