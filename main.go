@@ -49,6 +49,7 @@ func main() {
 	r.HandleFunc("/cars", LoadCars)
 	r.HandleFunc("/cars/{lat}/{lng}", LoadClosestCars).Methods("GET")
 	http.Handle("/"+assetVersion+"/", http.StripPrefix("/"+assetVersion+"/", http.FileServer(http.Dir(folderPath+"public/"))))
+  r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
 	http.Handle("/", r)
 
 	port := os.Getenv("PORT")
