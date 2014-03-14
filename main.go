@@ -34,13 +34,13 @@ func loadTemplate(folderPath string) {
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	w.WriteHeader(200)
-	homeTpl.Execute(w, map[string]interface{}{"AssetsPath": os.Getenv("CDN_PATH") + assetVersion })
+	homeTpl.Execute(w, map[string]interface{}{"AssetsPath": os.Getenv("CDN_PATH") + assetVersion})
 }
 
 func main() {
 	folderPath, _ := osext.ExecutableFolder()
 	loadTemplate(folderPath)
-  assetVersion = fmt.Sprintf("%d", time.Now().UnixNano())
+	assetVersion = fmt.Sprintf("%d", time.Now().UnixNano())
 	startClock()
 	fetchCarsFromAPI(car2goUrl, enjoyUrl)
 	r := mux.NewRouter()
@@ -49,7 +49,7 @@ func main() {
 	r.HandleFunc("/cars", LoadCars)
 	r.HandleFunc("/cars/{lat}/{lng}", LoadClosestCars).Methods("GET")
 	http.Handle("/"+assetVersion+"/", http.StripPrefix("/"+assetVersion+"/", http.FileServer(http.Dir(folderPath+"public/"))))
-  r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
+	r.PathPrefix("/").Handler(http.FileServer(http.Dir("./public/")))
 	http.Handle("/", r)
 
 	port := os.Getenv("PORT")
