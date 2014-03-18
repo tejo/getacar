@@ -30,14 +30,14 @@
         <![endif]-->
 
         <div class="container">
-          <header id="header" data-ng-controller="MenuController">
-            <a href="/" class="logo" id="get-a-car">GetACar</a>
-            <a href="#" class="btn si-icon si-icon-hamburger-cross" data-icon-name="hamburgerCross" id="trigger-overlay">Button</a>
-          </header>
 
           <div data-ng-view class="bucket"></div>
 
           <script type="text/ng-template" id="home.html">
+            <header id="header" data-ng-controller="MenuController">
+              <a href="/" class="logo" id="get-a-car">GetACar</a>
+              <a href="#" class="btn si-icon si-icon-hamburger-cross" data-icon-name="hamburgerCross" id="trigger-overlay">Button</a>
+            </header>
             <section class="home">
               <form name="localizeForm">
                 <h2 class="title-action">Localizza le macchine più vicine a te</h2>
@@ -75,6 +75,7 @@
             </div>
             <div id="switcher" class="open">
               <ul>
+                <li class="home-view"><a href="/">Home</a></li>
                 <li class="list-view"><a data-ng-href="#/cars/{{myLat}}/{{myLon}}/{{city}}/{{street}}">List</a></li>
                 <li class="map-view active"><a data-ng-disabled>Map</a></li>
               </ul>
@@ -88,7 +89,7 @@
                   <h3 class="city">{{city}}</h3>
                   <p class="address">{{street}}</p>
                 </div>
-                <a href="#" data-ng-href="/" class="go-search"></a>
+                <!--a href="#" data-ng-href="/" class="go-search"></a-->
             </div>
               <div class="cars" data-ng-repeat='car in cars | limitTo:30'>
                 <div class="car {{ car.Type }}">
@@ -105,6 +106,7 @@
 
             <div id="switcher" class="open">
             <ul>
+              <li class="home-view"><a href="/">Home</a></li>
               <li class="list-view active"><a data-ng-disabled>List</a></li>
               <li class="map-view"><a data-ng-model="cars" data-ng-href="#/map/0/{{lat}}/{{lon}}/{{ getDistance(cars[0].lat, cars[0].lon) }}">Map</a></li>
             </ul>

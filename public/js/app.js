@@ -254,7 +254,7 @@ gac.factory('googleMapsFactory', function() {
         var marker = null;
         var image = '/images/car_'+type+'.png';
         if (i == my_car_id) {
-          image = '/images/car_car2go.png';
+          image = '/images/ico_selected_car.png';
         }
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(car_array[i].lat,car_array[i].lon),
@@ -443,7 +443,12 @@ gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFac
         (function(index){google.maps.event.addListener(markers[index], 'click', function(e) {
           $scope.$apply(
             function(){
-
+            
+              for (var i=0; i<markers.length; i++) {
+                markers[i].setIcon('/images/car_'+DataSharingObject.cars[i].Type+'.png');
+              }
+              markers[index].setIcon('/images/ico_selected_car.png');
+              
               if ($scope.fuel != DataSharingObject.cars[index].fuel_level)
                 $scope.fuel = DataSharingObject.cars[index].fuel_level;
             
@@ -480,7 +485,11 @@ gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFac
         $scope.$apply(
           function(){
             
+            for (var i=0; i<markers.length; i++) {
+              markers[i].setIcon('/images/car_'+DataSharingObject.cars[i].Type+'.png');
+            }
             
+            markers[index].setIcon('/images/ico_selected_car.png');
             if ($scope.fuel != DataSharingObject.cars[index].fuel_level)
               $scope.fuel = DataSharingObject.cars[index].fuel_level;
 

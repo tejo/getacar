@@ -15,11 +15,8 @@ html {
       background: $green;
       height: 100%;
       @include transition(all, .5s, $custom);
-/*
-      -webkit-transition: -webkit-transform 0.5s;
-      transition: transform 0.5s;
-*/
-      padding-top: $header-h;
+
+      //padding-top: $header-h;
       
       .visually-hidden {
         @include visuallyhidden();
@@ -110,8 +107,8 @@ html {
         
         .overlay-close {
           cursor: pointer;
-          width: 80px;
-          height: 80px;
+          width: 25px;
+          height: 25px;
           position: absolute;
           right: 20px;
           top: 20px;
@@ -121,8 +118,8 @@ html {
           @media 
             (-webkit-min-device-pixel-ratio: 2), 
             (min-resolution: 192dpi) {
-              background: url(../images/cross_blue@x2.png) 12px 10px no-repeat;
-              background-size: 30px;
+              background: url(../images/cross_blue@x2.png) 0 0 no-repeat;
+              background-size: 25px;
             }
           text-indent: 200%;
           color: transparent;
@@ -166,7 +163,7 @@ html {
           
           width: $content-w;
           margin: 0 auto;
-          padding-top: 5%;
+          padding-top: 15%;
           .bt-circle {
             @include bt-circle($circle-r, $circle-r);
             margin: 0 auto;
@@ -239,15 +236,16 @@ html {
         .car-list {
           padding: 10px 0 0;
           .header {
-            -webkit-box-shadow:inset 0 -11px 14px -15px #040404;
-            box-shadow:inset 0 -11px 14px -15px #040404;
+            //-webkit-box-shadow:inset 0 -11px 14px -15px #040404;
+            //box-shadow:inset 0 -11px 14px -15px #040404;
+            border-bottom: 2px solid $green-dark;
             background: url(../images/car_list_start.png) 13px 10px no-repeat;
-            min-height: 33px;
+            min-height: 63px;/*33px;*/
             padding: 10px 28px 10px 12px;
             @media 
             (-webkit-min-device-pixel-ratio: 2), 
             (min-resolution: 192dpi) {
-              background: url(../images/car_list_start@x2.png) 9px 0 no-repeat;
+              background: url(../images/car_list_start@x2.png) 8px 0 no-repeat;
               background-size: 41px;
             }
             @include clearfix();
@@ -267,7 +265,7 @@ html {
             }
           }
           .cars {
-            padding-left: 27px; background: $green-mid;
+            padding-left: 27px; background: $green-odd; /*$green-mid;*/
             border-bottom: 1px solid $green;
             .car.enjoy {
               background: url(../images/ico_enj.png) left center no-repeat;
@@ -317,12 +315,13 @@ html {
               }*/
             }
           }
-          .cars:nth-child(2n) {background-color: $green-light;}
+          .cars:nth-child(2n) {background-color: $green-even;/*$green-light;*/}
         }
         
         /* MAP */
         #map-canvas {
           width: 100%; height: 100%;
+          margin-top: 68px;
           position: fixed!important;
           top: 0;
           z-index: 0;
@@ -339,19 +338,26 @@ html {
           background-color: $white;
           padding: 10px;
           position: absolute;
-          bottom: $switcher-h;
+          //bottom: $switcher-h;
+          top: 0;
           left: 0;
           width: 100%;
           z-index: 99;
           ul {
+            @include clearfix();
             li {
               float: left;
               width: 33%;
               span {color: $gray; display: block; text-align: center;}
-              .feature {color: $green-dark; @include font-size(0.9);text-transform: uppercase;}
+              .feature {color: $green-dark; @include font-size(1.0);text-transform: uppercase; font-weight: $font-bold;}
               .featurevalue {color: $green-mid; @include font-size(2.4); font-weight: $font-normal;}
               .featurevalue.updated {/*@include tada()*/@include pulse(); /* @include hilight(); */}
               .value.not-updated {}
+            }
+            li:last-child {
+              .feature {color: $blue-dark;}
+              .featurevalue {color: $blue-light;}
+              /* background-color: $blue-light; */
             }
           }
           
@@ -364,40 +370,52 @@ html {
           @include transition(all, .6s, $ease-out-back);
           ul {
             @include clearfix();
+            width: 100%; background: $green;
             li {
-              float: left; display: inline; background: $green-mid; width: 50%; text-indent: -50000px;
+              float: left; display: inline; background: $green-mid; width: 33%; text-indent: -50000px; border-right:1px solid $white;
               a {height: $switcher-h; width: 100%; display: block; text-align: center; line-height: $switcher-h; text-decoration: none;}
             }
-            .list-view {
-              background: $green-mid url(../images/ico_list_off.png) center center no-repeat; background-size: 3em;
+            /* li:last-child {border-right:none;} */
+            .home-view {
+              background: $green url(../images/ico_home_off.png) center center no-repeat; background-size: 3em;
               @media 
               (-webkit-min-device-pixel-ratio: 2), 
               (min-resolution: 192dpi) {
-                background: $green-mid url(../images/ico_list_off@x2.png) center center no-repeat; background-size: 3em;
+                background: $green url(../images/ico_home_off.png) center center no-repeat; background-size: 3em;
+              }
+            }
+            .list-view {
+              width: 34%;
+              background: $green url(../images/ico_list_off.png) center center no-repeat; background-size: 3em;
+              @media 
+              (-webkit-min-device-pixel-ratio: 2), 
+              (min-resolution: 192dpi) {
+                background: $green url(../images/ico_list_off@x2.png) center center no-repeat; background-size: 3em;
               }
             }
             .list-view.active {
-              background: $white url(../images/ico_list_on.png) center center no-repeat;background-size: 3em;
+              background: $green url(../images/ico_list_on.png) center center no-repeat;background-size: 3em;
               @media 
               (-webkit-min-device-pixel-ratio: 2), 
               (min-resolution: 192dpi) {
-                background: $white url(../images/ico_list_on@x2.png) center center no-repeat;background-size: 3em;
+                background: $green url(../images/ico_list_on@x2.png) center center no-repeat;background-size: 3em;
               }
             }
             .map-view {
-              background: $green-mid url(../images/ico_map_off.png) center center no-repeat; background-size: 3em;
+              background: $green url(../images/ico_map_off.png) center center no-repeat; background-size: 3em;
+              border-right:1px solid $green;
               @media 
               (-webkit-min-device-pixel-ratio: 2), 
               (min-resolution: 192dpi) {
-                background: $green-mid url(../images/ico_map_off@x2.png) center center no-repeat; background-size: 3em;
+                background: $green url(../images/ico_map_off@x2.png) center center no-repeat; background-size: 3em;
               }
             }
             .map-view.active {
-              background: $white url(../images/ico_map_on.png) center center no-repeat;background-size: 3em;
+              background: $green url(../images/ico_map_on.png) center center no-repeat;background-size: 3em;
               @media 
               (-webkit-min-device-pixel-ratio: 2), 
               (min-resolution: 192dpi) {
-                background: $white url(../images/ico_map_on@x2.png) center center no-repeat;background-size: 3em;
+                background: $green url(../images/ico_map_on@x2.png) center center no-repeat;background-size: 3em;
               }
             }
           }
