@@ -53,19 +53,23 @@ func makeHttpRequest(addr string) ([]byte, int) {
 	return body, r.StatusCode
 }
 
-func fetchCarsFromAPI(car2goUrl, enjoyUrl string) {
-	data1, s1 := makeHttpRequest(car2goUrl)
+func fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl string) {
+	data1, s1 := makeHttpRequest(car2goMilanUrl)
 	data2, s2 := makeHttpRequest(enjoyUrl)
-	if s1 != 200 && s2 != 200 {
+	data3, s3 := makeHttpRequest(car2goRomeUrl)
+	if s1 != 200 && s2 != 200 && s3 != 200 {
 		return
 	}
-	if s1 == 200 || s2 == 200 {
+	if s1 == 200 || s2 == 200 || s3 == 200 {
 		cars = make([]CarEntry, 0)
 		if s1 == 200 {
 			ParseCar2GoJson(data1)
 		}
 		if s2 == 200 {
 			ParseEnjoyJson(data2)
+		}
+		if s3 == 200 {
+			ParseCar2GoJson(data3)
 		}
 	}
 	log.Printf("load %d cars\n", len(cars))

@@ -15,7 +15,8 @@ import (
 )
 
 var cars = make([]CarEntry, 0)
-var car2goUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=milano&oauth_consumer_key=car2gowebsite&format=json"
+var car2goMilanUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=milano&oauth_consumer_key=car2gowebsite&format=json"
+var car2goRomeUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=roma&oauth_consumer_key=car2gowebsite&format=json"
 var enjoyUrl string = "http://enjoy.eni.com/get_vetture"
 var assetVersion string
 
@@ -42,7 +43,7 @@ func main() {
 	loadTemplate(folderPath)
 	assetVersion = fmt.Sprintf("%d", time.Now().UnixNano())
 	startClock()
-	fetchCarsFromAPI(car2goUrl, enjoyUrl)
+	fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl)
 	r := mux.NewRouter()
 	r.HandleFunc("/", homeHandler).Methods("GET")
 	r.HandleFunc("/geocode", Geocode).Methods("GET")
@@ -95,7 +96,7 @@ func startClock() {
 		for {
 			select {
 			case <-ticker.C:
-				fetchCarsFromAPI(car2goUrl, enjoyUrl)
+        fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl)
 				/* comment.Date = time.Now().In(time.UTC).Format(time.RFC3339) */
 			}
 		}

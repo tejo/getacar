@@ -27,9 +27,10 @@ func TestCarStore(t *testing.T) {
 
 func TestClosestCars(t *testing.T) {
 	cars = make([]CarEntry, 0)
-	car2go := NewTestServer("fixtures/car2go.json")
+	car2goMilan := NewTestServer("fixtures/car2go.json")
+	car2goRome := NewTestServer("fixtures/car2go.json")
 	enjoy := NewTestServer("fixtures/enjoy.json")
-	fetchCarsFromAPI(car2go.URL, enjoy.URL)
+	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL)
 	closestCars := ClosestCars(45.47665, 9.22389, 100)
 	if closestCars[0].Name != "118/ER805NP" {
 		t.Error("error fetching closest cars")
@@ -39,9 +40,10 @@ func TestClosestCars(t *testing.T) {
 func TestClosestCarsWithLimit(t *testing.T) {
 	cars = make([]CarEntry, 0)
 	limit := 10
-	car2go := NewTestServer("fixtures/car2go.json")
+	car2goMilan := NewTestServer("fixtures/car2go.json")
+	car2goRome := NewTestServer("fixtures/car2go.json")
 	enjoy := NewTestServer("fixtures/enjoy.json")
-	fetchCarsFromAPI(car2go.URL, enjoy.URL)
+	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL)
 	closestCars := ClosestCars(45.47665, 9.22389, limit)
 	if len(closestCars) != limit {
 		t.Error("error fetching and limiting closest cars")
@@ -74,10 +76,11 @@ func TestParseCar2GoJson(t *testing.T) {
 
 func TestFetchCarsFromAPI(t *testing.T) {
 	cars = make([]CarEntry, 0)
-	car2go := NewTestServer("fixtures/car2go.json")
+	car2goMilan := NewTestServer("fixtures/car2go.json")
+	car2goRome := NewTestServer("fixtures/car2go.json")
 	enjoy := NewTestServer("fixtures/enjoy.json")
-	fetchCarsFromAPI(car2go.URL, enjoy.URL)
-	if len(cars) != 689 {
+	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL)
+	if len(cars) != 1084 {
 		t.Error("error fetching from apis")
 	}
 }
