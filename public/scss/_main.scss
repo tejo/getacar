@@ -294,9 +294,12 @@ html {
                 float: left;
                 @include clearfix();
                 padding-top: 16px;
-                .vendor {font-family: 'Lato', sans-serif; @include font-size(1.5); @include x-rem(line-height, 1.5); font-weight: 700; text-transform: capitalize;}
-                .model {font-family: 'Lato', sans-serif;@include font-size(2.4); @include x-rem(line-height, 2.4);  font-weight: 100; text-transform: uppercase;}
-                .distance {font-family: 'Lato', sans-serif;@include font-size(1.2); @include x-rem(line-height, 1.2);  font-weight: 400; color: $green-dark;}
+                max-width: 75%;
+                li {font-family: 'Lato', sans-serif; }
+                .address {@include font-size(1.4); @include x-rem(line-height, 1.8);font-weight: 400;overflow: hidden;text-overflow: ellipsis;white-space: nowrap; max-width: 100%;}
+                .vendor {@include font-size(1.5); @include x-rem(line-height, 1.8); font-weight: 100; text-transform: capitalize; color: $white;}
+                .model {@include font-size(2.4); @include x-rem(line-height, 2.4);  font-weight: 100; text-transform: uppercase;}
+                .distance {@include font-size(1.2); @include x-rem(line-height, 1.2);  font-weight: 700; color: $green-black;}
               }
               .bt-goto-map {
                 display: block; width: 40px; height: 80px; float: right; /* @include icons-sprite(ico_arrow); */ text-indent: -50000px;

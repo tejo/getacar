@@ -12,22 +12,6 @@ gac.config(['$routeProvider','$locationProvider',
         templateUrl: 'home.html',
         controller: 'HomeController'
       }).
-      /*when('/cars/:lat/:lon', {
-        templateUrl: 'cars.html',
-        controller: 'CarsController'
-      }).
-      when('/cars/:lat/:lon/:street', {
-        templateUrl: 'cars.html',
-        controller: 'CarsController'
-      }).
-      when('/cars/:lat/:lon/:city?/:street?', {
-        templateUrl: 'cars.html',
-        controller: 'CarsController'
-      }).
-      when('/cars', {
-        templateUrl: 'cars.html',
-        controller: 'CarsController'
-      }).*/
       when('/cars/:lat?/:lon?/:city?/:street?', {
         templateUrl: 'cars.html',
         controller: 'CarsController'
@@ -222,8 +206,10 @@ gac.factory('googleMapsFactory', function() {
       var myPosition = new google.maps.Marker({
         position: myLatLng,
         map: this.reference,
-        //size: new google.maps.Size(20, 32),
         icon: '/images/iamhere.png'
+        /*size: new google.maps.Size(20, 32),*/
+        /*optimized: false,
+        icon: '/images/iamhere@x2.gif'*/
       });
       
       // Start extendi map to hold my position
@@ -418,53 +404,9 @@ gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFac
   
   $scope.city = DataSharingObject.city;
   $scope.street = DataSharingObject.street;
-  /*
-  $scope.viewall = false;
-  if ($routeParams.viewall === "true")
-    $scope.viewall = true;
-  */
-  
+
   if (!DataSharingObject.cars) {
-    carsFactory.query($routeParams.lat, $routeParams.lon).then(function(data){
-      DataSharingObject.cars = data;
-      $scope.cars = DataSharingObject.cars;
-      $scope.car = $scope.cars[$routeParams.carId];
-      $scope.distance = $routeParams.dist;
-      $scope.myLat = $routeParams.lat;
-      $scope.myLon = $routeParams.lon;
-      $scope.fuel = $scope.car.fuel_level;
-      $scope.price = $scope.car.Price;
-      
-      googleMapsFactory.init($scope.cars, $routeParams.carId, DataSharingObject);
-      var markers = googleMapsFactory.getMarkerList();
-      
-      for(var i=0, len=markers; i<len.length; i++) {
-      
-        (function(index){google.maps.event.addListener(markers[index], 'click', function(e) {
-          $scope.$apply(
-            function(){
-            
-              for (var i=0; i<markers.length; i++) {
-                markers[i].setIcon('/images/car_'+DataSharingObject.cars[i].Type+'.png');
-              }
-              markers[index].setIcon('/images/ico_selected_car.png');
-              
-              if ($scope.fuel != DataSharingObject.cars[index].fuel_level)
-                $scope.fuel = DataSharingObject.cars[index].fuel_level;
-            
-              if ($scope.price != DataSharingObject.cars[index].Price)
-                $scope.price = DataSharingObject.cars[index].Price;
-              
-              var carLat = e.latLng.lat().toFixed(5);
-              var carLon = e.latLng.lng().toFixed(5);
-              $scope.distance = $scope.getDistance(carLat,carLon);
-              
-            }
-          );
-        });})(i)
-        
-      }
-    });
+    $location.path( "/" );
   } 
   else {
     $scope.cars = DataSharingObject.cars;
@@ -476,7 +418,6 @@ gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFac
     $scope.price = $scope.car.Price;
     
     var markers = googleMapsFactory.init($scope.cars, $routeParams.carId, DataSharingObject);
-    //var markers = googleMapsFactory.getMarkerList();
 
     for(var i=0, len=markers; i<len.length; i++) {
     
