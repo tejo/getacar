@@ -339,9 +339,9 @@ html {
         
         #car-info {
           background-color: $white;
+          @include opacity(0.97);
           padding: 5px;
           position: absolute;
-          //bottom: $switcher-h;
           top: 0;
           left: 0;
           width: 100%;
@@ -355,12 +355,12 @@ html {
               .feature {color: $green-dark; @include font-size(1.0);text-transform: uppercase; font-weight: $font-bold;}
               .featurevalue {color: $green-mid; @include font-size(2.4); @include x-rem(line-height,3.0); font-weight: $font-normal;}
               .featurevalue.updated {/*@include tada()*/@include pulse(); /* @include hilight(); */}
-              .value.not-updated {}
             }
             li:last-child {
               .feature {color: $blue-dark;}
               .featurevalue {color: $blue-light;}
-              /* background-color: $blue-light; */
+              .featurevalue.car2go {color: $blue-car2go;}
+              .featurevalue.enjoy {color: $red-enjoy;}
             }
           }
           

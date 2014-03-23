@@ -1,6 +1,6 @@
 // @codekit-prepend "angular.min.js"
 // @codekit-prepend "angular-route.min.js"
-// @codekit-append "getacar.min.js"
+// @codekit-prepend "getacar.min.js"
 
 var gac = angular.module('getacar', ['ngRoute']);
 
@@ -240,7 +240,7 @@ gac.factory('googleMapsFactory', function() {
         var marker = null;
         var image = '/images/car_'+type+'.png';
         if (i == my_car_id) {
-          image = '/images/ico_selected_car.png';
+          image = '/images/ico_car_selected.png';
         }
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(car_array[i].lat,car_array[i].lon),
@@ -249,7 +249,7 @@ gac.factory('googleMapsFactory', function() {
           map:this.reference
         });
         this.markers.push(marker);
-        if(i<this.max_cars+1) {
+        if(i<this.max_cars+1 || i == my_car_id) {
           var position = marker.position;
           confini.extend(position);
         }
@@ -362,24 +362,7 @@ gac.directive('featurevalue', ['$timeout',function ($timeout) {
             $timeout(function(){element.removeClass("updated");}, 1000)
           }
         }
-      });            
-      /*
-scope.featurevalues = ['fuel', 'distance', 'price'];
-      scope.$watchCollection('[fuel,distance,price]', function(newVals, oldVals){
-        if (newVals !== oldVals) {
-          element.addClass("updated");
-          $timeout(function(){element.removeClass("updated");}, 1000)
-        }
       });
-*/ 
-/*
-      scope.$watchCollection('[fuel,distance,price]', function(newVal, oldVal){
-        if (newVal !== oldVal) {
-          element.addClass("updated");
-          $timeout(function(){element.removeClass("updated");}, 1000)
-        }
-      })
-*/
     }
   };
 }]);
@@ -391,12 +374,15 @@ gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFac
   $scope.lon = $routeParams.lon;
   $scope.getDistance = function(lat, lon) {
     var unit = ' m';
+    var precision = 2;
     var distance =
       ((calculateDistance($scope.lat, $scope.lon, lat, lon)*1000)
               .toPrecision(4)).toString();
     if (distance >= 1000) {
       unit = ' km'
-      var rounding = preciseRound(distance/1000, 0);
+      if (distance >= 100000)
+        precision = 0;
+      var rounding = preciseRound(distance/1000, precision);
       return rounding + unit;
     }
     return distance + unit;
@@ -430,12 +416,15 @@ gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFac
               markers[i].setIcon('/images/car_'+DataSharingObject.cars[i].Type+'.png');
             }
             
-            markers[index].setIcon('/images/ico_selected_car.png');
+            markers[index].setIcon('/images/ico_car_selected.png');
             if ($scope.fuel != DataSharingObject.cars[index].fuel_level)
               $scope.fuel = DataSharingObject.cars[index].fuel_level;
 
             if ($scope.price != DataSharingObject.cars[index].Price)
               $scope.price = DataSharingObject.cars[index].Price;
+              
+            if ($scope.car.Type != DataSharingObject.cars[index].Type)
+              $scope.car.Type = DataSharingObject.cars[index].Type;
 
             var carLat = e.latLng.lat().toFixed(5);
             var carLon = e.latLng.lng().toFixed(5);
@@ -486,13 +475,15 @@ gac.controller('CarsController', ['$scope', '$location', '$routeParams', 'carsFa
   }();
   $scope.getDistance = function(lat, lon) {
     var unit = ' m';
+    var precision = 2;
     var distance =
       ((calculateDistance($scope.lat, $scope.lon, lat, lon)*1000)
               .toPrecision(4)).toString();
     if (distance >= 1000) {
       unit = ' km'
-      //return (distance/1000) + unit;
-      var rounding = preciseRound(distance/1000, 0);
+      if (distance >= 100000)
+        precision = 0;
+      var rounding = preciseRound(distance/1000, precision);
       return rounding + unit;
     }
     return distance + unit;
