@@ -28,7 +28,6 @@ gac.config(['$routeProvider','$locationProvider',
 ]);
 
 
-
 /*
   @prop myLat
   @prop myLon
@@ -148,7 +147,6 @@ gac.factory('carsFactory', ['$http', '$q', function($http, $q){
     
   };
 }]);
-
 
 gac.factory('googleMapsFactory', function() {
   return {
@@ -270,6 +268,8 @@ gac.factory('googleMapsFactory', function() {
 
 
 gac.controller('MenuController',['$scope', '$location', '$routeParams', 'carsFactory', function($scope, $location, $routeParams, carsFactory) {
+
+  
 }]);
 
 
@@ -368,7 +368,12 @@ gac.directive('featurevalue', ['$timeout',function ($timeout) {
 }]);
 
 
-gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFactory', 'DataSharingObject', 'googleMapsFactory', function($scope, $location, $routeParams, carsFactory, DataSharingObject, googleMapsFactory) {
+gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFactory', 'DataSharingObject', 'googleMapsFactory', '$window', function($scope, $location, $routeParams, carsFactory, DataSharingObject, googleMapsFactory, $window) {
+  
+  $scope.reloadHome =function(){
+    $window.location.href = '/';
+  }
+  
   
   $scope.lat = $routeParams.lat;
   $scope.lon = $routeParams.lon;
@@ -392,7 +397,7 @@ gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFac
   $scope.street = DataSharingObject.street;
 
   if (!DataSharingObject.cars) {
-    $location.path( "/" );
+    $window.location.href = '/';
   } 
   else {
     $scope.cars = DataSharingObject.cars;
@@ -448,8 +453,13 @@ gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFac
   - myStreet
   - price
 */
-gac.controller('CarsController', ['$scope', '$location', '$routeParams', 'carsFactory', 'DataSharingObject', function($scope, $location, $routeParams, carsFactory, DataSharingObject) {
+gac.controller('CarsController', ['$scope', '$location', '$routeParams', 'carsFactory', 'DataSharingObject', '$window', function($scope, $location, $routeParams, carsFactory, DataSharingObject, $window) {
   
+  $scope.reloadHome =function(){
+    //$location.path( "/" );
+    $window.location.href = '/'
+    //$window.location.reload(); 
+  }
   
   // Salvo la posizione (mia/cercata)
   //DataSharingObject.myLat = $routeParams.lat;

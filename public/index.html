@@ -85,7 +85,7 @@
             </div>
             <div id="switcher" class="open">
               <ul>
-                <li class="home-view"><a href="/">Home</a></li>
+                <li class="home-view"><a data-ng-click="reloadHome()">Home</a></li>
                 <li class="list-view"><a data-ng-href="#/cars/{{myLat}}/{{myLon}}/{{city}}/{{street}}">List</a></li>
                 <li class="map-view active"><a data-ng-disabled>Map</a></li>
               </ul>
@@ -118,7 +118,7 @@
 
             <div id="switcher" class="open">
             <ul>
-              <li class="home-view"><a href="/">Home</a></li>
+              <li class="home-view"><a data-ng-click="reloadHome()">Home</a></li>
               <li class="list-view active"><a data-ng-disabled>List</a></li>
               <li class="map-view"><a data-ng-model="cars" data-ng-href="#/map/0/{{lat}}/{{lon}}/{{ getDistance(cars[0].lat, cars[0].lon) }}">Map</a></li>
             </ul>
@@ -131,9 +131,11 @@
               <ul>
                 <li><a href="#">About GetACar</a></li>
               </ul>
-              <a href="/" class="logo-getacar"></a>
+              <p>La rivoluzione dello sharing, della mobilità sostenibile, in generale della Collaborative Consumption è iniziata. Le nuove tecnologie sono la chiave per mettere in rete informazioni ed opportunità per comunità sempre più ampie, consapevoli e soddisfatte.</p>
+              <!--a href="/" class="logo-getacar"></a-->
+              <img src="images/logo_getacar_complete@x2.png" width="106" height="127" class="logo-getacar">
+              <p class="copy">&copy; Copyright 2014 - GetACar -<span>hello@getacar.it</span></p>
             </nav>
-            <p class="copy">&copy; Copyright 2014 - GetACar <span>info@getacar.me</span></p>
           </div>
 
           <script>
