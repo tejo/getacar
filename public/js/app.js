@@ -389,6 +389,10 @@ gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFac
         precision = 0;
       var rounding = preciseRound(distance/1000, precision);
       return rounding + unit;
+    } else if (distance < 10) {
+      precision = 0;
+      var rounding = preciseRound(distance, precision);
+      return rounding + unit;
     }
     return distance + unit;
   }
@@ -489,11 +493,16 @@ gac.controller('CarsController', ['$scope', '$location', '$routeParams', 'carsFa
     var distance =
       ((calculateDistance($scope.lat, $scope.lon, lat, lon)*1000)
               .toPrecision(4)).toString();
+
     if (distance >= 1000) {
       unit = ' km'
       if (distance >= 100000)
         precision = 0;
       var rounding = preciseRound(distance/1000, precision);
+      return rounding + unit;
+    } else if (distance < 10) {
+      precision = 0;
+      var rounding = preciseRound(distance, precision);
       return rounding + unit;
     }
     return distance + unit;

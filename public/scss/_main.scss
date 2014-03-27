@@ -45,6 +45,15 @@ html {
         top: 0;
         left: 0;
         
+        .info {
+          padding: 2em 4em 0;
+          position: relative;
+          text-align: center;
+          height: 100%;
+          .title {text-align: center; @include font-size(3.4); color: $blue-dark;}
+          
+        }
+        /*
         nav {
           @media screen and (max-height: 30.5em) {
             //height: 70%;
@@ -100,17 +109,44 @@ html {
             margin: 0 auto;
             width: 10%;
             height: auto;
-            /*
-            width: 100%; height: 127px;
-            background: url(../images/logo_getacar_complete@x2.png) center center no-repeat;
-            background-size: 106px;
-            @media screen and (max-width: 480px) {
-              background-size: 53px;
-            }
-            */
           }
         }
-        p {color: $blue-dark; @include font-size(1.2); padding: 0 2em 1em;}
+        */
+        .txt {
+          color: $blue-dark; @include font-size(1.4); padding: 1em 0 1em;
+          @media screen and (min-width: $viewport480) {
+            display: none;
+          }
+        }
+        .social {
+            display: block; 
+            color: $blue-dark;
+            padding-top: 0em;
+            @media screen and (min-width: $viewport480) {
+              padding-top: 2em;
+            }
+            ul {
+              @include clearfix();
+              li {
+                float: left; width: 50%; height: 52px; padding-top: 32px; @include font-size(1.2);
+                a {
+                  &:link, &:visited, &:hover, &:active {text-decoration: none; color: $blue-dark;} 
+                }
+              }
+              .mail {
+                background: url(../images/ico_mail.png) center top no-repeat; background-size: 32px;
+                @media screen and (min-width: $viewport480) {
+                  background-size: 78px; height: 102px; padding-top: 82px;
+                }
+              }
+              .twitter {
+                background: url(../images/ico_twitter_3.png) center top no-repeat; background-size: 32px;
+                @media screen and (min-width: $viewport480) {
+                  background-size: 78px; height: 102px; padding-top: 82px;
+                }
+              }
+            }
+        }
         .copy {
           @include font-size(1.2);
           color: $gray;
@@ -155,15 +191,16 @@ html {
         transition: transform 0.5s;
       }
       
+/*
       @media screen and (max-height: 30.5em) {
         .overlay nav {
-          //height: 70%;
           font-size: 34px;
         }
         .overlay ul li {
     min-height: 34px;
   }
       }
+*/
       
       
       .bucket {
