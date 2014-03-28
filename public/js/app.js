@@ -1,5 +1,6 @@
 // @codekit-prepend "angular.min.js"
 // @codekit-prepend "angular-route.min.js"
+// @codekit-prepend "vendor/add2home.min.js"
 // @codekit-prepend "getacar.min.js"
 
 var gac = angular.module('getacar', ['ngRoute']);
