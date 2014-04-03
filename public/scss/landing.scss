@@ -1,0 +1,357 @@
+@import "compass/reset";
+@import "compass/css3/border-radius";
+@import "compass/css3/transform";
+@import "compass/css3/transition";
+//@import "compass/css3/opacity";
+@import "compass/utilities/general/clearfix";
+
+
+@import "vars";
+@import "mixins";
+@import "fonts-landing";
+
+* {
+  -webkit-box-sizing: border-box; -moz-box-sizing: border-box;box-sizing: border-box;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+textarea:focus, input:focus, button:focus {outline: 0;}
+
+html {
+  body {
+    padding-top: 35px;
+    background: $green;
+    .wrap-contents {
+      width: 964px;
+      margin: 0 auto;
+      @include clearfix();
+    }
+    .titolo {text-transform: uppercase; font-weight: 700;}
+    .header {
+      background: $green;
+      height: 512px;
+      .col.sx {
+        float: left;
+        width: 44%;
+        //padding-right: 65px;
+        padding-right: 25px;
+        /*
+        @include hw-accelerate();
+        @include transition(all, .6s, $custom);
+        */
+        .getacar {
+          float: right;
+          .logo {
+            background: url(../images/landing/getacar_logo.png) 0 0 no-repeat; width: 177px; height: 211px; display: block;
+            text-indent: -50000px;
+          }
+        }
+        .title {text-transform: uppercase; text-align: right; color: $green-black; @include font-size(5.8); @include x-rem(line-height,6.0); font-weight: 700; float: right; padding-top: 20px;}
+        .sub-title {background: url(../images/landing/handwritten.png) center center no-repeat; float: right; width: 342px; line-height: 86px; padding-top: 10px; text-indent: -50000px;}
+      }
+      .col.cx {
+        width: 32%;
+        height: 744px;
+        float: left;
+        .iphone {
+          @include transform(translateY,70px);
+          /*
+          @include hw-accelerate();
+          @include transform(translateY,-280px);
+          @include transition(all, 0.6s, $ease-out-back);
+          */
+        }
+      }
+      .col.dx {
+        float: right; width: 24%;
+        //padding-left: 65px;
+        padding-left: 25px;
+        /*
+        @include hw-accelerate();
+        @include transition(all, .6s, linear);
+        @include opacity(0);
+        */
+        
+        $circle-r : 98px;
+        .bt-circle {
+          @include bt-circle($circle-r, $circle-r);
+          margin: 0 auto;
+        }
+        
+        .titolo {@include font-size(2.1); color: $green-black;@include x-rem(line-height, 2.4); padding-top: 10px;}
+        p {@include font-size(1.4);}
+        
+        .bt-getme {
+          text-indent: -50000px;
+          @include retinaready(
+            url(../images/ico_geo.png) center center no-repeat, 
+            url(../images/ico_geo@x2.png) center center no-repeat, 
+            40px
+          );
+          margin: 90px 0 0;
+        }
+        .bt-search {
+          text-indent: -50000px;
+          @include retinaready(
+            url(../images/ico_search.png) center center no-repeat, 
+            url(../images/ico_search@x2.png) center center no-repeat, 
+            40px
+          );
+          margin: 40px 0 0;
+        }
+      }
+    }
+    .header.loaded {
+      .col.sx {
+        //padding-right: 25px;
+      }
+      .col.cx {
+        //.iphone {@include transform(translateY,70px);}
+      }
+      .col.dx {
+        //padding-left: 25px;
+        //@include opacity(1);
+      }
+    }
+    .info-content {
+      background: $white;
+      .wrap-contents {
+        
+        #cars {
+          position: relative; height: 200px; width: 415px; margin-top: 15px;
+          .car2go,.enjoy {position: absolute;}
+          .pin {width: 47px; height: 56px; position: absolute; top: 0;}
+          .car2go {
+            z-index: 99;
+            left: 79px;
+            .pin {left: 35px;}
+            .car {width: 152px; height: 129px; margin-top: 50px;}
+          }
+          .enjoy {
+            left: 200px; z-index: 9;
+            .pin {left: 60px;}
+            .car {margin-top: 60px;}
+          }
+        
+        }
+        
+        #add-to-home {
+          margin-top: 40px;
+          background: url(../images/landing/getacar_patch.png) 50px center no-repeat;
+          border-top: 1px solid $green;
+          border-bottom: 1px solid $green;
+          padding: 30px 50px 30px 150px;
+          @include clearfix();
+          .txt {
+            float: left;
+            h2 {@include font-size(2.4); color: $green;}
+            p {@include font-size(1.8); color: $gray; width: 500px; @include x-rem(line-height, 2.0);}
+          }
+          .bt-apri-app {
+            float: right;
+            margin-top: 8px;
+            text-transform: uppercase;
+            font-family: 'Lato', sans-serif;
+            font-weight: 700;
+            @include font-size(2.2);
+            @include x-rem(line-height, 4.0);
+            &:link,&:visited,&:hover,&:active {color: $white; text-decoration: none;}
+          }
+          
+          .button {
+            display: inline-block;
+            background-color: $white;
+            @include border-radius(3px);
+            @include hw-accelerate();
+            
+            -webkit-box-shadow: 
+                0px 6px 0px 0px rgba(0,68, 57,0.2),
+                0px 6px 0px 0px rgba(0,68, 57,0.4),
+                0px 5px 0px 0px rgba(0,68, 57,0.2),
+                0px 10px 6px -1px rgba(128,128,128,1);
+            box-shadow: 
+                0px 6px 0px 0px rgba(0,68, 57,0.2),
+                0px 6px 0px 0px rgba(0,68, 57,0.4),
+                0px 5px 0px 0px rgba(0,68, 57,0.2),
+                0px 10px 6px -1px rgba(128,128,128,1);
+
+            -webkit-transition: -webkit-box-shadow .1s ease-in-out;
+            transition: box-shadow .1s ease-in-out;
+            
+            span {
+              display:block;
+              @include border-radius(3px);
+              background-color: $green;
+              padding: 0 65px;
+              
+              background: #16a085;
+              background: -moz-linear-gradient(top,  #16a085 0%, #5bbca9 50%, #5bbca9 51%, #73c6b6 100%);
+              background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#16a085), color-stop(50%,#5bbca9), color-stop(51%,#5bbca9), color-stop(100%,#73c6b6));
+              background: -webkit-linear-gradient(top,  #16a085 0%,#5bbca9 50%,#5bbca9 51%,#73c6b6 100%);
+              background: -o-linear-gradient(top,  #16a085 0%,#5bbca9 50%,#5bbca9 51%,#73c6b6 100%);
+              background: -ms-linear-gradient(top,  #16a085 0%,#5bbca9 50%,#5bbca9 51%,#73c6b6 100%);
+              background: linear-gradient(to bottom,  #16a085 0%,#5bbca9 50%,#5bbca9 51%,#73c6b6 100%);
+              filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#16a085', endColorstr='#73c6b6',GradientType=0 );
+
+              -webkit-transition: -webkit-transform .1s ease-in-out;
+              transition: transform .1s ease-in-out;
+
+            }
+            
+            span:hover {
+              text-shadow: 0px -1px #97A63A;
+              cursor: pointer;
+            }
+          } 
+          .button:active {
+
+            -webkit-box-shadow: 
+                0px 6px 0px 0px rgba(0,68, 57,0.2),
+                0px 6px 0px 0px rgba(0,68, 57,0.4),
+                0px 5px 0px 0px rgba(0,68, 57,0.2),
+                0px 10px 6px -1px rgba(128,128,128,1);
+            box-shadow: 
+                0px 6px 0px 0px rgba(0,68, 57,0.2),
+                0px 6px 0px 0px rgba(0,68, 57,0.4),
+                0px 5px 0px 0px rgba(0,68, 57,0.2),
+                0px 10px 6px -1px rgba(128,128,128,0.6);
+          }
+          .button:active span{-webkit-transform: translate(0, 5px);transform: translate(0, 5px); }
+
+        }
+        
+        #app-description {
+          text-align: center; padding-top: 30px;
+          .titolo {@include font-size(5.4); color: $green; @include x-rem(line-height, 5.0);}
+          h3 {@include font-size(3.6); color: $gray-dark; @include x-rem(line-height, 4.0);}
+          p {
+            padding-top: 30px;
+            @include font-size(1.8); color: $gray; @include x-rem(line-height, 2.2);
+          }
+        }
+        
+        #dove {
+          background: url(../images/landing/bg_dove.png) 394px 80px no-repeat;
+          height: 370px; padding-top: 135px;
+          .txt {
+            width: 400px; text-align: right;
+            .titolo {@include font-size(3.2); color: $green;}
+            p {@include font-size(1.4); color: $gray;}
+          }
+        }
+        
+        #about {
+          background: url(../images/landing/bg_line.png) 480px center repeat-y;
+          @include clearfix();
+          padding-bottom: 30px;
+          .go-to-site {
+            display: block;
+            &:link,&:visited,&:hover,&:active {color: $gray; text-decoration: underline; text-transform: uppercase; padding-top: 20px}
+          }
+          .sx {
+            width: 50%; float: left; padding-right: 35px;
+            .titolo {color: $blue-car2go; @include font-size(3.2); text-align: right;}
+            p {color: $gray;@include font-size(1.4); text-align: right; padding-top: 10px;}
+          }
+          .dx {
+            width: 50%; float: right; padding-left: 35px;
+            .titolo {color: $red-enjoy;  @include font-size(3.2); text-align: left;}
+            p {color: $gray;  @include font-size(1.4); text-align: left; padding-top: 10px;}
+          }
+        }
+        
+      }
+      
+    }
+    .footer {
+      background: $gray;
+      .wrap-contents {
+        padding-top: 70px;
+        background: url(../images/landing/bg_line_w.png) 480px top repeat-y;
+        @include clearfix();
+        .sx {
+          width: 50%; float: left; padding-right: 35px;
+          .titolo {color:$white; @include font-size(3.2); text-align: right;}
+          p {color: $gray-dark;@include font-size(1.4); text-align: right; padding-top: 10px;}
+          .profiles-list {
+            text-align: right; padding-top: 35px;
+            .sign {padding: 10px 134px 0 0;}
+            .profile,span {
+              @include font-size(1.8);
+              font-style: italic;
+              padding: 0 5px;
+              color: $gray-dark;
+            }
+            .profile { 
+              &:link,&:visited,&:hover,&:active {text-decoration: underline; color: $gray-dark;}
+            }
+            .profile.none {
+              &:link,&:visited,&:hover,&:active {text-decoration: none;}
+            }
+          }
+        }
+        .dx {
+          width: 50%; float: right; padding-left: 35px;
+          .titolo {color: $white;  @include font-size(3.2); text-align: left;}
+          p {
+            color: $gray-dark;  @include font-size(1.4); text-align: left; padding-top: 10px; padding-bottom: 50px;
+            .screamer {color: $green-dark; display: block; font-style: italic; @include font-size(2.4); @include x-rem(line-height, 2.8); padding: 25px 0;}
+            
+            .suggestions {
+              font-weight: 700; text-transform: uppercase; 
+              &:link,&:visited,&:hover,&:active {color: #212121; text-decoration: underline;}
+            }
+          }
+        }
+      }
+      .wrap-contents.end {
+        background: none; padding-top: 15px;
+        .social {
+          
+          .titolo { text-align: center; font-weight: 700; text-transform: none; @include font-size(2.4); padding-bottom: 20px;}
+          .links {
+            width: 129px; margin: 0 auto;
+            @include clearfix();
+            li {
+              float: left; padding: 0 5px;
+              a {
+                width: 54px; height: 55px; display: block;
+                text-indent: -500000px;
+              }
+            }
+            .facebook {background: url(../images/landing/ico_facebook.png) center center no-repeat;}
+            .mail {background: url(../images/landing/ico_mail.png) center center no-repeat; }
+            .twitter {background: url(../images/landing/ico_twitter.png) center center no-repeat; width: 55px; }
+          }
+        }
+        
+        .copy {text-align: center; @include font-size(1.0); padding: 90px 0 40px;}
+      }
+    }
+  }
+}
+
+
+
+/* FLOATING */
+
+.float {
+  -webkit-animation: float 1s infinite ease-in-out alternate;
+	-moz-animation: float 1s infinite ease-in-out alternate;
+	animation: float 1s infinite ease-in-out alternate;
+}
+
+@-webkit-keyframes float {
+	100% {
+    -webkit-transform: translateY(10px);
+  }
+}
+@-moz-keyframes float {
+	100% {
+    -moz-transform: translateY(10px);
+  }
+}
+@keyframes float {
+	100% {
+    transform: translateY(10px);
+  }
+}

@@ -1,0 +1,14 @@
+@import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:300,700,300italic);
+
+html {
+  font-size: 62.5%;
+  body {
+    font-family: 'Ubuntu', sans-serif;
+    color: $white;
+    font-size: 62.5%;
+    
+    h1 {@include font-size(2);}
+    
+  }// body
+} // html
