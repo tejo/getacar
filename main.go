@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	_ "expvar"
 	"fmt"
 	"net/http"
 	"os"
@@ -12,6 +13,7 @@ import (
 	"bitbucket.org/kardianos/osext"
 	"github.com/gorilla/mux"
 	"github.com/tejo/geogo"
+	"github.com/yvasiyarov/gorelic"
 )
 
 var cars = make([]CarEntry, 0)
@@ -39,6 +41,11 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	agent := gorelic.NewAgent()
+	agent.Verbose = true
+	agent.NewrelicLicense = "ce9a50394a44f5cdc815cc318ffa0915cdeecad4"
+	agent.Run()
+
 	folderPath, _ := osext.ExecutableFolder()
 	loadTemplate(folderPath)
 	assetVersion = fmt.Sprintf("%d", time.Now().UnixNano())
@@ -96,7 +103,7 @@ func startClock() {
 		for {
 			select {
 			case <-ticker.C:
-        fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl)
+				fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl)
 				/* comment.Date = time.Now().In(time.UTC).Format(time.RFC3339) */
 			}
 		}
