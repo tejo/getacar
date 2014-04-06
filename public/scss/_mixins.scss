@@ -54,7 +54,12 @@
   display: block;
   -webkit-appearance: none;
   
-  &:hover {border:10px solid $white;}
+  @media screen and (min-width: $viewport600) {
+    &:hover {border:10px solid $white;}
+  }
+  @media screen and (max-width: $viewport600) {
+    &:active {border:10px solid $white;}
+  }
 }
 
 @mixin hw-accelerate () {

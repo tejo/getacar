@@ -1,5 +1,6 @@
 // @codekit-prepend "angular.min.js"
 // @codekit-prepend "angular-route.min.js"
+// @codekit-prepend "vendor/fastclick.min.js"
 // @codekit-prepend "vendor/add2home.min.js"
 // @codekit-prepend "getacar.min.js"
 
@@ -84,13 +85,14 @@ gac.factory('carsFactory', ['$http', '$q', function($http, $q){
       var deferred;
       deferred = $q.defer();
       if (navigator && navigator.geolocation) {
+        var options = {timeout:15000, enableHighAccuracy: true};
         navigator.geolocation.getCurrentPosition(function(position) {
           return deferred.resolve(position.coords);
         }, function(error) {
-          return deferred.reject("Unable to get your location");
-        });
+          return deferred.reject("Errore nel recupero della tua posizione");
+        },options);
       } else {
-        deferred.reject("Your browser cannot access to your position");
+        deferred.reject("Il tuo browser non riesce a recuperare la tua posizione");
       }
       return deferred.promise;
     },
@@ -108,13 +110,15 @@ gac.factory('carsFactory', ['$http', '$q', function($http, $q){
               if (status === google.maps.GeocoderStatus.OK) {
                 return deferred.resolve(_this.extractAddress(results, coords.latitude, coords.longitude));
               } else {
-                return deferred.reject("cannot geocode status: " + status);
+                return deferred.reject("Errore nel recupero della tua posizione: " + status);
               }
             }, function() {
-              return deferred.reject("cannot geocode");
+              return deferred.reject("Errore nel recupero della tua posizione");
             });
         };
-      })(this));
+      })(this),function(error){
+        return deferred.reject("Errore nel recupero della tua posizione: " + error);
+      });
       return deferred.promise;
     },
     extractAddress : function(addresses, lat, lng) {
@@ -148,6 +152,7 @@ gac.factory('carsFactory', ['$http', '$q', function($http, $q){
     
   };
 }]);
+
 
 gac.factory('googleMapsFactory', function() {
   return {
@@ -293,6 +298,13 @@ gac.controller('HomeController', ['$scope', '$location', '$routeParams', 'carsFa
 
       $location.path("/cars/"+ address.lat +"/"+ address.lng +"/"+ address.city +"/"+ address.street);
       $('#switcher').addClass('open');
+    }, function(error){
+      $('.bt-getme').removeClass('spin');
+      setTimeout(function() {
+        var el = document.querySelector( '.bt-search' );
+        angular.element(el).triggerHandler('click');
+        $('input.address-box').focus();
+      }, 0);
     });
   }
   

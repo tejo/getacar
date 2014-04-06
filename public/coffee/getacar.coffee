@@ -15,6 +15,7 @@ dom = {
 getACar = {
   start : ->
     overLayManager = new OverlayManager();
+    FastClick.attach(document.body);
 };
 
 class OverlayManager
