@@ -2,10 +2,11 @@ package main
 
 import (
 	"encoding/json"
-	_ "expvar"
+	// _ "expvar"
 	"fmt"
 	"net/http"
 	"os"
+	"runtime"
 	"strconv"
 	"text/template"
 	"time"
@@ -41,6 +42,7 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
 	agent := gorelic.NewAgent()
 	agent.Verbose = true
 	agent.NewrelicLicense = "ce9a50394a44f5cdc815cc318ffa0915cdeecad4"
