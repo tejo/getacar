@@ -73,9 +73,11 @@ gac.factory('carsFactory', ['$http', '$q', function($http, $q){
       
       $http.get("/geocode", {params: {q: addr}})
       .success(function(data, status, headers, config){
+        console.log('data', data);
         deferred.resolve(data);
       })
       .error(function(data, status, headers, config){
+        console.log('data2', data);
         deferred.reject(status)
       });
 
@@ -312,16 +314,26 @@ gac.controller('HomeController', ['$scope', '$location', '$routeParams', 'carsFa
   $scope.searchBTMngr = function(e) {
     var _bt = $('form[name=geoCodeForm] .bt-search');
     var _textbox = _bt.siblings('.address-box');
+    var _error_txt = _bt.siblings('.error-txt');
 
     if( _bt.hasClass('active') ) {
-
-      if( _textbox.val() != "" ) {
-        // geocode
-        $scope.geoCode();
-      }else {
-        // close textbox
-        _bt.toggleClass('active');
-        _textbox.toggleClass('active');
+      
+      /* Errore */
+      if (_bt.hasClass('error')) {
+        _bt.removeClass('error');
+        _error_txt.removeClass('show');
+        _textbox.removeClass('error');
+      } 
+      else {/* OK */
+        
+        if( _textbox.val() != "" ) {
+          // geocode
+          $scope.geoCode(_textbox, _error_txt, _bt);
+        }else {
+          // close textbox
+          _bt.toggleClass('active');
+          _textbox.toggleClass('active');
+        }
       }
     }else {
       _bt.toggleClass('active');
@@ -330,10 +342,14 @@ gac.controller('HomeController', ['$scope', '$location', '$routeParams', 'carsFa
   }
   
   /* Manual Localization */
-  $scope.geoCode = function(){
+  $scope.geoCode = function(_textbox, _error_txt, _bt){
+    console.log($scope.addrToGeocode);
     carsFactory.geoCode($scope.addrToGeocode).then(function(geo){
       if(!geo.Success){
-        return
+        _textbox.addClass('error');
+        _bt.addClass('error');
+        _error_txt.addClass('show');
+        return;
       }
 
       DataSharingObject.myStreet = $scope.addrToGeocode;
@@ -342,6 +358,10 @@ gac.controller('HomeController', ['$scope', '$location', '$routeParams', 'carsFa
       
       $location.path("/cars/"+ geo.Lat +"/"+ geo.Lng +"/"+ $scope.addrToGeocode);
       $('#switcher').addClass('open');
+    }, function(error){
+      _textbox.addClass('error');
+      _bt.addClass('error');
+      _error_txt.addClass('show');
     });
   }
   

@@ -8,6 +8,7 @@ $font-bold: 700;
 
 // COLORS
 $blue-dark: #34495e;
+$blue-shadow: #314457;
 $blue-light: #38b6e0;
 $blue-car2go: #1cacdc;
 $white: #fcfcfc;
@@ -37,3 +38,4 @@ $viewport600: 600px;
 $ease-out-back: cubic-bezier(0.175, 0.885, 0.320, 1.275);
 $ease-out-back-old: cubic-bezier(0.175, 0.885, 0.320, 1);
 $custom: cubic-bezier(.10, .10, .25, .90);
+$bounce: cubic-bezier(.5,-0.5,.5,1.5);

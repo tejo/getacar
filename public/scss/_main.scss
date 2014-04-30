@@ -221,6 +221,9 @@ html {
             @include bt-circle($circle-r, $circle-r);
             margin: 0 auto;
           }
+          .bt-circle.error {
+            @include bt-circle($circle-r, $circle-r, $green-light, $green-dark);
+          }
           .title-action {
             text-align: center; text-transform: uppercase; @include font-size(2.0); margin: 0 auto;
             width: $content-w;
@@ -263,7 +266,17 @@ html {
                 background-size: 20px;
                 text-indent: -50000px;
                 width: 40px; height: 40px; margin-top: 35px;
-                &:hover {border: 2px solid $white;}
+                border: 2px solid $white;
+                &:hover {border: 2px solid $white;background-color: $green-light;}
+              }
+              .bt-search.active.error {
+                border-width: 2px;
+                @include retinaready(
+                  $green-light url(../images/ico_reload.png) center center no-repeat, 
+                  $green-light url(../images/ico_reload@x2.png) center center no-repeat, 
+                  20px
+                );
+                &:hover {border: 2px solid $green-dark;}
               }
               
               .address-box {
@@ -272,14 +285,39 @@ html {
                 padding: 0 10px;
                 margin-top: ($circle-r / 2) - ($touch-area / 2);
                 position: absolute; right: 0; top: 0;
+                z-index: 9;
                 
                 //@include build-prefix-values('transform', translate3d(1000px, 0, 0));
                 @include build-prefix-values('transform', translate3d(-700px, 0, 0));
                 @include text-box(200px);
               }
               .address-box.active {
-                //@include build-prefix-values('transform', translate3d(-25px, 0, 0));
-                @include build-prefix-values('transform', translate3d(-60px, 0, 0));
+                @include build-prefix-values('transform', translate3d(-80px, 0, 0));
+                @include transition(all, 0.2s, $custom, 0.2s);
+              }
+              .address-box.error {
+                @include build-prefix-values('transform', rotate3d(1, 0, 0, 90deg) translate3d(-80px, 0, 0));
+                @include transition(all, 0.2s, $custom);
+              }
+              .error-txt {
+                position: absolute; right: 0; top: 0; z-index: 8; width: 200px; margin-top: ($circle-r / 2) - ($touch-area / 2); 
+                padding: 0 10px;@include border-radius(3px);
+                @include font-size(1.2);
+                line-height: 40px;
+                @include build-prefix-values('transform', rotate3d(1, 0, 0, 90deg) translate3d(-80px, 0, 0) ); 
+                @include transition(all, 0.2s, $custom, 0s); /* 0.2s is the duration of address-box */
+                color: $white;
+                /*
+border: 2px solid $green-dark;
+                background-color: $green-light;
+*/
+                border: 2px solid $green-dark;
+                background-color: $green-light; 
+                
+              }
+              .error-txt.show {
+                @include build-prefix-values('transform',rotate3d(1, 0, 0, 0deg) translate3d(-80px, 0, 0));
+                @include transition(all, 0.2s, $custom, 0.2s);
               }
             }
           }

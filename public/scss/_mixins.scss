@@ -40,25 +40,25 @@
   display: block;
 }
 
-@mixin bt-circle ($w: 100px, $h: 100px, $bg:$green-mid) {
-  @include hw-accelerate();
+@mixin bt-circle ($w: 100px, $h: 100px, $bg:$green-mid, $border-color: $white) {
   @include transition(all, .5s, ease);
+  @include hw-accelerate();
   cursor: pointer;
   width: $w;
   height: $h;
   -moz-border-radius: 50%; 
   -webkit-border-radius: 50%; 
   border-radius: 50%;
-  border: 3px solid $white;
+  border: 3px solid $border-color;
   background: $bg;
   display: block;
   -webkit-appearance: none;
   
   @media screen and (min-width: $viewport600) {
-    &:hover {border:10px solid $white;}
+    &:hover {border:10px solid $border-color;}
   }
   @media screen and (max-width: $viewport600) {
-    &:active {border:10px solid $white;}
+    &:active {border:10px solid $border-color;}
   }
 }
 
@@ -335,13 +335,13 @@
 
 $default-prefixes: webkit moz ms o;
 @mixin build-prefix-values($property, $value, $prefixes: $default-prefixes) {
-  @each $prefix in $prefixes {
+    @each $prefix in $prefixes {
     -#{$prefix}-#{$property}: #{$value};
   }
   #{$property}: #{$value};
 }
-@mixin transition($property: all, $duration: .6s, $timing: linear) {
-  $value: $property $duration $timing;
+@mixin transition($destination: all, $duration: .6s, $timing: linear, $delay: 0s) {
+  $value: $destination $duration $timing $delay;
   // use default prefixes
   @include build-prefix-values('transition', $value);
 }
