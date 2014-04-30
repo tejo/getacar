@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	// _ "expvar"
+	_ "expvar"
 	"fmt"
 	"net/http"
 	"os"
@@ -11,6 +11,8 @@ import (
 	"text/template"
 	"time"
 
+	"./car2go"
+
 	"bitbucket.org/kardianos/osext"
 	"github.com/gorilla/mux"
 	"github.com/tejo/geogo"
@@ -18,11 +20,11 @@ import (
 )
 
 var cars = make([]CarEntry, 0)
-var car2goMilanUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=milano&oauth_consumer_key=car2gowebsite&format=json"
-var car2goRomeUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=roma&oauth_consumer_key=car2gowebsite&format=json"
+var car2goMilanUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=milano&oauth_consumer_key=getacar&format=json"
+var car2goRomeUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=roma&oauth_consumer_key=getacar&format=json"
 var enjoyUrl string = "http://enjoy.eni.com/get_vetture"
-var assetVersion string
 
+var assetVersion string
 var homeTpl *template.Template
 var funcs = template.FuncMap{
 	"isIt": isIt,
@@ -44,15 +46,20 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	agent := gorelic.NewAgent()
-	agent.Verbose = true
+	agent.Verbose = false
 	agent.NewrelicLicense = "ce9a50394a44f5cdc815cc318ffa0915cdeecad4"
 	agent.Run()
+
+	client := car2go.NewOAuthClient([]byte("***REMOVED***"), []byte("***REMOVED***"), "getacar", "***REMOVED***")
+	client.SetDebug(true)
 
 	folderPath, _ := osext.ExecutableFolder()
 	loadTemplate(folderPath)
 	assetVersion = fmt.Sprintf("%d", time.Now().UnixNano())
+
 	startClock()
 	fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl)
+
 	r := mux.NewRouter()
 	r.HandleFunc("/", homeHandler).Methods("GET")
 	r.HandleFunc("/geocode", Geocode).Methods("GET")
@@ -66,6 +73,7 @@ func main() {
 	if port == "" {
 		port = "8080"
 	}
+
 	http.ListenAndServe(":"+port, nil)
 }
 
