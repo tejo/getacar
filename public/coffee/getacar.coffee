@@ -13,9 +13,17 @@ dom = {
 };
 
 getACar = {
+  # return key triggers bt-search click
+  returnKeyMngr : ->
+    document.onkeydown = (e) ->
+      e = e || window.event
+      if (e.keyCode == 13 and $('.address-box').is( ":focus" ))
+        $('.bt-search').trigger('click')
   start : ->
-    overLayManager = new OverlayManager();
     FastClick.attach(document.body);
+    overLayManager = new OverlayManager();
+    getACar.returnKeyMngr()
+    
 };
 
 class OverlayManager

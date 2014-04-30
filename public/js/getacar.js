@@ -25,9 +25,21 @@
   };
 
   getACar = {
+    returnKeyMngr: function() {
+      alert('oi');
+      return document.onkeydown = function(e) {
+        e = e || window.event;
+        alert('key');
+        if (e.keyCode === 13 && $('.address-box').is(":focus")) {
+          return alert('asda');
+        }
+      };
+    },
     start: function() {
       var overLayManager;
-      return overLayManager = new OverlayManager();
+      FastClick.attach(document.body);
+      overLayManager = new OverlayManager();
+      return getACar.returnKeyMngr();
     }
   };
 
@@ -116,6 +128,7 @@
 
 
   $(function() {
+    alert('asdasd');
     return getACar.start();
   });
 
