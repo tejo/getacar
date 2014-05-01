@@ -1,6 +1,3 @@
-// Similar to the twitter example, but using an HTTP server instead of
-// the command line.  Illustrates the need to preserve requestTokens across
-// requests.  This does it very dumbly (using a global variable).
 package car2go
 
 import (
@@ -14,11 +11,6 @@ import (
 	"github.com/gorilla/sessions"
 	"github.com/mrjones/oauth"
 )
-
-// var tokens map[string]*oauth.RequestToken
-// var c *oauth.Consumer
-
-// var store = sessions.NewCookieStore([]byte("***REMOVED***"), []byte("***REMOVED***"))
 
 var client *Client
 var testMode string
