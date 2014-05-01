@@ -52,7 +52,7 @@ func main() {
 
 	client := car2go.NewOAuthClient([]byte("***REMOVED***"), []byte("***REMOVED***"), "getacar", "***REMOVED***")
 	client.SetDebug(true)
-	client.SetTestMode("1")
+	client.SetTestMode("0")
 
 	folderPath, _ := osext.ExecutableFolder()
 	loadTemplate(folderPath)
