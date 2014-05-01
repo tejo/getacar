@@ -114,6 +114,7 @@
 
 @mixin retinaready($bg, $bg_retina, $size) {
   background: $bg;
+  background-size: $size;
   @media 
   (-webkit-min-device-pixel-ratio: 2), 
   (min-resolution: 192dpi) {
