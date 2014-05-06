@@ -31,7 +31,7 @@ func TestClosestCars(t *testing.T) {
 	car2goRome := NewTestServer("fixtures/car2go.json")
 	enjoy := NewTestServer("fixtures/enjoy.json")
 	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL)
-	closestCars := ClosestCars(45.47665, 9.22389, 100)
+	closestCars := ClosestCars(45.47665, 9.22389, "all", 100)
 	if closestCars[0].Name != "118/ER805NP" {
 		t.Error("error fetching closest cars")
 	}
@@ -44,10 +44,35 @@ func TestClosestCarsWithLimit(t *testing.T) {
 	car2goRome := NewTestServer("fixtures/car2go.json")
 	enjoy := NewTestServer("fixtures/enjoy.json")
 	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL)
-	closestCars := ClosestCars(45.47665, 9.22389, limit)
+	closestCars := ClosestCars(45.47665, 9.22389, "all", limit)
 	if len(closestCars) != limit {
 		t.Error("error fetching and limiting closest cars")
 	}
+}
+
+func TestClosestCarsWithFilter(t *testing.T) {
+	cars = make([]CarEntry, 0)
+	car2goMilan := NewTestServer("fixtures/car2go.json")
+	car2goRome := NewTestServer("fixtures/car2go.json")
+	enjoy := NewTestServer("fixtures/enjoy.json")
+	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL)
+	limit := 30
+	closestCars := ClosestCars(45.47665, 9.22389, "car2go", limit)
+	if cars := len(closestCars); cars != limit {
+		t.Errorf("error filtering cars, len is %d, but limit was %d", cars, limit)
+	}
+	if !checkVendor("car2go", closestCars) {
+		t.Error("mixed vendor found")
+	}
+}
+
+func checkVendor(vendor string, cars []CarEntry) bool {
+	for _, car := range cars {
+		if car.Type != vendor {
+			return false
+		}
+	}
+	return true
 }
 
 func TestParseEnjoyJson(t *testing.T) {
