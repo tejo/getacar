@@ -23,6 +23,7 @@ var cars = make([]CarEntry, 0)
 var car2goMilanUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=milano&oauth_consumer_key=getacar&format=json"
 var car2goRomeUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=roma&oauth_consumer_key=getacar&format=json"
 var enjoyUrl string = "http://enjoy.eni.com/get_vetture"
+var twistUrl string = "http://twistcar.it/assets/js/main.js"
 
 var assetVersion string
 var homeTpl *template.Template
@@ -59,7 +60,7 @@ func main() {
 	assetVersion = fmt.Sprintf("%d", time.Now().UnixNano())
 
 	startClock()
-	fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl)
+	fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl, twistUrl)
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", homeHandler).Methods("GET")
@@ -118,7 +119,7 @@ func startClock() {
 		for {
 			select {
 			case <-ticker.C:
-				fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl)
+				fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl, twistUrl)
 				/* comment.Date = time.Now().In(time.UTC).Format(time.RFC3339) */
 			}
 		}

@@ -30,7 +30,8 @@ func TestClosestCars(t *testing.T) {
 	car2goMilan := NewTestServer("fixtures/car2go.json")
 	car2goRome := NewTestServer("fixtures/car2go.json")
 	enjoy := NewTestServer("fixtures/enjoy.json")
-	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL)
+	twist := NewTestServer("fixtures/twist.js")
+	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL, twist.URL)
 	closestCars := ClosestCars(45.47665, 9.22389, "all", 100)
 	if closestCars[0].Name != "118/ER805NP" {
 		t.Error("error fetching closest cars")
@@ -43,7 +44,8 @@ func TestClosestCarsWithLimit(t *testing.T) {
 	car2goMilan := NewTestServer("fixtures/car2go.json")
 	car2goRome := NewTestServer("fixtures/car2go.json")
 	enjoy := NewTestServer("fixtures/enjoy.json")
-	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL)
+	twist := NewTestServer("fixtures/twist.js")
+	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL, twist.URL)
 	closestCars := ClosestCars(45.47665, 9.22389, "all", limit)
 	if len(closestCars) != limit {
 		t.Error("error fetching and limiting closest cars")
@@ -55,7 +57,8 @@ func TestClosestCarsWithFilter(t *testing.T) {
 	car2goMilan := NewTestServer("fixtures/car2go.json")
 	car2goRome := NewTestServer("fixtures/car2go.json")
 	enjoy := NewTestServer("fixtures/enjoy.json")
-	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL)
+	twist := NewTestServer("fixtures/twist.js")
+	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL, twist.URL)
 	limit := 30
 	closestCars := ClosestCars(45.47665, 9.22389, "car2go", limit)
 	if cars := len(closestCars); cars != limit {
@@ -87,6 +90,18 @@ func TestParseEnjoyJson(t *testing.T) {
 	}
 }
 
+func TestParseTwist(t *testing.T) {
+	cars = make([]CarEntry, 0)
+	data, _ := NewMockResponse("fixtures/twist.js")
+	ParseTwistJs(data)
+	if len(cars) < 1 {
+		t.Error("error decoding enjoy json")
+	}
+	if cars[0].Type != "twist" {
+		t.Error("error post processing json")
+	}
+}
+
 func TestParseCar2GoJson(t *testing.T) {
 	cars = make([]CarEntry, 0)
 	data, _ := NewMockResponse("fixtures/car2go.json")
@@ -104,8 +119,9 @@ func TestFetchCarsFromAPI(t *testing.T) {
 	car2goMilan := NewTestServer("fixtures/car2go.json")
 	car2goRome := NewTestServer("fixtures/car2go.json")
 	enjoy := NewTestServer("fixtures/enjoy.json")
-	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL)
-	if len(cars) != 1084 {
+	twist := NewTestServer("fixtures/twist.js")
+	fetchCarsFromAPI(car2goMilan.URL, car2goRome.URL, enjoy.URL, twist.URL)
+	if len(cars) != 1146 {
 		t.Error("error fetching from apis")
 	}
 }

@@ -5,6 +5,9 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"regexp"
+	"strconv"
+	"strings"
 )
 
 func ParseEnjoyJson(b []byte) {
@@ -38,6 +41,22 @@ func ParseCar2GoJson(b []byte) {
 	return
 }
 
+func ParseTwistJs(b []byte) {
+	r := regexp.MustCompilePOSIX(`([0-9]*\.[0-9]+*\,[0-9]*\.[0-9]+)`)
+	var coords []string
+	for _, coordsPair := range r.FindAllString(string(b), -1) {
+		coords = strings.Split(coordsPair, ",")
+		lat, _ := strconv.ParseFloat(coords[0], 64)
+		lng, _ := strconv.ParseFloat(coords[1], 64)
+		cars = append(cars, CarEntry{
+			Type:  "twist",
+			Lat:   lat,
+			Lng:   lng,
+			Price: 0.29,
+		})
+	}
+}
+
 func makeHttpRequest(addr string) ([]byte, int) {
 	r, err := http.Get(addr)
 	if err != nil {
@@ -53,14 +72,15 @@ func makeHttpRequest(addr string) ([]byte, int) {
 	return body, r.StatusCode
 }
 
-func fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl string) {
+func fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl, twistUrl string) {
 	data1, s1 := makeHttpRequest(car2goMilanUrl)
 	data2, s2 := makeHttpRequest(enjoyUrl)
 	data3, s3 := makeHttpRequest(car2goRomeUrl)
-	if s1 != 200 && s2 != 200 && s3 != 200 {
+	data4, s4 := makeHttpRequest(twistUrl)
+	if s1 != 200 && s2 != 200 && s3 != 200 && s4 != 200 {
 		return
 	}
-	if s1 == 200 || s2 == 200 || s3 == 200 {
+	if s1 == 200 || s2 == 200 || s3 == 200 || s4 == 200 {
 		cars = make([]CarEntry, 0)
 		if s1 == 200 {
 			ParseCar2GoJson(data1)
@@ -70,6 +90,9 @@ func fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl string) {
 		}
 		if s3 == 200 {
 			ParseCar2GoJson(data3)
+		}
+		if s4 == 200 {
+			ParseTwistJs(data4)
 		}
 	}
 	log.Printf("load %d cars\n", len(cars))
