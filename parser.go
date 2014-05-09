@@ -1,61 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"io/ioutil"
 	"log"
 	"net/http"
-	"regexp"
-	"strconv"
-	"strings"
 )
-
-func ParseEnjoyJson(b []byte) {
-	entries := make([]CarEntry, 0)
-	json.Unmarshal(b, &entries)
-	for index, _ := range entries {
-		entries[index].Type = "enjoy"
-		entries[index].Id = entries[index].CarPlate
-		entries[index].Price = 0.25
-		cars = append(cars, entries[index])
-	}
-	return
-}
-
-func ParseCar2GoJson(b []byte) {
-	results := make(map[string][]map[string]interface{}, 0)
-	json.Unmarshal(b, &results)
-	for _, car := range results["placemarks"] {
-		cars = append(cars, CarEntry{
-			Type:    "car2go",
-			Id:      car["vin"].(string),
-			Fuel:    int(car["fuel"].(float64)),
-			Lat:     car["coordinates"].([]interface{})[1].(float64),
-			Lng:     car["coordinates"].([]interface{})[0].(float64),
-			Address: car["address"].(string),
-			Name:    car["name"].(string),
-			Vin:     car["vin"].(string),
-			Price:   0.29,
-		})
-	}
-	return
-}
-
-func ParseTwistJs(b []byte) {
-	r := regexp.MustCompilePOSIX(`([0-9]*\.[0-9]+*\,[0-9]*\.[0-9]+)`)
-	var coords []string
-	for _, coordsPair := range r.FindAllString(string(b), -1) {
-		coords = strings.Split(coordsPair, ",")
-		lat, _ := strconv.ParseFloat(coords[0], 64)
-		lng, _ := strconv.ParseFloat(coords[1], 64)
-		cars = append(cars, CarEntry{
-			Type:  "twist",
-			Lat:   lat,
-			Lng:   lng,
-			Price: 0.29,
-		})
-	}
-}
 
 func makeHttpRequest(addr string) ([]byte, int) {
 	r, err := http.Get(addr)
@@ -70,33 +19,6 @@ func makeHttpRequest(addr string) ([]byte, int) {
 		return make([]byte, 0), 500
 	}
 	return body, r.StatusCode
-}
-
-func fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl, twistUrl string) {
-	data1, s1 := makeHttpRequest(car2goMilanUrl)
-	data2, s2 := makeHttpRequest(enjoyUrl)
-	data3, s3 := makeHttpRequest(car2goRomeUrl)
-	data4, s4 := makeHttpRequest(twistUrl)
-	if s1 != 200 && s2 != 200 && s3 != 200 && s4 != 200 {
-		return
-	}
-	if s1 == 200 || s2 == 200 || s3 == 200 || s4 == 200 {
-		cars = make([]CarEntry, 0)
-		if s1 == 200 {
-			ParseCar2GoJson(data1)
-		}
-		if s2 == 200 {
-			ParseEnjoyJson(data2)
-		}
-		if s3 == 200 {
-			ParseCar2GoJson(data3)
-		}
-		if s4 == 200 {
-			ParseTwistJs(data4)
-		}
-	}
-	log.Printf("load %d cars\n", len(cars))
-	return
 }
 
 /* func fetch() { */
