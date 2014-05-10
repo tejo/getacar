@@ -7,6 +7,7 @@ import (
 	"strconv"
 	"strings"
 	"sync"
+	"time"
 )
 
 type CarStore struct {
@@ -42,15 +43,29 @@ func (c *CarStore) DestroyAll() {
 	c.cars = []CarEntry{}
 }
 
-func (c *CarStore) FetchCars() {
-	c.DestroyAll()
-	for _, vendor := range c.vendors {
-		data, status := c.FetchHttpData(vendor.Url())
-		if status == 200 {
-			c.AddCars(vendor.ParseJson(data))
+func (cs *CarStore) FetchCars() {
+	cs.DestroyAll()
+	c := make(chan []CarEntry)
+	for _, vendor := range cs.vendors {
+		go func(vendor Vendor) {
+			data, status := cs.FetchHttpData(vendor.Url())
+			if status == 200 {
+				c <- vendor.ParseJson(data)
+			} else {
+				c <- []CarEntry{}
+			}
+		}(vendor)
+	}
+	timeout := time.After(3000 * time.Millisecond)
+	for _, vendor := range cs.vendors {
+		select {
+		case cars := <-c:
+			cs.AddCars(cars)
+		case <-timeout:
+			log.Printf("%#v timed out", vendor)
 		}
 	}
-	log.Printf("load %d cars\n", len(c.cars))
+	log.Printf("load %d cars\n", len(cs.cars))
 }
 
 func (c *CarStore) FetchHttpData(url string) (b []byte, status int) {
