@@ -45,8 +45,10 @@ func (c *CarStore) DestroyAll() {
 func (c *CarStore) FetchCars() {
 	c.DestroyAll()
 	for _, vendor := range c.vendors {
-		data, _ := c.FetchHttpData(vendor.Url())
-		c.AddCars(vendor.ParseJson(data))
+		data, status := c.FetchHttpData(vendor.Url())
+		if status == 200 {
+			c.AddCars(vendor.ParseJson(data))
+		}
 	}
 	log.Printf("load %d cars\n", len(c.cars))
 }

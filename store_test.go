@@ -29,6 +29,16 @@ func TestFetchCars(t *testing.T) {
 	}
 }
 
+func TestFetchCarsWith500Error(t *testing.T) {
+	setUpTestUrls()
+	twistUrl = NewTestServer("fixtures/twist.js", 500).URL
+	carStore := NewCarStore()
+	carStore.FetchCars()
+	if len(carStore.cars) == 1146 {
+		t.Error("error fetching cars")
+	}
+}
+
 func TestParseEnjoyJson(t *testing.T) {
 	data, _ := NewMockResponse("fixtures/enjoy.json")
 	e := &Enjoy{}

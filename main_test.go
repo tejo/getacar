@@ -7,6 +7,7 @@ import (
 	"net/http/httptest"
 	"os"
 	"path"
+	"time"
 )
 
 func setUpTestUrls() {
@@ -25,9 +26,15 @@ func checkVendor(vendor string, cars []CarEntry) bool {
 	return true
 }
 
-func NewTestServer(fixture string) *httptest.Server {
+func NewTestServer(fixture string, ints ...int) *httptest.Server {
 	data, _ := NewMockResponse(fixture)
 	return httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if len(ints) == 1 {
+			w.WriteHeader(ints[0])
+		}
+		if len(ints) == 2 {
+			time.Sleep(time.Duration(ints[1]) * time.Millisecond)
+		}
 		fmt.Fprintln(w, string(data))
 	}))
 }
