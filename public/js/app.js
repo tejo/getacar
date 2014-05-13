@@ -29,7 +29,6 @@ gac.config(['$routeProvider','$locationProvider',
   }
 ]);
 
-
 /*
   @prop myLat
   @prop myLon
@@ -73,11 +72,9 @@ gac.factory('carsFactory', ['$http', '$q', function($http, $q){
       
       $http.get("/geocode", {params: {q: addr}})
       .success(function(data, status, headers, config){
-        console.log('data', data);
         deferred.resolve(data);
       })
       .error(function(data, status, headers, config){
-        console.log('data2', data);
         deferred.reject(status)
       });
 
@@ -274,7 +271,6 @@ gac.factory('googleMapsFactory', function() {
   }
 });
 
-
 gac.controller('MenuController',['$scope', '$location', '$routeParams', 'carsFactory', function($scope, $location, $routeParams, carsFactory) {
 
   
@@ -343,7 +339,6 @@ gac.controller('HomeController', ['$scope', '$location', '$routeParams', 'carsFa
   
   /* Manual Localization */
   $scope.geoCode = function(_textbox, _error_txt, _bt){
-    console.log($scope.addrToGeocode);
     carsFactory.geoCode($scope.addrToGeocode).then(function(geo){
       if(!geo.Success){
         _textbox.addClass('error');
@@ -445,20 +440,40 @@ gac.controller('MapController', ['$scope', '$location', '$routeParams', 'carsFac
     $scope.fuel = $scope.car.fuel_level;
     $scope.price = $scope.car.Price;
     
+    $scope.car_index = $routeParams.carId;
+    
     var markers = googleMapsFactory.init($scope.cars, $routeParams.carId, DataSharingObject);
+    
+    //$scope.markers = markers;
 
     for(var i=0, len=markers; i<len.length; i++) {
     
       (function(index){google.maps.event.addListener(markers[index], 'click', function(e) {
-        
+
         $scope.$apply(
           function(){
             
-            for (var i=0; i<markers.length; i++) {
-              markers[i].setIcon('/images/car_'+DataSharingObject.cars[i].Type+'.png');
-            }
             
+            /*
+            for (var c=0; c<markers.length; c++) {
+              markers[c].setIcon('/images/car_'+DataSharingObject.cars[c].Type+'.png');
+            }
             markers[index].setIcon('/images/ico_car_selected.png');
+            */
+            
+            
+            // Reset previewsly selected car icon
+            markers[$scope.car_index].setIcon('/images/car_'+$scope.car.Type+'.png');
+            
+            // update newly select car icon
+            markers[index].setIcon('/images/ico_car_selected.png');
+            
+            // update scope's vars
+            $scope.car_index = index;
+            $scope.car = $scope.cars[index]; 
+            
+            // Check selected values with old values
+            
             if ($scope.fuel != DataSharingObject.cars[index].fuel_level)
               $scope.fuel = DataSharingObject.cars[index].fuel_level;
 
