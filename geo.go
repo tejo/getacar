@@ -19,21 +19,24 @@ func CalculateDistance(lat1, lng1, lat2, lng2 float64) float64 {
 	return R * c
 }
 
-func ClosestCars(lat, lng float64, limit int) (result []CarEntry) {
+func (c *CarStore) ClosestCars(lat, lng float64, vendor string, limit int) (result []CarEntry) {
 	distances := make(map[float64]int)
 	carsIndex := make([]float64, 0)
-	for index, _ := range cars {
-		distance := CalculateDistance(lat, lng, cars[index].Lat, cars[index].Lng)
+	for index, _ := range c.cars {
+		distance := CalculateDistance(lat, lng, c.cars[index].Lat, c.cars[index].Lng)
 		distances[distance] = index
 		carsIndex = append(carsIndex, distance)
 	}
 	sort.Float64s(carsIndex)
-	for index, distance := range carsIndex {
-		if index < limit {
-			result = append(result, cars[distances[distance]])
-		} else {
-			return
+	for _, distance := range carsIndex {
+		if car := c.cars[distances[distance]]; vendor == "all" {
+			result = append(result, car)
+		} else if vendor == car.Type {
+			result = append(result, car)
 		}
 	}
-	return
+	if len(result) == 0 {
+		return
+	}
+	return result[:limit]
 }

@@ -19,16 +19,18 @@ import (
 	"github.com/yvasiyarov/gorelic"
 )
 
-var cars = make([]CarEntry, 0)
-var car2goMilanUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=milano&oauth_consumer_key=getacar&format=json"
-var car2goRomeUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=roma&oauth_consumer_key=getacar&format=json"
-var enjoyUrl string = "http://enjoy.eni.com/get_vetture"
-
-var assetVersion string
-var homeTpl *template.Template
-var funcs = template.FuncMap{
-	"isIt": isIt,
-}
+var (
+	cs             *CarStore
+	car2goMilanUrl string = "https://www.car2go.com/api/v2.1/vehicles?loc=milano&oauth_consumer_key=getacar&format=json"
+	car2goRomeUrl  string = "https://www.car2go.com/api/v2.1/vehicles?loc=roma&oauth_consumer_key=getacar&format=json"
+	enjoyUrl       string = "http://enjoy.eni.com/get_vetture"
+	twistUrl       string = "http://twistcar.it/assets/js/main.js"
+	assetVersion   string
+	homeTpl        *template.Template
+	funcs          = template.FuncMap{
+		"isIt": isIt,
+	}
+)
 
 func isIt(l string) bool { return l == "it" }
 
@@ -58,8 +60,9 @@ func main() {
 	loadTemplate(folderPath)
 	assetVersion = fmt.Sprintf("%d", time.Now().UnixNano())
 
+	cs = NewCarStore()
 	startClock()
-	fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl)
+	cs.FetchCars()
 
 	r := mux.NewRouter()
 	r.HandleFunc("/", homeHandler).Methods("GET")
@@ -90,18 +93,22 @@ func Geocode(w http.ResponseWriter, r *http.Request) {
 
 func LoadCars(w http.ResponseWriter, r *http.Request) {
 	encoder := json.NewEncoder(w)
-	if err := encoder.Encode(&cars); err != nil {
+	if err := encoder.Encode(cs.cars); err != nil {
 		http.Error(w, fmt.Sprintf("Cannot encode response data: %v", err), 500)
 	}
 }
 
 func LoadClosestCars(w http.ResponseWriter, r *http.Request) {
+	vendor := r.URL.Query().Get("v")
+	if vendor == "" {
+		vendor = "all"
+	}
 	vars := mux.Vars(r)
 	latStr := vars["lat"]
 	lngStr := vars["lng"]
 	lat, _ := strconv.ParseFloat(latStr, 64)
 	lng, _ := strconv.ParseFloat(lngStr, 64)
-	closestCars := ClosestCars(lat, lng, 30)
+	closestCars := cs.ClosestCars(lat, lng, vendor, 30)
 	encoder := json.NewEncoder(w)
 	if err := encoder.Encode(&closestCars); err != nil {
 		http.Error(w, fmt.Sprintf("Cannot encode response data: %v", err), 500)
@@ -114,7 +121,7 @@ func startClock() {
 		for {
 			select {
 			case <-ticker.C:
-				fetchCarsFromAPI(car2goMilanUrl, car2goRomeUrl, enjoyUrl)
+				cs.FetchCars()
 				/* comment.Date = time.Now().In(time.UTC).Format(time.RFC3339) */
 			}
 		}

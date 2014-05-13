@@ -1,20 +1,76 @@
 package main
 
-import "sync"
+import (
+	"encoding/json"
+	"log"
+	"regexp"
+	"strconv"
+	"strings"
+	"sync"
+	"time"
+)
 
 type CarStore struct {
-	cars []CarEntry
-	mu   sync.Mutex
+	cars    []CarEntry
+	mu      sync.Mutex
+	vendors []Vendor
 }
 
 func NewCarStore() *CarStore {
-	return &CarStore{}
+	return &CarStore{
+		vendors: []Vendor{
+			&Enjoy{url: enjoyUrl},
+			&Car2go{url: car2goMilanUrl},
+			&Car2go{url: car2goRomeUrl},
+			&Twist{url: twistUrl},
+		},
+	}
 }
 
-func (c *CarStore) Set(car CarEntry) {
+func (c *CarStore) AddCar(car CarEntry) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.cars = append(c.cars, car)
+}
+
+func (c *CarStore) AddCars(cars []CarEntry) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	c.cars = append(c.cars, cars...)
+}
+
+func (c *CarStore) DestroyAll() {
+	c.cars = []CarEntry{}
+}
+
+func (cs *CarStore) FetchCars() {
+	cs.DestroyAll()
+	c := make(chan []CarEntry)
+	for _, vendor := range cs.vendors {
+		go func(vendor Vendor) {
+			data, status := cs.FetchHttpData(vendor.Url())
+			if status == 200 {
+				c <- vendor.ParseJson(data)
+			} else {
+				c <- []CarEntry{}
+			}
+		}(vendor)
+	}
+	timeout := time.After(3000 * time.Millisecond)
+	for _, vendor := range cs.vendors {
+		select {
+		case cars := <-c:
+			cs.AddCars(cars)
+		case <-timeout:
+			log.Printf("%#v timed out", vendor)
+		}
+	}
+	log.Printf("load %d cars\n", len(cs.cars))
+}
+
+func (c *CarStore) FetchHttpData(url string) (b []byte, status int) {
+	b, status = makeHttpRequest(url)
+	return
 }
 
 type CarEntry struct {
@@ -31,4 +87,79 @@ type CarEntry struct {
 	//car2go only
 	Name string
 	Vin  string
+}
+
+type Vendor interface {
+	Url() string
+	ParseJson(b []byte) (entries []CarEntry)
+}
+
+type Enjoy struct {
+	url string
+}
+
+func (e *Enjoy) ParseJson(b []byte) (entries []CarEntry) {
+	json.Unmarshal(b, &entries)
+	for index, _ := range entries {
+		entries[index].Type = "enjoy"
+		entries[index].Id = entries[index].CarPlate
+		entries[index].Price = 0.25
+	}
+	return
+}
+
+func (e *Enjoy) Url() string {
+	return e.url
+}
+
+type Car2go struct {
+	url string
+}
+
+func (c *Car2go) ParseJson(b []byte) (entries []CarEntry) {
+	results := make(map[string][]map[string]interface{}, 0)
+	json.Unmarshal(b, &results)
+	for _, car := range results["placemarks"] {
+		entries = append(entries, CarEntry{
+			Type:    "car2go",
+			Id:      car["vin"].(string),
+			Fuel:    int(car["fuel"].(float64)),
+			Lat:     car["coordinates"].([]interface{})[1].(float64),
+			Lng:     car["coordinates"].([]interface{})[0].(float64),
+			Address: car["address"].(string),
+			Name:    car["name"].(string),
+			Vin:     car["vin"].(string),
+			Price:   0.29,
+		})
+	}
+	return
+}
+
+func (c *Car2go) Url() string {
+	return c.url
+}
+
+type Twist struct {
+	url string
+}
+
+func (t *Twist) ParseJson(b []byte) (entries []CarEntry) {
+	r := regexp.MustCompilePOSIX(`([0-9]*\.[0-9]+*\,[0-9]*\.[0-9]+)`)
+	var coords []string
+	for _, coordsPair := range r.FindAllString(string(b), -1) {
+		coords = strings.Split(coordsPair, ",")
+		lat, _ := strconv.ParseFloat(coords[0], 64)
+		lng, _ := strconv.ParseFloat(coords[1], 64)
+		entries = append(entries, CarEntry{
+			Type:  "twist",
+			Lat:   lat,
+			Lng:   lng,
+			Price: 0.29,
+		})
+	}
+	return
+}
+
+func (t *Twist) Url() string {
+	return t.url
 }
