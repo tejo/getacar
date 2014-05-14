@@ -41,8 +41,8 @@ func TestFetchCarsWith500Error(t *testing.T) {
 
 func TestParseEnjoyJson(t *testing.T) {
 	data, _ := NewMockResponse("fixtures/enjoy.json")
-	e := &Enjoy{}
-	cars := e.ParseJson(data)
+	e := &EnjoyParser{}
+	cars := e.ParseJSON(data)
 	if len(cars) < 1 {
 		t.Error("error decoding enjoy json")
 	}
@@ -53,8 +53,8 @@ func TestParseEnjoyJson(t *testing.T) {
 
 func TestParseTwist(t *testing.T) {
 	data, _ := NewMockResponse("fixtures/twist.js")
-	tw := &Twist{}
-	cars := tw.ParseJson(data)
+	tw := &TwistParser{}
+	cars := tw.ParseJSON(data)
 	if len(cars) < 1 {
 		t.Error("error decoding enjoy json")
 	}
@@ -65,8 +65,8 @@ func TestParseTwist(t *testing.T) {
 
 func TestParseCar2GoJson(t *testing.T) {
 	data, _ := NewMockResponse("fixtures/car2go.json")
-	c := &Car2go{}
-	cars := c.ParseJson(data)
+	c := &Car2goParser{}
+	cars := c.ParseJSON(data)
 	if len(cars) < 1 {
 		t.Error("error decoding enjoy json")
 	}

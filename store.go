@@ -19,10 +19,10 @@ type CarStore struct {
 func NewCarStore() *CarStore {
 	return &CarStore{
 		vendors: []Vendor{
-			&Enjoy{url: enjoyUrl},
-			&Car2go{url: car2goMilanUrl},
-			&Car2go{url: car2goRomeUrl},
-			&Twist{url: twistUrl},
+			Vendor{Parser: &EnjoyParser{}, URL: enjoyUrl},
+			Vendor{Parser: &Car2goParser{}, URL: car2goMilanUrl},
+			Vendor{Parser: &Car2goParser{}, URL: car2goRomeUrl},
+			Vendor{Parser: &TwistParser{}, URL: twistUrl},
 		},
 	}
 }
@@ -48,9 +48,9 @@ func (cs *CarStore) FetchCars() {
 	c := make(chan []CarEntry)
 	for _, vendor := range cs.vendors {
 		go func(vendor Vendor) {
-			data, status := cs.FetchHttpData(vendor.Url())
+			data, status := cs.FetchHttpData(vendor.URL)
 			if status == 200 {
-				c <- vendor.ParseJson(data)
+				c <- vendor.ParseJSON(data)
 			} else {
 				c <- []CarEntry{}
 			}
@@ -89,16 +89,18 @@ type CarEntry struct {
 	Vin  string
 }
 
-type Vendor interface {
-	Url() string
-	ParseJson(b []byte) (entries []CarEntry)
+type Parser interface {
+	ParseJSON(b []byte) (entries []CarEntry)
 }
 
-type Enjoy struct {
-	url string
+type Vendor struct {
+	Parser
+	URL string
 }
 
-func (e *Enjoy) ParseJson(b []byte) (entries []CarEntry) {
+type EnjoyParser struct{}
+
+func (e *EnjoyParser) ParseJSON(b []byte) (entries []CarEntry) {
 	json.Unmarshal(b, &entries)
 	for index, _ := range entries {
 		entries[index].Type = "enjoy"
@@ -108,15 +110,9 @@ func (e *Enjoy) ParseJson(b []byte) (entries []CarEntry) {
 	return
 }
 
-func (e *Enjoy) Url() string {
-	return e.url
-}
+type Car2goParser struct{}
 
-type Car2go struct {
-	url string
-}
-
-func (c *Car2go) ParseJson(b []byte) (entries []CarEntry) {
+func (c *Car2goParser) ParseJSON(b []byte) (entries []CarEntry) {
 	results := make(map[string][]map[string]interface{}, 0)
 	json.Unmarshal(b, &results)
 	for _, car := range results["placemarks"] {
@@ -135,15 +131,9 @@ func (c *Car2go) ParseJson(b []byte) (entries []CarEntry) {
 	return
 }
 
-func (c *Car2go) Url() string {
-	return c.url
-}
+type TwistParser struct{}
 
-type Twist struct {
-	url string
-}
-
-func (t *Twist) ParseJson(b []byte) (entries []CarEntry) {
+func (t *TwistParser) ParseJSON(b []byte) (entries []CarEntry) {
 	r := regexp.MustCompilePOSIX(`([0-9]*\.[0-9]+*\,[0-9]*\.[0-9]+)`)
 	var coords []string
 	for _, coordsPair := range r.FindAllString(string(b), -1) {
@@ -158,8 +148,4 @@ func (t *Twist) ParseJson(b []byte) (entries []CarEntry) {
 		})
 	}
 	return
-}
-
-func (t *Twist) Url() string {
-	return t.url
 }
