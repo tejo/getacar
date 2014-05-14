@@ -61,6 +61,7 @@ func (cs *CarStore) FetchCars() {
 		select {
 		case cars := <-c:
 			cs.AddCars(cars)
+			log.Printf("%#v loaded", vendor)
 		case <-timeout:
 			log.Printf("%#v timed out", vendor)
 		}
