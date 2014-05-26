@@ -85,6 +85,7 @@ type CarEntry struct {
 	Price     float64
 	//enjoy only
 	CarPlate string `json:"car_plate"`
+	CarType  string `json:"car_name"`
 	//car2go only
 	Name string
 	Vin  string
@@ -119,6 +120,7 @@ func (c *Car2goParser) ParseJSON(b []byte) (entries []CarEntry) {
 	for _, car := range results["placemarks"] {
 		entries = append(entries, CarEntry{
 			Type:    "car2go",
+			CarType: "smart",
 			Id:      car["vin"].(string),
 			Fuel:    int(car["fuel"].(float64)),
 			Lat:     car["coordinates"].([]interface{})[1].(float64),
@@ -142,10 +144,11 @@ func (t *TwistParser) ParseJSON(b []byte) (entries []CarEntry) {
 		lat, _ := strconv.ParseFloat(coords[0], 64)
 		lng, _ := strconv.ParseFloat(coords[1], 64)
 		entries = append(entries, CarEntry{
-			Type:  "twist",
-			Lat:   lat,
-			Lng:   lng,
-			Price: 0.29,
+			Type:    "twist",
+			CarType: "VW up!",
+			Lat:     lat,
+			Lng:     lng,
+			Price:   0.29,
 		})
 	}
 	return
