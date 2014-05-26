@@ -116,10 +116,12 @@
                   <a class="bt-goto-map" data-ng-href="#/map/{{$index}}/{{lat}}/{{lon}}/{{ getDistance(car.lat, car.lon) }}"></a>
                   <ul>
                     <li class="distance">{{ getDistance(car.lat, car.lon) }}</li>
-                    <li class="vendor"><span ng-if="car.Type == 'car2go'">SMART</span><span ng-if="car.Type != 'car2go'">500</span> - {{ car.Type }}</li>
-                    <!--li class="model" ng-if="car.Type == 'car2go'">SMART</li>
-                    <li class="model" ng-if="car.Type != 'car2go'">500</li-->
-                    <!--li class="distance">{{ getDistance(car.lat, car.lon) }}</li-->
+                    <li class="vendor">
+                      <span>{{ car.car_name }}</span>
+                      <!--span ng-if="car.Type == 'car2go'">SMART</span>
+                      <span ng-if="car.Type != 'car2go'">500</span> - {{ car.Type }} -->
+                      
+                    </li>
                     <li class="address">{{car.address}}</li>
                   </ul>
                 </div>
