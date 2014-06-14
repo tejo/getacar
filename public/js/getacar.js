@@ -26,12 +26,10 @@
 
   getACar = {
     returnKeyMngr: function() {
-      alert('oi');
       return document.onkeydown = function(e) {
         e = e || window.event;
-        alert('key');
         if (e.keyCode === 13 && $('.address-box').is(":focus")) {
-          return alert('asda');
+          return $('.bt-search').trigger('click');
         }
       };
     },
@@ -128,7 +126,6 @@
 
 
   $(function() {
-    alert('asdasd');
     return getACar.start();
   });
 

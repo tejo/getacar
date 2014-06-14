@@ -193,19 +193,7 @@ html {
         -webkit-transition: -webkit-transform 0.5s;
         transition: transform 0.5s;
       }
-      
-/*
-      @media screen and (max-height: 30.5em) {
-        .overlay nav {
-          font-size: 34px;
-        }
-        .overlay ul li {
-    min-height: 34px;
-  }
-      }
-*/
-      
-      
+
       .bucket {
         padding-bottom: $switcher-h;
         
@@ -358,6 +346,7 @@ border: 2px solid $green-dark;
           .cars {
             padding-left: 27px; background: $green-odd; /*$green-mid;*/
             border-bottom: 1px solid $green;
+            
             .car.enjoy {
               background: url(../images/ico_enj.png) left center no-repeat;
               @media 
@@ -373,6 +362,15 @@ border: 2px solid $green-dark;
               (-webkit-min-device-pixel-ratio: 2), 
               (min-resolution: 192dpi) {
                 background: url(../images/ico_c2g@x2.png) 0px center no-repeat;
+                background-size: 42px;
+              }
+            }
+            .car.twist {
+              background: url(../images/ico_twist.png) left center no-repeat;
+              @media 
+              (-webkit-min-device-pixel-ratio: 2), 
+              (min-resolution: 192dpi) {
+                background: url(../images/ico_twist.png) 0px center no-repeat;
                 background-size: 42px;
               }
             }
@@ -409,6 +407,15 @@ border: 2px solid $green-dark;
               }*/
             }
           }
+          .cars.animate-enter {
+              -webkit-transition: 1s linear all; /* Chrome */
+              transition: 1s linear all;
+              opacity: 0;
+            }
+ 
+          .cars.animate-enter.animate-enter-active {
+              opacity: 1;
+            }
           .cars:nth-child(2n) {background-color: $green-even;/*$green-light;*/}
         }
         
@@ -466,9 +473,33 @@ border: 2px solid $green-dark;
             @include clearfix();
             width: 100%; background: $green;
             li {
-              float: left; display: inline; background: $green-mid; width: 33%; text-indent: -50000px; border-right:1px solid $white;
-              a {height: $switcher-h; width: 100%; display: block; text-align: center; line-height: $switcher-h; text-decoration: none;}
+              float: left; display: inline; background: $green-mid; /* width: 33%; */ width: 25%; text-indent: -50000px; border-right:1px solid $white;
+              a,select {height: $switcher-h; width: 100%; display: block; text-align: center; line-height: $switcher-h; text-decoration: none; cursor:pointer; }
+              
+              .wrap-style {
+                background: $green url(../images/ico_filter@x2.png) center center no-repeat; background-size: 3em;
+                @media 
+                (-webkit-min-device-pixel-ratio: 2), 
+                (min-resolution: 192dpi) {
+                  background: $green url(../images/ico_filter@x2.png) center center no-repeat; background-size: 3em;
+                }
+                .car-filter {
+                  background: transparent;
+                  width: 100%;
+                  padding: 5px;
+                  font-size: 16px;
+                  line-height: 1;
+                  border: 0;
+                  border-radius: 0;
+                  height: 45px;
+                  -webkit-appearance: none;
+                  color: $green;
+                  text-indent: -50000px;
+                }
+              }
+              
             }
+
             /* li:last-child {border-right:none;} */
             .home-view {
               background: $green url(../images/ico_home_off.png) center center no-repeat; background-size: 3em;
@@ -479,7 +510,7 @@ border: 2px solid $green-dark;
               }
             }
             .list-view {
-              width: 34%;
+              /* width: 34%; */
               background: $green url(../images/ico_list_off.png) center center no-repeat; background-size: 3em;
               @media 
               (-webkit-min-device-pixel-ratio: 2), 
@@ -495,6 +526,16 @@ border: 2px solid $green-dark;
                 background: $green url(../images/ico_list_on@x2.png) center center no-repeat;background-size: 3em;
               }
             }
+            
+            .filter {
+              background: $green url(../images/ico_filter@x2.png) center center no-repeat; background-size: 3em;
+              @media 
+              (-webkit-min-device-pixel-ratio: 2), 
+              (min-resolution: 192dpi) {
+                background: $green url(../images/ico_filter@x2.png) center center no-repeat; background-size: 3em;
+              }
+            }
+            
             .map-view {
               background: $green url(../images/ico_map_off.png) center center no-repeat; background-size: 3em;
               border-right:1px solid $green;
