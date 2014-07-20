@@ -11,12 +11,11 @@ import (
 	"text/template"
 	"time"
 
-	"./car2go"
+	"getacar/car2go"
 
 	"bitbucket.org/kardianos/osext"
 	"github.com/gorilla/mux"
 	"github.com/tejo/geogo"
-	"github.com/yvasiyarov/gorelic"
 )
 
 var (
@@ -27,15 +26,10 @@ var (
 	twistUrl       string = "http://twistcar.it/assets/js/main.js"
 	assetVersion   string
 	homeTpl        *template.Template
-	funcs          = template.FuncMap{
-		"isIt": isIt,
-	}
 )
 
-func isIt(l string) bool { return l == "it" }
-
 func loadTemplate(folderPath string) {
-	homeTpl = template.Must(template.New("index.html").Delims("<%", "%>").Funcs(funcs).ParseFiles(folderPath + "public/index.html"))
+	homeTpl = template.Must(template.New("index.html").Delims("<%", "%>").ParseFiles(folderPath + "public/index.html"))
 	return
 }
 
@@ -47,12 +41,8 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
-	agent := gorelic.NewAgent()
-	agent.Verbose = false
-	agent.NewrelicLicense = "ce9a50394a44f5cdc815cc318ffa0915cdeecad4"
-	agent.Run()
 
-	client := car2go.NewOAuthClient([]byte("***REMOVED***"), []byte("***REMOVED***"), "getacar", "***REMOVED***")
+	client := car2go.NewOAuthClient([]byte(os.Getenv("HASH_KEY")), []byte(os.Getenv("BLOCK_KEY")), "getacar", os.Getenv("CONSUMER_SECRET"))
 	client.SetDebug(true)
 	client.SetTestMode("0")
 
