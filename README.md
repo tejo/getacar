@@ -1,5 +1,6 @@
 getacar
 ======
 
-run with ./getacar
-then open http://localhost:8080
+this is the  code behind the no longer maintained site http://www.getacar.it/
+
+for historical/documentary purpose
